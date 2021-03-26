@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+    <link href="cart_style.css" rel="stylesheet">
+
+</head>
+<body>
+    <!-- Container -->
+    <div class="container">
+        <!-- Shopping cart -->
+        <div class="cartContainer">
+
+        <button class="checkoutButton">CHECKOUT ></button>
+
+        <!--Table-->
+        <table id="cart">
+
+        <!--Table heading-->
+        <tr>
+            <th>Item</th>
+            <th>QTY</th>
+            <th>Price</th>
+            <th>TOTAL PRICE</th>
+        </tr>
+
+        <!-- Product details-->
+        <div class="newItem">
+        <tr>
+            <td>
+                <img src="sample.png" alt="PRODUCT IMAGE">
+                <br>
+                Lorem ipsum
+                <br>
+                <button class="saveButton" >Save for later</button>
+                <button class="removeButton">Remove</button>
+            </td>
+            <td><input type="number" class="quantity" name="quantity" value="2" min="1" max="500"></td>
+            <td class="price">35£</td>
+            <td><input type="number" class="itemTotalPrice" value="35" disabled="true"></td>
+
+        </tr>
+        </div>
+
+        <div class="newItem">
+            <tr>
+            <td>
+                <img src="sample.png" alt="PRODUCT IMAGE">
+                <br>
+                    Lorem ipsum
+                <br>
+                   <button class="saveButton" >Save for later</button>
+                   <button class="removeButton">Remove</button>
+                </td>
+                <td><input type="number" class="quantity" name="quantity" value="2" min="1" max="500"></td>
+                <td class="price">35£</td>
+                <td><input type="number" class="itemTotalPrice" value="35" disabled="true"></td>
+                </tr>
+            </div>
+
+        <div class="newItem">
+        <tr>
+        <td>
+                <img src="sample.png" alt="PRODUCT IMAGE">
+                <br>
+                Lorem ipsum
+                <br>
+                <button class="saveButton" >Save for later</button>
+                <button class="removeButton">Remove</button>
+                </td>
+                <td><input type="number" class="quantity" name="quantity" value="1" min="1" max="500"></td>
+                <td class="price">35£</td>
+                <td><input type="number" class="itemTotalPrice" value="35" disabled="true"></td>
+
+        </tr>
+        </div>
+        </table>
+
+
+
+        <!-- Total details -->
+        <div class="totalDetails">
+            <table id="cartTotal">
+                <tr>
+                    <td>Subtotal</td>
+                    <td><input type="number" id="subTotalPrice" value="" disabled="true"></td>
+                </tr>
+
+                <tr>
+                    <td>Tax</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>Total price</td>
+                    <td><input type="number" id="TotalPrice" value="" disabled="true"></td>
+                </tr>
+
+
+            </table>
+
+        </div>
+
+        <button class="checkoutButton">CHECKOUT ></button>
+
+        </div>
+
+        <button class="contShoppingButton">< CONTINUE SHOPPING</button>
+
+    </div>
+
+    <script src="cart_js.js"></script>
+
+</body>
+</html>
