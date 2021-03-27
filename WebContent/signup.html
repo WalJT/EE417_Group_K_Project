@@ -11,7 +11,7 @@
 
     <!-- Sign up form -->
     <div class="signUpForm" id="signUpForm">
-        <form action="" method="post" autocomplete="on">
+        <form action="SignupHandler" method="post" autocomplete="on">
         <br>
         <h2>Create Account</h2>
         <div class="user">
@@ -60,9 +60,16 @@
         </div>
 
         </div>
+		<div class="tc">
+           <h5>I agree to the terms and conditions</h5>
+            <input type="checkbox" id="termsAndConditions" name="NewPassword" value="" required>
+            <input type="submit" value="Register" id="register" >
+
+            <a href="login.html">Already have an account? Log in here!</a>
+        </div>
     </form>
     </div>
-
+<!--
         <div class="tc">
            <h5>I agree to the terms and conditions</h5>
             <input type="checkbox" id="termsAndConditions" name="NewPassword" value="" required>
@@ -71,7 +78,7 @@
             <a href="login.html">Already have an account? Log in here!</a>
 
         </div>
-
+-->
 </div>
 </body>
 </html>
