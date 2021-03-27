@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
-  <display-name>EE417_Group_K_Project</display-name>
+<web-app
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+    id="WebApp_ID"
+    version="4.0"
+>
+    <display-name>EE417_Group_K_Project</display-name>
 
-  <servlet>
-  	<servlet-name>TestServlet</servlet-name>
-    <servlet-class>TestServlet</servlet-class>
+    <servlet>
+        <servlet-name>SignupHandler</servlet-name>
+        <servlet-class>users.SignupHandler</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>TestServlet</servlet-name>
-        <url-pattern>/TS</url-pattern>
+        <servlet-name>SignupHandler</servlet-name>
+        <url-pattern>/SignupHandler</url-pattern>
     </servlet-mapping>
 
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>default.html</welcome-file>
+        <welcome-file>default.htm</welcome-file>
+        <welcome-file>default.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>
