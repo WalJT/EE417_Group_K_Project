@@ -1,5 +1,5 @@
 package users;
 
-public class Customer implements User {
+public class Customer extends User {
 
 }
