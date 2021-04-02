@@ -42,8 +42,9 @@ public class User implements Serializable{
 	@Override
 	public String toString() {
 		String userDetails;
-		userDetails = "Details of user (customer or admin) " + this.firstname + " " + this.surname + "\n";
-		userDetails += "	-> Email Address: " + emailAddress;
+		userDetails = "Details of user (customer or admin) " + this.firstname + " " + this.surname + ":\n";
+		userDetails += ("\t-> Email Address: " + emailAddress +"\n");
+		userDetails += "\t-> Shipping Address: " + address[0];
 		return userDetails;
 	}
 
