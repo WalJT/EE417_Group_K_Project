@@ -33,16 +33,22 @@ public class SignupHandler extends HttpServlet {
 		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
 
+		// Define variables for the parameters we need to collect
+		String firstname = null, lastname = null;
+		String emailAddress = null;
+		String password = null;
+		String[] physicalAddress = new String[3]; // TODO: Discuss address input and possibly adjust implementation
+
 		// Get parameter values from signup form request
 		boolean userDetailsValid = true;
 		try {
 			// First and Last name can be read in and set
-			String firstName = request.getParameter("firstName");
-			String lastName = request.getParameter("lastName");
-			out.append("Creating user account for "+firstName+" "+lastName+"\n");
+			firstname = request.getParameter("firstName");
+			lastname = request.getParameter("lastName");
+			out.append("Creating user account for "+firstname+" "+lastname+"\n");
 			
 			// Read in email address and compare with confirmation field
-			String emailAddress = request.getParameter("EmailAddress");
+			emailAddress = request.getParameter("EmailAddress");
 			if (emailAddress.equals(request.getParameter("EmailAddress_conf"))) {
 				out.append("-> Email Address: "+emailAddress+"\n");
 			} else {
@@ -51,7 +57,7 @@ public class SignupHandler extends HttpServlet {
 			}
 			
 			// Read in password and compare with confirmation field
-			String password = request.getParameter("NewPassword");
+			password = request.getParameter("NewPassword");
 			if (password.equals(request.getParameter("NewPassword_conf"))) {
 				out.append("-> Password: [Redacted, Valid]\n");
 				// TODO: Salt & Hash password here?
@@ -65,7 +71,6 @@ public class SignupHandler extends HttpServlet {
 			out.append("-> Phone Number: "+phoneNumber+" \n");
 			
 			// Store address lines in an array
-			String physicalAddress[] = new String[3];
 			physicalAddress[0] = request.getParameter("address");
 			physicalAddress[1] = request.getParameter("city");
 			physicalAddress[2] = request.getParameter("zipCode");
@@ -81,7 +86,11 @@ public class SignupHandler extends HttpServlet {
 			out.close();
 		}
 		
+		// TODO: Check if any values are null or not defined
+
 		if (userDetailsValid) {
+			User newUser = new User(emailAddress, firstname, lastname, password, physicalAddress);
+			out.append(newUser.toString());
 			// TODO Create User object and push info to database
 			// TODO Create a cookie for signed in user
 			// TODO Redirect to account / store page
