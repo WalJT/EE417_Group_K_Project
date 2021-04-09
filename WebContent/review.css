@@ -1,0 +1,120 @@
+.suggest {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.suggest span {
+    background: #1F1E2F;
+    padding: .65rem 1.3rem;
+    border-radius: 5px;
+    font-size: .65rem;
+    color: #8C8C9F;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.suggest span:hover,
+.suggest span:active {
+    background: #8383ED;
+    color: #fff;
+}
+
+.cards {
+    margin-top: 2.5rem;
+}
+
+.cards .card {
+    width: 100%;
+    margin-bottom: .7rem;
+    background: rgb(45, 43, 64);
+    border-radius: 5px;
+}
+
+.card>* {
+    padding: 1rem 1.2rem;
+}
+
+.card-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.img {
+    width: 50px;
+    height: 50px;
+    background: purple;
+    border-radius: 50%;
+    outline: none;
+}
+
+.name .one {
+    background: orange;
+}
+
+.name,
+.name .img {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.name .img {
+    justify-content: center;
+}
+
+.rate i {
+    color: yellow;
+}
+
+.card-content {
+    margin: 0;
+    padding-top: 0;
+}
+
+.card-content p {
+    font-size: .8rem;
+    color: rgb(152, 152, 165);
+}
+
+.card-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-action span {
+    font-size: .8rem;
+    color: RGB(101, 101, 114);
+}
+
+.card-action .btn {
+    padding: .3rem .7rem;
+    background: transparent;
+    border: 1px solid #000;
+    border-radius: 2px;
+    color: #8C8C9F;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+}
+
+.btn:hover {
+    background: #000;
+    color: #fff;
+}
+
+@media screen and (max-width:750px) {
+    body {
+        padding: 0rem;
+        margin: 0;
+    }
+    .review-container {
+        /*     padding:0; */
+        margin: 1rem 0;
+        width: 75%;
+    }
+}
