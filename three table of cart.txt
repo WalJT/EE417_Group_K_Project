@@ -17,7 +17,7 @@ CREATE TABLE `order_item` (
 
 CREATE TABLE `order` (
     `order_id` varchar(50) NOT NULL,
-    id int primary key auto_increment,
+    id int,
     firstname	varchar(100),
     lastname 	varchar(100),
     email	varchar(100),
