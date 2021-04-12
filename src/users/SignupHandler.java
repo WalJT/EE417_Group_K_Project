@@ -2,6 +2,9 @@ package users;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import settings.DatabaseConfig;
 
@@ -84,20 +87,24 @@ public class SignupHandler extends HttpServlet {
 			
 		} catch (Exception e) {
 			out.append(e.getMessage());
+		} finally {
+			// TODO: Check if any values are null or not defined
+			if (userDetailsValid) {
+				User newUser = new User(emailAddress, firstname, lastname, password, physicalAddress);
+				out.append(newUser.toString());
+				
+				// Set up database connection parameters
+				Connection con = null;
+		        Statement stmt = null;
+		        ResultSet rs = null;
+				// TODO Create a cookie for signed in user
+				// TODO Redirect to account / store page
+			}
+			
 			out.close();
 		}
-		
-		// TODO: Check if any values are null or not defined
 
-		if (userDetailsValid) {
-			User newUser = new User(emailAddress, firstname, lastname, password, physicalAddress);
-			out.append(newUser.toString());
-			// TODO Create User object and push info to database
-			// TODO Create a cookie for signed in user
-			// TODO Redirect to account / store page
-		}
 		
-		out.close();
 	}
 
 	/**

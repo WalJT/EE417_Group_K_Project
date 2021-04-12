@@ -4,6 +4,11 @@
 package users;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class User implements Serializable{
 	/**
@@ -35,8 +40,8 @@ public class User implements Serializable{
 	}
 	
 	protected String genreatePasswordHash(String password) {
-		
-		return null;
+		//TODO
+		return password;
 	}
 	
 	@Override
@@ -47,6 +52,38 @@ public class User implements Serializable{
 		userDetails += "\t-> Shipping Address: " + address[0];
 		return userDetails;
 	}
-
+	
+	public void createNewUserInDatabase(String JDBCurl, String JDBCusername, String JDBCpassword) {
+		try {
+			
+			// Open a connection to the database
+			Connection con = null;
+			Statement stmt = null;
+			ResultSet rs = null;
+			try {
+				con = DriverManager.getConnection(JDBCurl, JDBCusername, JDBCpassword);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        
+			// check if the current user already exists
+			
+			
+			// use a preparted statement to push user details into the database
+			PreparedStatement addNewUser = con.prepareStatement(
+				"INSERT INTO GroupK_Accounts (firstname,lastname,email,psd,phone,adress,city,zipcode) VALUES(?, ?, ?, ?, ?, ?, ?, ?);"
+			);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			
+		}
+	}
+	
+public void updateUserInDatabase(String JDBCurl, String JDBCusername, String JDBCpassword) {
+		//TODO
+	}
 
 }
