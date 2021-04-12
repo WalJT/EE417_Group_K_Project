@@ -3,6 +3,8 @@ package users;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import settings.DatabaseConfig;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -60,7 +62,6 @@ public class SignupHandler extends HttpServlet {
 			password = request.getParameter("NewPassword");
 			if (password.equals(request.getParameter("NewPassword_conf"))) {
 				out.append("-> Password: [Redacted, Valid]\n");
-				// TODO: Salt & Hash password here?
 			} else {
 				out.append("** Passwords do not match\n");
 				userDetailsValid = false;
