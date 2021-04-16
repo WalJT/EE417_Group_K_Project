@@ -95,12 +95,8 @@ public class SignupHandler extends HttpServlet {
 				User newUser = new User(emailAddress, firstname, lastname, phoneNumber, password, physicalAddress);
 				out.append(newUser.toString());
 				
-				//newUser.createNewUserInDatabase(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);
+				newUser.createNewUserInDatabase(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);
 				
-				// Set up database connection parameters
-				Connection con = null;
-		        Statement stmt = null;
-		        ResultSet rs = null;
 				// TODO Create a cookie for signed in user
 				// TODO Redirect to account / store page
 			}
