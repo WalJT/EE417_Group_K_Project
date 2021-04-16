@@ -54,9 +54,10 @@ public class User implements Serializable{
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			if (hashString != null) return hashString;
 		}
+		
+		if (hashString != null) return hashString;
+		return "HASHING FAILED";
 	}
 	
 	@Override
