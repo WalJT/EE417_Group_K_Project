@@ -4,6 +4,8 @@
 package users;
 
 import java.io.Serializable;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -40,8 +42,21 @@ public class User implements Serializable{
 	}
 	
 	protected String genreatePasswordHash(String password) {
-		//TODO
-		return password;
+		String hashString = null;
+		try {
+			MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+			byte[] hashBytes = sha256.digest(password.getBytes());
+			
+			// The MessageDigest instance returns an arry of bytes, which me must convert to a string
+			hashString = new String(hashBytes);	
+		} catch (NoSuchAlgorithmException e) {
+			System.err.println("The hash algorithm being used is not implemented");
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (hashString != null) return hashString;
+		}
 	}
 	
 	@Override
