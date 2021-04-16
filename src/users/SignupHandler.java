@@ -42,6 +42,7 @@ public class SignupHandler extends HttpServlet {
 		String firstname = null, lastname = null;
 		String emailAddress = null;
 		String password = null;
+		String phoneNumber = null;
 		String[] physicalAddress = new String[3]; // TODO: Discuss address input and possibly adjust implementation
 
 		// Get parameter values from signup form request
@@ -71,7 +72,7 @@ public class SignupHandler extends HttpServlet {
 			}
 			
 			// Phone number... store as string to allow a "+" character to be used.
-			String phoneNumber = request.getParameter("phone");
+			phoneNumber = request.getParameter("phone");
 			out.append("-> Phone Number: "+phoneNumber+" \n");
 			
 			// Store address lines in an array
@@ -90,7 +91,7 @@ public class SignupHandler extends HttpServlet {
 		} finally {
 			// TODO: Check if any values are null or not defined
 			if (userDetailsValid) {
-				User newUser = new User(emailAddress, firstname, lastname, password, physicalAddress);
+				User newUser = new User(emailAddress, firstname, lastname, phoneNumber, password, physicalAddress);
 				out.append(newUser.toString());
 				
 				newUser.createNewUserInDatabase(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);

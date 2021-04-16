@@ -21,6 +21,7 @@ public class User implements Serializable{
 	protected String emailAddress;
 	protected String firstname;
 	protected String surname;
+	protected String phone;
 	protected String passwordHash;
 	protected String[] address;
 	
@@ -33,10 +34,11 @@ public class User implements Serializable{
 	 * @param password
 	 * @param address
 	 */
-	public User(String emailAddress, String firstname, String surname, String password, String[] address) {
+	public User(String emailAddress, String firstname, String surname, String phone, String password, String[] address) {
 		this.emailAddress = emailAddress;
 		this.firstname = firstname;
 		this.surname = surname;
+		this.phone = phone;
 		this.address = address;
 		this.passwordHash = genreatePasswordHash(password);
 	}
@@ -47,7 +49,7 @@ public class User implements Serializable{
 			MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
 			byte[] hashBytes = sha256.digest(password.getBytes());
 			
-			// The MessageDigest instance returns an arry of bytes, which me must convert to a string
+			// The MessageDigest instance returns an array of bytes, which me must convert to a string
 			hashString = new String(hashBytes);	
 		} catch (NoSuchAlgorithmException e) {
 			System.err.println("The hash algorithm being used is not implemented");
@@ -65,7 +67,8 @@ public class User implements Serializable{
 		String userDetails;
 		userDetails = "Details of user (customer or admin) " + this.firstname + " " + this.surname + ":\n";
 		userDetails += ("\t-> Email Address: " + emailAddress +"\n");
-		userDetails += "\t-> Shipping Address: " + address[0];
+		userDetails += "\t-> Shipping Address: " + address[0] +"\n";
+		userDetails += "\t-> Password Hash: " + passwordHash;
 		return userDetails;
 	}
 	
@@ -93,6 +96,7 @@ public class User implements Serializable{
 			addNewUser.setString(1, this.firstname);
 			addNewUser.setString(2, this.surname);
 			addNewUser.setString(3, this.emailAddress);
+			addNewUser.setString(4, this.passwordHash);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
