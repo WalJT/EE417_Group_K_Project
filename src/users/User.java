@@ -74,6 +74,9 @@ public class User implements Serializable{
 			PreparedStatement addNewUser = con.prepareStatement(
 				"INSERT INTO GroupK_Accounts (firstname,lastname,email,psd,phone,adress,city,zipcode) VALUES(?, ?, ?, ?, ?, ?, ?, ?);"
 			);
+			addNewUser.setString(1, this.firstname);
+			addNewUser.setString(2, this.surname);
+			addNewUser.setString(3, this.emailAddress);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
