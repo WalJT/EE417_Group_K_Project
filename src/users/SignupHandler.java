@@ -37,6 +37,7 @@ public class SignupHandler extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
+		response.setContentType("text/html");
 
 		// Define variables for the parameters we need to collect
 		String firstname = null, lastname = null;
@@ -94,7 +95,7 @@ public class SignupHandler extends HttpServlet {
 				User newUser = new User(emailAddress, firstname, lastname, phoneNumber, password, physicalAddress);
 				out.append(newUser.toString());
 				
-				newUser.createNewUserInDatabase(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);
+				//newUser.createNewUserInDatabase(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);
 				
 				// Set up database connection parameters
 				Connection con = null;

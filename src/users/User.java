@@ -45,18 +45,15 @@ public class User implements Serializable{
 	
 	protected String genreatePasswordHash(String password) {
 		String hashString = null;
-		try {
-			MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
-			byte[] hashBytes = sha256.digest(password.getBytes());
-			
-			// The MessageDigest instance returns an array of bytes, which me must convert to a string
-			hashString = new String(hashBytes);	
-		} catch (NoSuchAlgorithmException e) {
-			System.err.println("The hash algorithm being used is not implemented");
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		//MessageDigest hashingAlgorithm = MessageDigest.getInstance("SHA-256");
+		//byte[] hashBytes = hashingAlgorithm.digest(password.getBytes());
+		// use hashCode method because it is easier to represent the result as a string
+		
+		// This is insecure, easy to crack, and should not be used in a real-life situation
+		final String salt = "thisisarandomstring";
+		final String hashThis = salt + password;
+		final Integer hashInt = hashThis.hashCode();
+		hashString = hashInt.toString();	
 		
 		if (hashString != null) return hashString;
 		return "HASHING FAILED";
@@ -80,6 +77,7 @@ public class User implements Serializable{
 			Statement stmt = null;
 			ResultSet rs = null;
 			try {
+				Class.forName("com.mysql.jdbc.Driver");
 				con = DriverManager.getConnection(JDBCurl, JDBCusername, JDBCpassword);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -93,10 +91,14 @@ public class User implements Serializable{
 			PreparedStatement addNewUser = con.prepareStatement(
 				"INSERT INTO GroupK_Accounts (firstname,lastname,email,psd,phone,adress,city,zipcode) VALUES(?, ?, ?, ?, ?, ?, ?, ?);"
 			);
+			addNewUser.clearParameters();
 			addNewUser.setString(1, this.firstname);
 			addNewUser.setString(2, this.surname);
 			addNewUser.setString(3, this.emailAddress);
 			addNewUser.setString(4, this.passwordHash);
+			addNewUser.setString(5, this.phone);
+			addNewUser.setString(6, this.address[0]);
+			addNewUser.setString(7, this.address[1]);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
