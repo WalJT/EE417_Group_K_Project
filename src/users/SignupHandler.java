@@ -93,6 +93,8 @@ public class SignupHandler extends HttpServlet {
 				User newUser = new User(emailAddress, firstname, lastname, password, physicalAddress);
 				out.append(newUser.toString());
 				
+				newUser.createNewUserInDatabase(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);
+				
 				// Set up database connection parameters
 				Connection con = null;
 		        Statement stmt = null;

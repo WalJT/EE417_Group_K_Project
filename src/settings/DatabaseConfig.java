@@ -11,4 +11,5 @@ public class DatabaseConfig {
 	public static final String databaseName = "groupK";
 	public static final String username = "groupk";
 	public static final String password = "groupk";
+	public static final String JDBCUrl = url+":"+port+databaseName;
 }
