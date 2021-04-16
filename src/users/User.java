@@ -99,7 +99,7 @@ public class User implements Serializable{
 			addNewUser.setString(5, this.phone);
 			addNewUser.setString(6, this.address[0]);
 			addNewUser.setString(7, this.address[1]);
-			addNewUser.setString(7, this.address[2]);
+			addNewUser.setString(8, this.address[2]);
 			addNewUser.execute();
 			
 		} catch (Exception e) {
