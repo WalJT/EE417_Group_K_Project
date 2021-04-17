@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class User implements Serializable{
@@ -69,22 +70,22 @@ public class User implements Serializable{
 		return userDetails;
 	}
 	
-	public void createNewUserInDatabase(String JDBCurl, String JDBCusername, String JDBCpassword) {
+	public void createNewUserInDatabase(String JDBCurl, String JDBCusername, String JDBCpassword) throws SQLException {
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
 		try {
 			
-			// Open a connection to the database
-			Connection con = null;
-			Statement stmt = null;
-			ResultSet rs = null;
-			try {
-				Class.forName("com.mysql.jdbc.Driver");
-				con = DriverManager.getConnection(JDBCurl, JDBCusername, JDBCpassword);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			// Open a connection to the databse
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection(JDBCurl, JDBCusername, JDBCpassword);
 	        
-			// check if the current user already exists
+			// check if the current user already exists		
+			stmt = con.createStatement();
+			rs = stmt.executeQuery("select email from GroupK_Accounts");
+		
+			
 			
 			
 			// use a prepared statement to push user details into the database
@@ -105,7 +106,9 @@ public class User implements Serializable{
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			
+			if (rs != null) rs.close();
+			if (stmt != null) stmt.close();
+			if (con != null) con.close();
 		}
 	}
 	
