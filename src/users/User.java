@@ -76,32 +76,37 @@ public class User implements Serializable{
 		ResultSet rs = null;
 		try {
 			
-			// Open a connection to the databse
-			
+			// Open a connection to the database
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(JDBCurl, JDBCusername, JDBCpassword);
 	        
 			// check if the current user already exists		
 			stmt = con.createStatement();
 			rs = stmt.executeQuery("select email from GroupK_Accounts");
-		
+			boolean uniqueUser = true;
+			while (rs.next()) {
+				if (rs.getString("email") == this.emailAddress) {
+					// TODO Hnadle this error better
+					uniqueUser = false;					
+				}
+			}
 			
-			
-			
-			// use a prepared statement to push user details into the database
-			PreparedStatement addNewUser = con.prepareStatement(
-				"INSERT INTO GroupK_Accounts (firstname,lastname,email,psd,phone,adress,city,zipcode) VALUES(?, ?, ?, ?, ?, ?, ?, ?);"
-			);
-			addNewUser.clearParameters();
-			addNewUser.setString(1, this.firstname);
-			addNewUser.setString(2, this.surname);
-			addNewUser.setString(3, this.emailAddress);
-			addNewUser.setString(4, this.passwordHash);
-			addNewUser.setString(5, this.phone);
-			addNewUser.setString(6, this.address[0]);
-			addNewUser.setString(7, this.address[1]);
-			addNewUser.setString(8, this.address[2]);
-			addNewUser.execute();
+			if (uniqueUser) {
+				// use a prepared statement to push user details into the database
+				PreparedStatement addNewUser = con.prepareStatement(
+					"INSERT INTO GroupK_Accounts (firstname,lastname,email,psd,phone,adress,city,zipcode) VALUES(?, ?, ?, ?, ?, ?, ?, ?);"
+				);
+				addNewUser.clearParameters();
+				addNewUser.setString(1, this.firstname);
+				addNewUser.setString(2, this.surname);
+				addNewUser.setString(3, this.emailAddress);
+				addNewUser.setString(4, this.passwordHash);
+				addNewUser.setString(5, this.phone);
+				addNewUser.setString(6, this.address[0]);
+				addNewUser.setString(7, this.address[1]);
+				addNewUser.setString(8, this.address[2]);
+				addNewUser.execute();
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();

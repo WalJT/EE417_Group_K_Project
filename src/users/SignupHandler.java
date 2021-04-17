@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import settings.DatabaseConfig;
@@ -102,7 +103,12 @@ public class SignupHandler extends HttpServlet {
 				User newUser = new User(emailAddress, firstname, lastname, phoneNumber, password, physicalAddress);
 				out.append(newUser.toString());
 				
-				newUser.createNewUserInDatabase(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);
+				try {
+					newUser.createNewUserInDatabase(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				// TODO Create a cookie for signed in user
 				// TODO Redirect to account / store page
