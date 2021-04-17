@@ -47,7 +47,6 @@ public class SignupHandler extends HttpServlet {
 		String[] physicalAddress = new String[3]; // TODO: Discuss address input and possibly adjust implementation
 
 		// Get parameter values from signup form request
-		boolean userDetailsValid = true;
 		try {
 			// First and Last name can be read in and set
 			firstname = request.getParameter("firstName");
@@ -60,7 +59,7 @@ public class SignupHandler extends HttpServlet {
 				out.append("-> Email Address: "+emailAddress+"\n");
 			} else {
 				out.append("** Email Addresses do not match\n");
-				userDetailsValid = false;
+				emailAddress = null;
 			}
 			
 			// Read in password and compare with confirmation field
@@ -69,14 +68,14 @@ public class SignupHandler extends HttpServlet {
 				out.append("-> Password: [Redacted, Valid]\n");
 			} else {
 				out.append("** Passwords do not match\n");
-				userDetailsValid = false;
+				password = null;
 			}
 			
 			// Phone number... store as string to allow a "+" character to be used.
 			phoneNumber = request.getParameter("phone");
 			out.append("-> Phone Number: "+phoneNumber+" \n");
 			
-			// Store address lines in an array
+			// Store address lines in an array of Strings
 			physicalAddress[0] = request.getParameter("address");
 			physicalAddress[1] = request.getParameter("city");
 			physicalAddress[2] = request.getParameter("zipCode");
@@ -90,7 +89,15 @@ public class SignupHandler extends HttpServlet {
 		} catch (Exception e) {
 			out.append(e.getMessage());
 		} finally {
-			// TODO: Check if any values are null or not defined
+			boolean userDetailsValid = true;
+			// Check if any values are null, and set userDetailsValid accordingly
+			Object[] arrayOfParams = {emailAddress, password};
+			for (Object param: arrayOfParams) {
+				if (param == null) {
+					userDetailsValid = false;
+				}
+			}
+			
 			if (userDetailsValid) {
 				User newUser = new User(emailAddress, firstname, lastname, phoneNumber, password, physicalAddress);
 				out.append(newUser.toString());
@@ -99,6 +106,8 @@ public class SignupHandler extends HttpServlet {
 				
 				// TODO Create a cookie for signed in user
 				// TODO Redirect to account / store page
+			} else {
+				// TODO Rdirect to signup page
 			}
 			
 			out.close();

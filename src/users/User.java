@@ -87,7 +87,7 @@ public class User implements Serializable{
 			// check if the current user already exists
 			
 			
-			// use a preparted statement to push user details into the database
+			// use a prepared statement to push user details into the database
 			PreparedStatement addNewUser = con.prepareStatement(
 				"INSERT INTO GroupK_Accounts (firstname,lastname,email,psd,phone,adress,city,zipcode) VALUES(?, ?, ?, ?, ?, ?, ?, ?);"
 			);
