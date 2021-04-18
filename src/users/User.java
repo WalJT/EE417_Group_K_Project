@@ -70,7 +70,7 @@ public class User implements Serializable{
 		return userDetails;
 	}
 	
-	public void createNewUserInDatabase(String JDBCurl, String JDBCusername, String JDBCpassword) throws SQLException {
+	public boolean createNewUserInDatabase(String JDBCurl, String JDBCusername, String JDBCpassword) throws SQLException {
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -106,10 +106,13 @@ public class User implements Serializable{
 				addNewUser.setString(7, this.address[1]);
 				addNewUser.setString(8, this.address[2]);
 				addNewUser.execute();
+				return true;
 			}
+			return false;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		} finally {
 			if (rs != null) rs.close();
 			if (stmt != null) stmt.close();
