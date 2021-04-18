@@ -86,35 +86,39 @@ public class SignupHandler extends HttpServlet {
 			out.append("\t-> "+ physicalAddress[1] +"\n");
 			out.append("\t-> "+ physicalAddress[2] +"\n");
 			
-			
-		} catch (Exception e) {
-			out.append(e.getMessage());
-		} finally {
 			boolean userDetailsValid = true;
-			// Check if any values are null, and set userDetailsValid accordingly
-			Object[] arrayOfParams = {emailAddress, password};
-			for (Object param: arrayOfParams) {
-				if (param == null) {
-					userDetailsValid = false;
+			// Make sure the address has the right number of lines
+			if (physicalAddress.length < 3) {
+				userDetailsValid = false;
+			} else {
+				// Check if any values are null, and set userDetailsValid accordingly
+				Object[] arrayOfParams = {firstname, lastname, emailAddress, password, physicalAddress};
+				for (Object param: arrayOfParams) {
+					if (param == null) {
+						userDetailsValid = false;
+					}
 				}
 			}
+			
 			
 			if (userDetailsValid) {
 				User newUser = new User(emailAddress, firstname, lastname, phoneNumber, password, physicalAddress);
 				out.append(newUser.toString());
-				
-				try {
-					newUser.createNewUserInDatabase(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if (newUser.createNewUserInDatabase(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password)) {
+					// TODO Create a cookie for signed in user
+					// TODO Redirect to account / store page
 				}
 				
-				// TODO Create a cookie for signed in user
-				// TODO Redirect to account / store page
 			} else {
 				// TODO Rdirect to signup page
 			}
+			
+		}catch (SQLException e) {
+			System.err.println("Database connection error:");
+			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
 			
 			out.close();
 		}
