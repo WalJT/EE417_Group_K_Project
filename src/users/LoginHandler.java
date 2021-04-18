@@ -1,6 +1,8 @@
 package users;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,7 +29,21 @@ public class LoginHandler extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		PrintWriter out = response.getWriter();
+		response.setContentType("text/html");
+		try {
+			// Get username (email) and password from login form
+			String userEmail = request.getParameter("username");
+			String password = request.getParameter("password");
+			//out.append(userEmail);
+			//out.append(password);
+		} catch (Exception e) {
+			out.append("Internal Error; return to <a href=\"login.html\">login page</a>");
+			e.printStackTrace();
+		} finally {
+			out.close();
+		}
+		
 	}
 
 	/**
