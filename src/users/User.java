@@ -48,7 +48,7 @@ public class User implements Serializable{
 		this.passwordHash = genreatePasswordHash(password);
 	}
 	
-	protected String genreatePasswordHash(String password) {
+	public String genreatePasswordHash(String password) {
 		String hashString = null;
 		//MessageDigest hashingAlgorithm = MessageDigest.getInstance("SHA-256");
 		//byte[] hashBytes = hashingAlgorithm.digest(password.getBytes());
@@ -136,6 +136,7 @@ public Cookie[] createCookies() throws SQLException {
 	returnArray[0] = userEmailCookie;
 	
 	// userIDCookie to store the id number.. this has to be extracted from the database
+	Cookie userIDCookie = null;
 	Connection con = null;
 	Statement stmt = null;
 	ResultSet rs = null;
@@ -144,7 +145,8 @@ public Cookie[] createCookies() throws SQLException {
 		stmt = con.createStatement();
 		rs = stmt.executeQuery("SELECT id FROM GroupK_Accounts WHERE email='"+this.emailAddress+"'");
 		while (rs.next()) {
-			
+			int theID = rs.getInt(id);
+			userIDCookie = new Cookie("userID", Integer.toString(theID));
 		}
 	} catch (Exception e) {
 		e.printStackTrace();
@@ -154,7 +156,7 @@ public Cookie[] createCookies() throws SQLException {
 		if (con != null) con.close();
 	}
 	
-	
+	returnArray[1] = userIDCookie;
 	return returnArray;
 }
 
