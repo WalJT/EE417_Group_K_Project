@@ -53,13 +53,36 @@ public class User implements Serializable{
 	 * @param emailAddress
 	 */
 	public User(String emailAddress) {
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
 		try {
+			this.emailAddress = emailAddress;
 			
+			con = DriverManager.getConnection(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);
+			stmt = con.createStatement();
+			
+			rs = stmt.executeQuery("SELECT * FROM GroupK_Accounts WHERE email='"+emailAddress+"'");
+			while (rs.next()) {
+				this.firstname = rs.getString("firstname");
+				this.surname = rs.getString("lastname");
+				this.passwordHash = rs.getString("psd");
+				this.phone = rs.getString("phone");
+				this.address[0] = rs.getString("adress");
+				this.address[0] = rs.getString("city");
+				this.address[0] = Integer.toString(rs.getInt("zipcode"));
+			}
 		} catch (Exception e) {
 			// TODO Error message
 			e.printStackTrace();
 		} finally {
-			
+			try {
+				if (rs != null) rs.close();
+				if (stmt != null) stmt.close();
+				if (con != null) con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -80,7 +103,7 @@ public class User implements Serializable{
 	}
 	
 	public static boolean validateLogin(String userEmail, String password) {
-		
+		// TODO, pull from database based on email and check password hash
 		
 		return false;
 	}
