@@ -11,6 +11,7 @@ import settings.DatabaseConfig;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -105,18 +106,27 @@ public class SignupHandler extends HttpServlet {
 				User newUser = new User(emailAddress, firstname, lastname, phoneNumber, password, physicalAddress);
 				out.append(newUser.toString());
 				if (newUser.createNewUserInDatabase(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password)) {
-					// TODO Create a cookie for signed in user
-					// TODO Redirect to account / store page
+					// create this user's cookies, if the sign up has been successful
+					Cookie[] userCookies = newUser.createCookies();
+					
+					//out.append(userCookies[0].getValue());
+					//out.append(userCookies[1].getValue());
+					response.addCookie(userCookies[0]);
+					response.addCookie(userCookies[1]);
+					
+					// redirect new user to storefront
+					response.sendRedirect("home.html");
 				}
 				
 			} else {
-				// TODO Rdirect to signup page
+				// TODO Rdirect back to signup page
 			}
 			
 		}catch (SQLException e) {
-			System.err.println("Database connection error:");
+			System.err.println("Database connection error, return to <a href='signup.html'>the signup page</a>");
 			e.printStackTrace();
 		}catch (Exception e) {
+			// TODO Display error message
 			e.printStackTrace();
 		} finally {
 			
