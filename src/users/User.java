@@ -145,7 +145,7 @@ public Cookie[] createCookies() throws SQLException {
 		stmt = con.createStatement();
 		rs = stmt.executeQuery("SELECT id FROM GroupK_Accounts WHERE email='"+this.emailAddress+"'");
 		while (rs.next()) {
-			int theID = rs.getInt(id);
+			int theID = rs.getInt("id");
 			userIDCookie = new Cookie("userID", Integer.toString(theID));
 		}
 	} catch (Exception e) {
