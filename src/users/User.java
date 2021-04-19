@@ -4,8 +4,6 @@
 package users;
 
 import java.io.Serializable;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -55,7 +53,14 @@ public class User implements Serializable{
 	 * @param emailAddress
 	 */
 	public User(String emailAddress) {
-		
+		try {
+			
+		} catch (Exception e) {
+			// TODO Error message
+			e.printStackTrace();
+		} finally {
+			
+		}
 	}
 	
 	protected String genreatePasswordHash(String password) {
