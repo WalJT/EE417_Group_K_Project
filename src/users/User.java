@@ -58,7 +58,7 @@ public class User implements Serializable{
 		ResultSet rs = null;
 		try {
 			this.emailAddress = emailAddress;
-			
+			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);
 			stmt = con.createStatement();
 			
@@ -69,8 +69,8 @@ public class User implements Serializable{
 				this.passwordHash = rs.getString("psd");
 				this.phone = rs.getString("phone");
 				this.address[0] = rs.getString("adress");
-				this.address[0] = rs.getString("city");
-				this.address[0] = Integer.toString(rs.getInt("zipcode"));
+				this.address[1] = rs.getString("city");
+				this.address[2] = Integer.toString(rs.getInt("zipcode"));
 			}
 		} catch (Exception e) {
 			// TODO Error message

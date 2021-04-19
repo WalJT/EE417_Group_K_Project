@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,8 +36,17 @@ public class LoginHandler extends HttpServlet {
 			// Get username (email) and password from login form
 			String userEmail = request.getParameter("username");
 			String password = request.getParameter("password");
-			//out.append(userEmail);
-			//out.append(password);
+			
+			User userToLogin = new User(userEmail);
+			if (userToLogin.validateLogin(password)) {
+				Cookie[] newCookies = userToLogin.createCookies();
+				response.addCookie(newCookies[0]);
+				response.addCookie(newCookies[1]);
+				response.sendRedirect("home.html");
+			} else {
+				out.append("Wrong Password; return to <a href='login.html'>login page</a>");
+			}
+			
 		} catch (Exception e) {
 			out.append("Internal Error; return to <a href=\"login.html\">login page</a>");
 			e.printStackTrace();
