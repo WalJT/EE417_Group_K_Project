@@ -102,9 +102,10 @@ public class User implements Serializable{
 		return "HASHING FAILED";
 	}
 	
-	public static boolean validateLogin(String userEmail, String password) {
-		// TODO, pull from database based on email and check password hash
-		
+	public boolean validateLogin(String password) {
+		// Check hash of a given password to that of a user object
+		String hashToTest = genreatePasswordHash(password);
+		if (hashToTest.equals(this.passwordHash)) return true;
 		return false;
 	}
 	
