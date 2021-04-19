@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.servlet.http.Cookie;
+
 public class User implements Serializable{
 	/**
 	 * TODO: Documentation
@@ -123,5 +125,17 @@ public class User implements Serializable{
 public void updateUserInDatabase(String JDBCurl, String JDBCusername, String JDBCpassword) {
 		//TODO
 	}
+
+public Cookie[] createCookies() {
+	// creates cookies to store user information and returns them in an array
+	Cookie[] returnArray = new Cookie[2];
+	// userEmail cookie to store the email address
+	Cookie userEmailCookie = new Cookie("userEmail", this.emailAddress);
+	returnArray[0] = userEmailCookie;
+	// userIDCookie to store the id number
+	
+	
+	return returnArray;
+}
 
 }
