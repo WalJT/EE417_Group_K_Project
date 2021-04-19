@@ -38,6 +38,7 @@ public class User implements Serializable{
 	 * @param surname
 	 * @param password
 	 * @param address
+	 * Constructor using all parameters intend for new user signup
 	 */
 	public User(String emailAddress, String firstname, String surname, String phone, String password, String[] address) {
 		this.emailAddress = emailAddress;
@@ -47,8 +48,17 @@ public class User implements Serializable{
 		this.address = address;
 		this.passwordHash = genreatePasswordHash(password);
 	}
+	/**
+	 * Constructor using only email address.
+	 * Other paramters are read from database
+	 * this is for login of existing users
+	 * @param emailAddress
+	 */
+	public User(String emailAddress) {
+		
+	}
 	
-	public String genreatePasswordHash(String password) {
+	protected String genreatePasswordHash(String password) {
 		String hashString = null;
 		//MessageDigest hashingAlgorithm = MessageDigest.getInstance("SHA-256");
 		//byte[] hashBytes = hashingAlgorithm.digest(password.getBytes());
@@ -62,6 +72,12 @@ public class User implements Serializable{
 		
 		if (hashString != null) return hashString;
 		return "HASHING FAILED";
+	}
+	
+	public static boolean validateLogin(String userEmail, String password) {
+		
+		
+		return false;
 	}
 	
 	@Override
