@@ -15,6 +15,8 @@ import java.sql.Statement;
 
 import javax.servlet.http.Cookie;
 
+import settings.DatabaseConfig;
+
 public class User implements Serializable{
 	/**
 	 * TODO: Documentation
@@ -126,13 +128,31 @@ public void updateUserInDatabase(String JDBCurl, String JDBCusername, String JDB
 		//TODO
 	}
 
-public Cookie[] createCookies() {
+public Cookie[] createCookies() throws SQLException {
 	// creates cookies to store user information and returns them in an array
 	Cookie[] returnArray = new Cookie[2];
 	// userEmail cookie to store the email address
 	Cookie userEmailCookie = new Cookie("userEmail", this.emailAddress);
 	returnArray[0] = userEmailCookie;
-	// userIDCookie to store the id number
+	
+	// userIDCookie to store the id number.. this has to be extracted from the database
+	Connection con = null;
+	Statement stmt = null;
+	ResultSet rs = null;
+	try {
+		con = DriverManager.getConnection(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);
+		stmt = con.createStatement();
+		rs = stmt.executeQuery("SELECT id FROM GroupK_Accounts WHERE email='"+this.emailAddress+"'");
+		while (rs.next()) {
+			
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	} finally {
+		if (rs != null) rs.close();
+		if (stmt != null) stmt.close();
+		if (con != null) con.close();
+	}
 	
 	
 	return returnArray;
