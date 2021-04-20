@@ -37,6 +37,16 @@
         <servlet-name>LogoutHandler</servlet-name>
         <url-pattern>/LogoutHandler</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>UpdateUserDetails</servlet-name>
+        <servlet-class>users.UpdateUserDetails</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UpdateUserDetails</servlet-name>
+        <url-pattern>/UpdateUserDetails</url-pattern>
+    </servlet-mapping>
 
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
