@@ -1,6 +1,3 @@
-/**
- * 
- */
 package users;
 
 import java.io.Serializable;
@@ -14,11 +11,30 @@ import java.sql.Statement;
 import javax.servlet.http.Cookie;
 
 import settings.DatabaseConfig;
-
+/**
+ * The User class is designed to handle processing of user/customer data
+ * A `User` object can be created by passing all the relevant parameters as Strings
+ * with the exception of the address, which is an array of strings.
+ * An overloaded constructor is implemented, such that if only the email address
+ * is passed, the rest of the information is sourced from the database.
+ * 
+ * generatePasswordHash() takes a password as input, and returns the hash as a string,
+ * using a simple algorithm built into the String class... for demonstration purposes
+ * only: THIS IS NOT A SECURE HASH FUNCTION.
+ * 
+ * The validateLogin method takes a password as input, implements the generatePasswordHash method,
+ * And compares the result to the passwordHash state of the current instance. If they
+ * match, it returns true, otherwise false.
+ * 
+ * the createNewUserInDatabase() method first checks to see if a user with the email address
+ * of the current instance already exists, in which case it returns false. If not, prepared
+ * statement (java.sql.PreparedStatemnt) is used to add new user details to the DB,
+ * returning true unless an exception is thrown.
+ * 
+ * TODO updateUserInDatabase
+ */
 public class User implements Serializable{
-	/**
-	 * TODO: Documentation
-	 */
+
 	private static final long serialVersionUID = 2063583864503068064L;
 
 	protected String emailAddress;
@@ -73,7 +89,6 @@ public class User implements Serializable{
 				this.address[2] = Integer.toString(rs.getInt("zipcode"));
 			}
 		} catch (Exception e) {
-			// TODO Error message
 			e.printStackTrace();
 		} finally {
 			try {
@@ -111,6 +126,7 @@ public class User implements Serializable{
 	
 	@Override
 	public String toString() {
+		// Print user details... used for testing constructors
 		String userDetails;
 		userDetails = "Details of user (customer or admin) " + this.firstname + " " + this.surname + ":\n";
 		userDetails += ("\t-> Email Address: " + emailAddress +"\n");
