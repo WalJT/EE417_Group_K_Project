@@ -35,6 +35,17 @@ public class LogoutHandler extends HttpServlet {
 		try {
 			// Get all cookies and delete them
 			Cookie[] cookies = request.getCookies();
+			if (cookies != null) {
+				for (Cookie cookie: cookies) {
+					cookie.setMaxAge(0);
+					response.addCookie(cookie);
+					System.out.println("A cooke was succesfully removed");
+				}
+			}
+			
+			// redirect to the home page
+			response.sendRedirect("home.html");
+			
 		} catch (Exception e) {
 			// TODO graceful error handling
 			e.printStackTrace();

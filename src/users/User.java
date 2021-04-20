@@ -77,6 +77,7 @@ public class User implements Serializable{
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);
 			stmt = con.createStatement();
+			this.address = new String[3];
 			
 			rs = stmt.executeQuery("SELECT * FROM GroupK_Accounts WHERE email='"+emailAddress+"'");
 			while (rs.next()) {
