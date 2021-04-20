@@ -132,34 +132,32 @@ public class User implements Serializable{
 			// check if the current user already exists		
 			stmt = con.createStatement();
 			rs = stmt.executeQuery("select email from GroupK_Accounts");
-			boolean uniqueUser = true;
 			while (rs.next()) {
-				if (rs.getString("email") == this.emailAddress) {
-					// TODO Hnadle this error better
-					uniqueUser = false;					
+				if (rs.getString("email").equals(this.emailAddress)) {
+					// Return false if user already exists
+					return false;				
 				}
 			}
 			
-			if (uniqueUser) {
-				// use a prepared statement to push user details into the database
-				PreparedStatement addNewUser = con.prepareStatement(
-					"INSERT INTO GroupK_Accounts (firstname,lastname,email,psd,phone,adress,city,zipcode) VALUES(?, ?, ?, ?, ?, ?, ?, ?);"
-				);
-				addNewUser.clearParameters();
-				addNewUser.setString(1, this.firstname);
-				addNewUser.setString(2, this.surname);
-				addNewUser.setString(3, this.emailAddress);
-				addNewUser.setString(4, this.passwordHash);
-				addNewUser.setString(5, this.phone);
-				addNewUser.setString(6, this.address[0]);
-				addNewUser.setString(7, this.address[1]);
-				addNewUser.setString(8, this.address[2]);
-				addNewUser.execute();
-				return true;
-			}
-			return false;
+			// If we reach this point, the user has a unique email address, and can be created
+			// use a prepared statement to push user details into the database
+			PreparedStatement addNewUser = con.prepareStatement(
+				"INSERT INTO GroupK_Accounts (firstname,lastname,email,psd,phone,adress,city,zipcode) VALUES(?, ?, ?, ?, ?, ?, ?, ?);"
+			);
+			addNewUser.clearParameters();
+			addNewUser.setString(1, this.firstname);
+			addNewUser.setString(2, this.surname);
+			addNewUser.setString(3, this.emailAddress);
+			addNewUser.setString(4, this.passwordHash);
+			addNewUser.setString(5, this.phone);
+			addNewUser.setString(6, this.address[0]);
+			addNewUser.setString(7, this.address[1]);
+			addNewUser.setString(8, this.address[2]);
+			addNewUser.execute();
+			return true;
 			
 		} catch (Exception e) {
+			// Return false if something goes wrong
 			e.printStackTrace();
 			return false;
 		} finally {

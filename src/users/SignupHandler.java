@@ -58,7 +58,7 @@ public class SignupHandler extends HttpServlet {
 			// Read in email address and compare with confirmation field
 			emailAddress = request.getParameter("EmailAddress");
 			if (emailAddress.equals(request.getParameter("EmailAddress_conf"))) {
-				out.append("-> Email Address: "+emailAddress+"\n");
+				//out.append("-> Email Address: "+emailAddress+"\n");
 			} else {
 				out.append("** Email Addresses do not match\n");
 				emailAddress = null;
@@ -67,7 +67,7 @@ public class SignupHandler extends HttpServlet {
 			// Read in password and compare with confirmation field
 			password = request.getParameter("NewPassword");
 			if (password.equals(request.getParameter("NewPassword_conf"))) {
-				out.append("-> Password: [Redacted, Valid]\n");
+				//out.append("-> Password: [Redacted, Valid]\n");
 			} else {
 				out.append("** Passwords do not match\n");
 				password = null;
@@ -75,17 +75,17 @@ public class SignupHandler extends HttpServlet {
 			
 			// Phone number... store as string to allow a "+" character to be used.
 			phoneNumber = request.getParameter("phone");
-			out.append("-> Phone Number: "+phoneNumber+" \n");
+			//out.append("-> Phone Number: "+phoneNumber+" \n");
 			
 			// Store address lines in an array of Strings
 			physicalAddress[0] = request.getParameter("address");
 			physicalAddress[1] = request.getParameter("city");
 			physicalAddress[2] = request.getParameter("zipCode");
 			
-			out.append("-> Shipping Address:\n");
-			out.append("\t-> "+ physicalAddress[0] +"\n");
-			out.append("\t-> "+ physicalAddress[1] +"\n");
-			out.append("\t-> "+ physicalAddress[2] +"\n");
+			//out.append("-> Shipping Address:\n");
+			//out.append("\t-> "+ physicalAddress[0] +"\n");
+			//out.append("\t-> "+ physicalAddress[1] +"\n");
+			//out.append("\t-> "+ physicalAddress[2] +"\n");
 			
 			boolean userDetailsValid = true;
 			// Make sure the address has the right number of lines
@@ -116,10 +116,16 @@ public class SignupHandler extends HttpServlet {
 					
 					// redirect new user to storefront
 					response.sendRedirect("home.html");
+				} else {
+					// print a message if 
+					String signupErrorMsg = "<p>Signup has not been successful. Reasons may include:";
+					signupErrorMsg += "<ul><li>The email address has already been used by somebody else</li>";
+					signupErrorMsg += "<li>An internal server error</li></ul>";
+					signupErrorMsg += "Please return to the <a href='signup.html'>signup page</a> and contact an administrator if you continue to experience this issue.</p>";
+					
+					out.append(signupErrorMsg);
 				}
 				
-			} else {
-				// TODO Rdirect back to signup page
 			}
 			
 		}catch (SQLException e) {
