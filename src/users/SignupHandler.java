@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class SignupHandler
  * dGet method is used to take information from the signup form
- * and create a User object TODO: Create User class
+ * and create a User object
  */
 
 public class SignupHandler extends HttpServlet {
@@ -46,7 +46,7 @@ public class SignupHandler extends HttpServlet {
 		String emailAddress = null;
 		String password = null;
 		String phoneNumber = null;
-		String[] physicalAddress = new String[3]; // TODO: Discuss address input and possibly adjust implementation
+		String[] physicalAddress = new String[3];
 
 		// Get parameter values from signup form request
 		try {
