@@ -132,7 +132,7 @@ public class SignupHandler extends HttpServlet {
 			System.err.println("Database connection error, return to <a href='signup.html'>the signup page</a>");
 			e.printStackTrace();
 		}catch (Exception e) {
-			// TODO Display error message
+			System.err.println("Internal error, return to <a href='signup.html'>the signup page</a>");
 			e.printStackTrace();
 		} finally {
 			
