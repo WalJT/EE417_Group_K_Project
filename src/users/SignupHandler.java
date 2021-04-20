@@ -138,6 +138,7 @@ public class SignupHandler extends HttpServlet {
 			
 			out.close();
 		}
+		
 
 		
 	}
