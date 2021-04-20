@@ -1,25 +1,41 @@
-*{
-    animation:  1.1s  appearFromUp;
+.space{
+    animation:  1.1s  appearFromUp; /*animation when the page is loaded; makes it appear like the form is coming down*/
     box-sizing: border-box;
+    margin: 0;
+    font-family: 'Georgia';
+    padding: 10px;
 }
 
-body{
-    font-family: 'Georgia';
+.space.space_container{
     height: 100vh;
     overflow: hidden;
-    font-weight: 400;
     display: flex;
     justify-content: center;
     align-items:center;
+    padding: 10px;
     margin: -20px 0 50px;
+    background-color: lightseagreen;
 }
 
-h2{
+.container{
+    max-width: 700px;
+    width:100%;
+    border-radius: 25px;
+    background: white;
+    border-radius: 50px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22); /*creates illusion for the form */
+    position: relative;
+    overflow: hidden;
+    min-height: 480px;
+}
+
+.space h2{
     font-weight: bold;
     margin: 0;
 }
 
-.row form {
+/* style of the main form box*/
+.space.space_container.row form {
     background: white;
     display:flex;
     flex-direction: column;
@@ -29,34 +45,24 @@ h2{
     justify-content: center;
     align-items: center;
     text-align: center;
+    flex-wrap: wrap;
 }
 
-span{
+/*style of the paragraph after "new to our website?"*/
+.space_container span{
     font-size:12px;
     justify-content: center;
     align-content: center;
 }
 
-a{
+.space.space_container a{
     color: #333;
     font-size: 14px;
     text-decoration: none;
     margin: 15px 0;
 }
 
-.container{
-    background: white;
-    border-radius: 50px;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-    position: relative;
-    overflow: hidden;
-    width: 770px;
-    max-width: 100%;
-    min-height: 480px;
-
-}
-
-
+/*style of the input fields for username and password*/
 .row input{
     background: lightgrey;
     border: none;
@@ -70,7 +76,8 @@ a{
     padding-bottom: 0;
 }
 
-input[type=button], input[type=submit]  ,button{
+/*style of the log in button on the form*/
+.space input[type=submit]{
     border: none;
     border-radius: 50px;
     border-radius:20px;
@@ -78,22 +85,37 @@ input[type=button], input[type=submit]  ,button{
     color: white;
     padding: 12px 0px;
     margin: 8px 0px;
-    width:80%;
-    font-size: 12px;
+    width:70%;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 20px 50px;
+}
+
+/*style of the 'create an account' button on the form*/
+button#signUpButton {
+    border: none;
+    border-radius: 50px;
+    border-radius: 20px;
+    background: lightseagreen;
+    color: white;
+    padding: 10px 0px;
+    margin: 20px 50px;
+    width: 70%;
+    font-size: 15px;
     font-weight: bold;
     letter-spacing: 1px;
     text-transform: uppercase;
 }
 
-input[type=button]:active , button:active{
+/*animation on 'create an account button' when clicked*/
+.space button:active{
     transform: scale(0.95);
 }
 
-input[type=button]:focus , button:focus{
-    outline: none;
-}
-
-input[type=button]:hover , button:hover{
+/*animation on 'login button' when mouse hovers*/
+.space input[type=button]:hover{
     background-color: white;
     border: 2px solid lightseagreen;
     color: lightseagreen;
@@ -105,18 +127,30 @@ input[type=button]:hover , button:hover{
     transition: all 0.6s ease-in-out;
 }
 
-.signUpBox {
+/*positioning of the 'new to our website' section*/
+.formBox.signUpBox {
     right:0;
     width:50%;
     z-index: 1;
 }
 
-.logInBox{
+.signUpBox a{
+    color: white;
+    text-decoration: none;
+}
+/*positioning of the 'my account log inn' section*/
+.formBox.logInBox{
     left:0;
     z-index: 1;
+    width:50%;
 }
 
-p{
+.formBox.logInBox a{
+   color: lightseagreen;
+}
+
+/*initially hidden part when on full screen width*/
+.space p{
     display: none;
 }
 
@@ -127,18 +161,18 @@ p{
     position: absolute;
     right:0;
     width:50%;
+    /*animation of the form is specified here; how fast and where its from*/
     transform: translateY(-110%);
-
     transition: transform 0.5s ease-in-out;
-
 }
 
 .signUpForm h2{
     padding-bottom: 10px;
 }
 
-.signUpForm input[type=text], input[type=email], input[type=password]{
+.signUpForm input[type=text], .space input[type=email], .space input[type=password]{
     background: white;
+    color: white;
     border: none;
     padding: 10px 15px;
     margin: 8px 0px;
@@ -146,7 +180,7 @@ p{
     width: 100%;
 }
 
-input[type=submit]:hover{
+.space input[type=submit]:hover{
     background-color: white;
     border: 2px solid lightseagreen;
     color: lightseagreen;
@@ -155,35 +189,28 @@ input[type=submit]:hover{
 .container.signUpForm-active .signUpForm form {
     height:100%;
     transform: translateY(0);
-=
+
 }
 
-.createAccountButton{
+button#createAccountButton.createAccountButton{
     background: none;
     border: none;
     padding: 0;
-    color: #069;
-    text-decoration: underline;
+    color: lightseagreen;
+    text-decoration: none;
     cursor: pointer;
 }
 
-.createAccountButton:hover{
-    font-size: 12px;
-    background-color: white;
-    color: #069;
-}
-
+/*changes when screen is reduced*/
 @media (max-width: 700px){
-   body{
-   }
 
     .signUpBox{
         display: none;
     }
 
-    .logInBox{
+    .formBox.logInBox{
         justify-content: center;
-        padding-top: 15%;
+        padding-top: 8%;
         left:25%;
         right:25%;
     }
@@ -192,11 +219,10 @@ input[type=submit]:hover{
         padding: 0px 0px;
     }
 
-    p{
+    .space p{
         display: inline-block;
         z-index: 1;
     }
-
 
 }
 @keyframes appearFromUp {
