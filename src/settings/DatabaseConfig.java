@@ -1,7 +1,7 @@
 package settings;
 
 /**
- * @author waljt
+ * @author Julian Tarquin Walsh
  * Stores database configuration in a central location,
  * so that it only needs to be changed once
  */

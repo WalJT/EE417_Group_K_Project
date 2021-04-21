@@ -12,6 +12,7 @@ import javax.servlet.http.Cookie;
 
 import settings.DatabaseConfig;
 /**
+ * @author Julian Tarquin Walsh
  * The User class is designed to handle processing of user/customer data
  * A `User` object can be created by passing all the relevant parameters as Strings
  * with the exception of the address, which is an array of strings.
