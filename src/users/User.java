@@ -44,6 +44,7 @@ public class User implements Serializable{
 	protected String phone;
 	protected String passwordHash;
 	protected String[] address;
+	protected String addressString;
 	
 	public User() {}
 	
@@ -101,6 +102,21 @@ public class User implements Serializable{
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	/**
+	 * Concatentates the address array into a single string
+	 * @param address
+	 * @return
+	 */
+	protected String stringifyAddress(String[] address) {
+		String addressString = "";
+		
+		for (String line: address) {
+			addressString += (line + "\n");
+		}
+		
+		return addressString;
 	}
 	
 	protected String genreatePasswordHash(String password) {

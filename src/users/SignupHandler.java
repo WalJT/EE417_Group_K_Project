@@ -47,7 +47,7 @@ public class SignupHandler extends HttpServlet {
 		String emailAddress = null;
 		String password = null;
 		String phoneNumber = null;
-		String[] physicalAddress = new String[3];
+		String[] physicalAddress = new String[4];
 
 		// Get parameter values from signup form request
 		try {
@@ -81,7 +81,10 @@ public class SignupHandler extends HttpServlet {
 			// Store address lines in an array of Strings
 			physicalAddress[0] = request.getParameter("address");
 			physicalAddress[1] = request.getParameter("city");
-			physicalAddress[2] = request.getParameter("zipCode");
+			physicalAddress[2] = request.getParameter("city");
+			physicalAddress[3] = request.getParameter("zipCode");
+			
+			
 			
 			//out.append("-> Shipping Address:\n");
 			//out.append("\t-> "+ physicalAddress[0] +"\n");
