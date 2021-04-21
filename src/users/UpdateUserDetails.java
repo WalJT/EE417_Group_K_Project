@@ -28,6 +28,10 @@ public class UpdateUserDetails extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		// TODO Pull information from form at user.html
+		// TODO Create new user object with this information
+		// TODO upadate user in database with instance method
 	}
 
 	/**

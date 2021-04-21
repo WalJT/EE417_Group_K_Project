@@ -185,9 +185,33 @@ public class User implements Serializable{
 		}
 	}
 	
-public void updateUserInDatabase(String JDBCurl, String JDBCusername, String JDBCpassword) {
-		//TODO
+public boolean updateUserInDatabase(String JDBCurl, String JDBCusername, String JDBCpassword) throws SQLException {
+	
+	Connection con = null;
+	Statement stmt = null;
+	ResultSet rs = null;
+	try {
+		con = DriverManager.getConnection(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);
+		stmt = con.createStatement();
+		
+		// Find existing user details based on email address
+		rs = stmt.executeQuery("SELECT * FROM GroupL_Accounts WHERE email-'"+this.emailAddress+"'");
+		while (rs.next()) {
+			// Get UserID
+		}
+		
+		// Update table based on ID with current user instance details
+		
+		return true;
+	} catch (Exception e) {
+		e.printStackTrace();
+		return false;
+	} finally {
+		if (rs != null) rs.close();
+		if (stmt != null) stmt.close();
+		if (con != null) con.close();
 	}
+}
 
 public Cookie[] createCookies() throws SQLException {
 	// creates cookies to store user information and returns them in an array
