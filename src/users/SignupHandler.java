@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * @author Julian Tarquin Walsh
  * Servlet implementation class SignupHandler
  * dGet method is used to take information from the signup form
  * and create a User object
