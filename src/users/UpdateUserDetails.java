@@ -46,10 +46,18 @@ public class UpdateUserDetails extends HttpServlet {
 		address[2] = request.getParameter("country");
 		address[3] = request.getParameter("zipcode");
 		
-		out.append("<p>"+address[0]+" "+address[1]+"</p>");
-		out.append("<p>"+firstname+" "+lastname+"</p>");
+		// Phone number, email, and password
+		String phone = request.getParameter("mobile");
+		String email = request.getParameter("email_id");
+		String password = request.getParameter("password");
 		
-		// TODO Create new user object with this information
+		//out.append("<p>"+address[0]+" "+address[1]+"</p>");
+		//out.append("<p>"+firstname+" "+lastname+"</p>");
+		
+		// Create new user object with this information
+		User updatedUser = new User(email, firstname, lastname, phone, password, address);
+		out.append(updatedUser.toString());
+		
 		// TODO update user in database with instance method
 	}
 

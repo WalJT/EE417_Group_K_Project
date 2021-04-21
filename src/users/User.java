@@ -150,7 +150,7 @@ public class User implements Serializable{
 		String userDetails;
 		userDetails = "Details of user (customer or admin) " + this.firstname + " " + this.surname + ":\n";
 		userDetails += ("\t-> Email Address: " + emailAddress +"\n");
-		userDetails += "\t-> Shipping Address: " + address[0] +"\n";
+		userDetails += "\t-> Shipping Address: " + addressString +"\n";
 		userDetails += "\t-> Password Hash: " + passwordHash;
 		return userDetails;
 	}
