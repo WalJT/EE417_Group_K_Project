@@ -81,7 +81,7 @@ public class SignupHandler extends HttpServlet {
 			// Store address lines in an array of Strings
 			physicalAddress[0] = request.getParameter("address");
 			physicalAddress[1] = request.getParameter("city");
-			physicalAddress[2] = request.getParameter("city");
+			physicalAddress[2] = request.getParameter("country");
 			physicalAddress[3] = request.getParameter("zipCode");
 			
 			

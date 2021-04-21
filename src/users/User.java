@@ -63,6 +63,8 @@ public class User implements Serializable{
 		this.phone = phone;
 		this.address = address;
 		this.passwordHash = genreatePasswordHash(password);
+		
+		this.addressString = stringifyAddress(address);
 	}
 	/**
 	 * Constructor using only email address.
