@@ -115,7 +115,7 @@ public class User implements Serializable{
 		String addressString = "";
 		
 		for (String line: address) {
-			addressString += (line + "\n");
+			addressString += (line + ",");
 		}
 		
 		return addressString;
