@@ -9,7 +9,7 @@ create table GroupK_Accounts
     adress		varchar(100),
     city		varchar(100),
     country     varchar(100),
-    fullAddress varchar(100)
+    fullAddress varchar(100),
     zipcode		int
 );
 select * from GroupK_Accounts;
