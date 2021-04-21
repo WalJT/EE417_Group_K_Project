@@ -178,7 +178,7 @@ public class User implements Serializable{
 			// If we reach this point, the user has a unique email address, and can be created
 			// use a prepared statement to push user details into the database
 			PreparedStatement addNewUser = con.prepareStatement(
-				"INSERT INTO GroupK_Accounts (firstname,lastname,email,psd,phone,adress,city,zipcode) VALUES(?, ?, ?, ?, ?, ?, ?, ?);"
+				"INSERT INTO GroupK_Accounts (firstname,lastname,email,psd,phone,adress,city,country,zipcode,fullAddress) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
 			);
 			addNewUser.clearParameters();
 			addNewUser.setString(1, this.firstname);
@@ -189,6 +189,8 @@ public class User implements Serializable{
 			addNewUser.setString(6, this.address[0]);
 			addNewUser.setString(7, this.address[1]);
 			addNewUser.setString(8, this.address[2]);
+			addNewUser.setString(9, this.address[3]);
+			addNewUser.setString(10, this.addressString);
 			addNewUser.execute();
 			return true;
 			
