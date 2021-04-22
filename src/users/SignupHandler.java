@@ -31,14 +31,13 @@ public class SignupHandler extends HttpServlet {
      */
     public SignupHandler() {
         super();
-        // TODO Auto-generated constructor stub
+        // Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
 
@@ -92,18 +91,15 @@ public class SignupHandler extends HttpServlet {
 			//out.append("\t-> "+ physicalAddress[2] +"\n");
 			
 			boolean userDetailsValid = true;
-			// Make sure the address has the right number of lines
-			if (physicalAddress.length < 3) {
-				userDetailsValid = false;
-			} else {
-				// Check if any values are null, and set userDetailsValid accordingly
-				Object[] arrayOfParams = {firstname, lastname, emailAddress, password, physicalAddress};
-				for (Object param: arrayOfParams) {
-					if (param == null) {
-						userDetailsValid = false;
-					}
+			// Check if any values are null, and set userDetailsValid accordingly
+			Object[] arrayOfParams = {firstname, lastname, emailAddress, password, physicalAddress[0], physicalAddress[1], physicalAddress[2], physicalAddress[3]};
+			for (Object param: arrayOfParams) {
+				if (param == null) {
+					userDetailsValid = false;
+					out.append("<p>A parameter is null for some reason</p>");
 				}
 			}
+			
 			
 			
 			if (userDetailsValid) {
@@ -124,6 +120,7 @@ public class SignupHandler extends HttpServlet {
 					// print a message if 
 					String signupErrorMsg = "<p>Signup has not been successful. Reasons may include:";
 					signupErrorMsg += "<ul><li>The email address has already been used by somebody else</li>";
+					signupErrorMsg += "<li>A The email address or password did not match the confirmation field</li>";
 					signupErrorMsg += "<li>An internal server error</li></ul>";
 					signupErrorMsg += "Please return to the <a href='signup.html'>signup page</a> and contact an administrator if you continue to experience this issue.</p>";
 					
