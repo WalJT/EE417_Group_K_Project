@@ -211,6 +211,7 @@ public boolean updateUserInDatabase(int userID) throws SQLException {
 	Statement stmt = null;
 	ResultSet rs = null;
 	try {
+		Class.forName("com.mysql.jdbc.Driver");
 		con = DriverManager.getConnection(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);
 		stmt = con.createStatement();
 		
@@ -246,6 +247,7 @@ public Cookie[] createCookies() throws SQLException {
 	Statement stmt = null;
 	ResultSet rs = null;
 	try {
+		Class.forName("com.mysql.jdbc.Driver");
 		con = DriverManager.getConnection(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);
 		stmt = con.createStatement();
 		rs = stmt.executeQuery("SELECT id FROM GroupK_Accounts WHERE email='"+this.emailAddress+"'");
