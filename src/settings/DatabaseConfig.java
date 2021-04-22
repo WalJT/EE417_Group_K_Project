@@ -11,5 +11,7 @@ public class DatabaseConfig {
 	public static final String databaseName = "groupK";
 	public static final String username = "groupk";
 	public static final String password = "groupk";
+	
+	// This is the complete url that should be referenced
 	public static final String JDBCUrl = url+":"+port+"/"+databaseName;
 }
