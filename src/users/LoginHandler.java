@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 //@WebServlet("/LoginHandler")
 public class LoginHandler extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 175785765546L;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -29,25 +29,32 @@ public class LoginHandler extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
+		
 		try {
 			// Get username (email) and password from login form
 			String userEmail = request.getParameter("username");
 			String password = request.getParameter("password");
 			
+			// Create a new user using the email address,
+			// this constructor pulls the rest of the information from the database
 			User userToLogin = new User(userEmail);
+			
+			// Check to see if the password was valid,
+			// if it is, set cookies and redirect
 			if (userToLogin.validateLogin(password)) {
 				Cookie[] newCookies = userToLogin.createCookies();
 				response.addCookie(newCookies[0]);
 				response.addCookie(newCookies[1]);
 				response.sendRedirect("home.html");
 			} else {
+				// Notify user if password was wrong
 				out.append("Wrong Password; return to <a href='login.html'>login page</a>");
 			}
 			
 		} catch (Exception e) {
+			// Error message when we need to check server logs
 			out.append("Internal Error; return to <a href=\"login.html\">login page</a>");
 			e.printStackTrace();
 		} finally {
