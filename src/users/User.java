@@ -81,7 +81,7 @@ public class User implements Serializable{
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);
 			stmt = con.createStatement();
-			this.address = new String[3];
+			this.address = new String[4];
 			
 			rs = stmt.executeQuery("SELECT * FROM GroupK_Accounts WHERE email='"+emailAddress+"'");
 			while (rs.next()) {
@@ -91,7 +91,9 @@ public class User implements Serializable{
 				this.phone = rs.getString("phone");
 				this.address[0] = rs.getString("adress");
 				this.address[1] = rs.getString("city");
-				this.address[2] = Integer.toString(rs.getInt("zipcode"));
+				this.address[2] = rs.getString("country");
+				this.address[3] = Integer.toString(rs.getInt("zipcode"));
+				this.addressString = rs.getString("fullAddress");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -215,11 +217,23 @@ public boolean updateUserInDatabase(int userID) throws SQLException {
 		stmt = con.createStatement();
 		
 		// Find existing user details based on email address
-		rs = stmt.executeQuery("SELECT * FROM GroupL_Accounts WHERE id-'"+userID+"'");
+		rs = stmt.executeQuery("SELECT * FROM GroupK_Accounts WHERE id='"+userID+"'");
 		while (rs.next()) {
-			System.out.println(rs.toString());
-			}
+			System.out.println(rs.getString("email"));
+		}
 		
+		stmt.executeUpdate("UPDATE GroupK_Accounts SET"
+				+ " email='"+this.emailAddress+"',"
+				+ " firstname='"+this.firstname+"',"
+				+ " lastname='"+this.surname+"',"
+				+ " psd='"+this.passwordHash+"',"
+				+ " phone='"+this.phone+"',"
+				+ " adress='"+this.address[0]+"',"
+				+ " city='"+this.address[1]+"',"
+				+ " country='"+this.address[2]+"',"
+				+ " zipcode="+this.address[3]+","
+				+ " fullAddress='"+this.addressString+"'"
+				+ " WHERE id="+userID+";");
 		// Update table based on ID with current user instance details
 		
 		return true;
@@ -252,6 +266,7 @@ public Cookie[] createCookies() throws SQLException {
 		while (rs.next()) {
 			int theID = rs.getInt("id");
 			userIDCookie = new Cookie("userID", Integer.toString(theID));
+			System.out.println(userIDCookie.getValue());
 		}
 	} catch (Exception e) {
 		e.printStackTrace();
