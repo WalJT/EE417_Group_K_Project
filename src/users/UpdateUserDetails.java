@@ -57,6 +57,8 @@ public class UpdateUserDetails extends HttpServlet {
 			//out.append("<p>"+address[0]+" "+address[1]+"</p>");
 			//out.append("<p>"+firstname+" "+lastname+"</p>");
 			
+			// TODO Check if any values are null
+			
 			// Create new user object with this information
 			User updatedUser = new User(email, firstname, lastname, phone, password, address);
 			//out.append(updatedUser.toString());
