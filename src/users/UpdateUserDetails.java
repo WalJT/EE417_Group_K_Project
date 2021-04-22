@@ -2,6 +2,7 @@ package users;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +23,7 @@ public class UpdateUserDetails extends HttpServlet {
      */
     public UpdateUserDetails() {
         super();
-        // TODO Auto-generated constructor stub
+        // Auto-generated constructor stub
     }
 
 	/**
@@ -41,7 +42,7 @@ public class UpdateUserDetails extends HttpServlet {
 			if (middlename != null) firstname = firstname + " " + middlename;
 			String lastname = request.getParameter("lname");
 			
-			// Address
+			// Address elements
 			String[] address = new String[4];
 			address[0] = request.getParameter("address");
 			address[1] = request.getParameter("city");
@@ -58,9 +59,9 @@ public class UpdateUserDetails extends HttpServlet {
 			
 			// Create new user object with this information
 			User updatedUser = new User(email, firstname, lastname, phone, password, address);
-			out.append(updatedUser.toString());
+			//out.append(updatedUser.toString());
 			
-			// Get userID from cookie
+			// Get ID if currently signed in user from cookie
 			Integer userID = null;
 			Cookie[] cookies = request.getCookies();
 			if (cookies != null) {
@@ -74,16 +75,26 @@ public class UpdateUserDetails extends HttpServlet {
 			}
 
 			if (userID == null) {
-				// TODO error and redirect
-				out.append("<p>No ID; This means no user is logged in</p>");
+				// Print an error and prompt for a redirect
+				out.append("<p>No ID; This means no user is logged in"
+						+ "<br /><a href='login.html'>Go to the Login Page</a></p>");
 			} else {
 				if (updatedUser.updateUserInDatabase(userID)) {
 					response.sendRedirect("home.html");
+				} else {
+					// Print a different error if updating the database fails
+					out.append("<p>Something went wrong when trying to update the database<br />"
+							+ "Check the server logs for more details</p>");
 				}
 			}
 			
+		} catch (SQLException e) {
+			// Message for SQL Exception
+			out.append("<p>An SQL Exception was caught... check the server logs</p>");
+			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Error msg
+			// Error message for generic failure
+			out.append("<p>An Exception was caught... check the server logs</p>");
 			e.printStackTrace();
 		} finally {
 			out.close();
