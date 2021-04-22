@@ -32,7 +32,8 @@ import settings.DatabaseConfig;
  * statement (java.sql.PreparedStatemnt) is used to add new user details to the DB,
  * returning true unless an exception is thrown.
  * 
- * TODO updateUserInDatabase ... Takes the userID (From database) as a parameter
+ *  updateUserInDatabase() takes a userID as a parameter. This id is used to update user details
+ *  in the database, based on the states of the User object it is called from
  */
 public class User implements Serializable{
 
@@ -47,6 +48,7 @@ public class User implements Serializable{
 	protected String addressString;
 	
 	public User() {}
+	
 	
 	/**
 	 * @param emailAddress
@@ -63,9 +65,10 @@ public class User implements Serializable{
 		this.phone = phone;
 		this.address = address;
 		this.passwordHash = genreatePasswordHash(password);
-		
 		this.addressString = stringifyAddress(address);
 	}
+	
+	
 	/**
 	 * Constructor using only email address.
 	 * Other paramters are read from database
@@ -73,16 +76,22 @@ public class User implements Serializable{
 	 * @param emailAddress
 	 */
 	public User(String emailAddress) {
+		
+		// Set up database connection
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
+			// Set the email address from parameter
 			this.emailAddress = emailAddress;
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);
 			stmt = con.createStatement();
+			
+			// Set up address array
 			this.address = new String[4];
 			
+			// Pull user information from database into the relevant state variables
 			rs = stmt.executeQuery("SELECT * FROM GroupK_Accounts WHERE email='"+emailAddress+"'");
 			while (rs.next()) {
 				this.firstname = rs.getString("firstname");
@@ -108,14 +117,16 @@ public class User implements Serializable{
 		}
 	}
 	
+	
 	/**
-	 * Concatentates the address array into a single string
+	 * concatenates the address array into a single string
 	 * @param address
 	 * @return
 	 */
 	protected String stringifyAddress(String[] address) {
 		String addressString = "";
 		
+		// Set each line of the address, separated by a comma
 		for (String line: address) {
 			addressString += (line + ",");
 		}
@@ -123,12 +134,20 @@ public class User implements Serializable{
 		return addressString;
 	}
 	
+	
+	/**
+	 * Hash the password using a simple algorithm built
+	 * in to the Java String class.
+	 * @param password
+	 * @return passwordHash or error message
+	 */
 	protected String genreatePasswordHash(String password) {
 		String hashString = null;
 		//MessageDigest hashingAlgorithm = MessageDigest.getInstance("SHA-256");
 		//byte[] hashBytes = hashingAlgorithm.digest(password.getBytes());
 		// use hashCode method because it is easier to represent the result as a string
 		
+		// Use the String built-in, as it can easily be converted to a string, which the database expects
 		// This is insecure, easy to crack, and should not be used in a real-life situation
 		final String salt = "thisisarandomstring";
 		final String hashThis = salt + password;
@@ -136,9 +155,16 @@ public class User implements Serializable{
 		hashString = hashInt.toString();	
 		
 		if (hashString != null) return hashString;
-		return "HASHING FAILED";
+		return "HASHING FAILED"; // I don't think this should ever happen...
 	}
 	
+	
+	/**
+	 * hashes the input string, returns true if it
+	 * matches the passwordHash of the current instance
+	 * @param password
+	 * @return
+	 */
 	public boolean validateLogin(String password) {
 		// Check hash of a given password to that of a user object
 		String hashToTest = genreatePasswordHash(password);
@@ -146,6 +172,10 @@ public class User implements Serializable{
 		return false;
 	}
 	
+	
+	/**
+	 * Used for testing
+	 */
 	@Override
 	public String toString() {
 		// Print user details... used for testing constructors
@@ -157,6 +187,16 @@ public class User implements Serializable{
 		return userDetails;
 	}
 	
+	
+	/**
+	 * Creates a new row in the "GroupK_Accounts" database table, using the information
+	 * from the current User object
+	 * @param JDBCurl
+	 * @param JDBCusername
+	 * @param JDBCpassword
+	 * @return
+	 * @throws SQLException
+	 */
 	public boolean createNewUserInDatabase(String JDBCurl, String JDBCusername, String JDBCpassword) throws SQLException {
 		Connection con = null;
 		Statement stmt = null;
@@ -164,7 +204,7 @@ public class User implements Serializable{
 		try {
 			
 			// Open a connection to the database
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection(JDBCurl, JDBCusername, JDBCpassword);
 	        
 			// check if the current user already exists		
@@ -194,8 +234,9 @@ public class User implements Serializable{
 			addNewUser.setString(9, this.address[3]);
 			addNewUser.setString(10, this.addressString);
 			addNewUser.execute();
-			return true;
 			
+			// If there was no exception, return true
+			return true;
 		} catch (Exception e) {
 			// Return false if something goes wrong
 			e.printStackTrace();
@@ -206,7 +247,16 @@ public class User implements Serializable{
 			if (con != null) con.close();
 		}
 	}
-	
+
+
+/**
+ * Updates the row corresponding to an existing user in the table.
+ * The userID parameter can be read either from the database or a cookie
+ * before passing to this function
+ * @param userID
+ * @return
+ * @throws SQLException
+ */
 public boolean updateUserInDatabase(int userID) throws SQLException {
 	
 	Connection con = null;
@@ -217,12 +267,13 @@ public boolean updateUserInDatabase(int userID) throws SQLException {
 		con = DriverManager.getConnection(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);
 		stmt = con.createStatement();
 		
-		// Find existing user details based on email address
-		rs = stmt.executeQuery("SELECT * FROM GroupK_Accounts WHERE id='"+userID+"'");
-		while (rs.next()) {
-			System.out.println(rs.getString("email"));
-		}
+		// Find existing user details based on the userID parameter.
+		//rs = stmt.executeQuery("SELECT * FROM GroupK_Accounts WHERE id='"+userID+"'");
+		//while (rs.next()) {
+		//	System.out.println(rs.getString("email"));
+		//}
 		
+		// Update table based on ID with current user instance details
 		stmt.executeUpdate("UPDATE GroupK_Accounts SET"
 				+ " email='"+this.emailAddress+"',"
 				+ " firstname='"+this.firstname+"',"
@@ -235,8 +286,8 @@ public boolean updateUserInDatabase(int userID) throws SQLException {
 				+ " zipcode="+this.address[3]+","
 				+ " fullAddress='"+this.addressString+"'"
 				+ " WHERE id="+userID+";");
-		// Update table based on ID with current user instance details
 		
+		// return true if there was no exception
 		return true;
 	} catch (Exception e) {
 		e.printStackTrace();
@@ -248,6 +299,13 @@ public boolean updateUserInDatabase(int userID) throws SQLException {
 	}
 }
 
+
+/**
+ * Creates a cookie containing the user ID, and another
+ * that contains the email address
+ * @return
+ * @throws SQLException
+ */
 public Cookie[] createCookies() throws SQLException {
 	// creates cookies to store user information and returns them in an array
 	Cookie[] returnArray = new Cookie[2];
@@ -261,7 +319,7 @@ public Cookie[] createCookies() throws SQLException {
 	Statement stmt = null;
 	ResultSet rs = null;
 	try {
-		Class.forName("com.mysql.jdbc.Driver");
+		Class.forName("com.mysql.cj.jdbc.Driver");
 		con = DriverManager.getConnection(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);
 		stmt = con.createStatement();
 		rs = stmt.executeQuery("SELECT id FROM GroupK_Accounts WHERE email='"+this.emailAddress+"'");
