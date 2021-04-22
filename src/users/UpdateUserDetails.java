@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,33 +33,61 @@ public class UpdateUserDetails extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		response.setContentType("text/html");
 		
-		// Pull information from form at user.html
-		// First and Last name
-		String firstname = request.getParameter("fname");
-		String middlename = request.getParameter("mname");
-		if (middlename != null) firstname = firstname + " " + middlename;
-		String lastname = request.getParameter("lname");
+		try {
+			// Pull information from form at user.html
+			// First and Last name
+			String firstname = request.getParameter("fname");
+			String middlename = request.getParameter("mname");
+			if (middlename != null) firstname = firstname + " " + middlename;
+			String lastname = request.getParameter("lname");
+			
+			// Address
+			String[] address = new String[4];
+			address[0] = request.getParameter("address");
+			address[1] = request.getParameter("city");
+			address[2] = request.getParameter("country");
+			address[3] = request.getParameter("zipcode");
+			
+			// Phone number, email, and password
+			String phone = request.getParameter("mobile");
+			String email = request.getParameter("email_id");
+			String password = request.getParameter("password");
+			
+			//out.append("<p>"+address[0]+" "+address[1]+"</p>");
+			//out.append("<p>"+firstname+" "+lastname+"</p>");
+			
+			// Create new user object with this information
+			User updatedUser = new User(email, firstname, lastname, phone, password, address);
+			out.append(updatedUser.toString());
+			
+			// Get userID from cookie
+			Integer userID = null;
+			Cookie[] cookies = request.getCookies();
+			if (cookies != null) {
+				for (Cookie cookie: cookies) {
+					if (cookie.getName().equals("userID")) {
+						userID = Integer.parseInt(cookie.getValue());
+					}
+				}
+				
+			}
+
+			if (userID == null) {
+				// TODO Error out
+			} else {
+				// TODO update user in database with instance method
+			}
+			
+		} catch (Exception e) {
+			// TODO Error msg
+			e.printStackTrace();
+		} finally {
+			out.close();
+		}
 		
-		// Address
-		String[] address = new String[4];
-		address[0] = request.getParameter("address");
-		address[1] = request.getParameter("city");
-		address[2] = request.getParameter("country");
-		address[3] = request.getParameter("zipcode");
 		
-		// Phone number, email, and password
-		String phone = request.getParameter("mobile");
-		String email = request.getParameter("email_id");
-		String password = request.getParameter("password");
 		
-		//out.append("<p>"+address[0]+" "+address[1]+"</p>");
-		//out.append("<p>"+firstname+" "+lastname+"</p>");
 		
-		// Create new user object with this information
-		User updatedUser = new User(email, firstname, lastname, phone, password, address);
-		out.append(updatedUser.toString());
-		
-		// TODO update user in database with instance method
 	}
 
 	/**

@@ -215,10 +215,10 @@ public boolean updateUserInDatabase(int userID) throws SQLException {
 		stmt = con.createStatement();
 		
 		// Find existing user details based on email address
-		rs = stmt.executeQuery("SELECT * FROM GroupL_Accounts WHERE email-'"+this.emailAddress+"'");
+		rs = stmt.executeQuery("SELECT * FROM GroupL_Accounts WHERE id-'"+userID+"'");
 		while (rs.next()) {
-			// Get UserID
-		}
+			System.out.println(rs.toString());
+			}
 		
 		// Update table based on ID with current user instance details
 		
