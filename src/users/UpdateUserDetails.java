@@ -75,10 +75,10 @@ public class UpdateUserDetails extends HttpServlet {
 
 			if (userID == null) {
 				// TODO error and redirect
-				out.append("<p>No ID</p>");
+				out.append("<p>No ID; This means no user is logged in</p>");
 			} else {
 				if (updatedUser.updateUserInDatabase(userID)) {
-					
+					response.sendRedirect("home.html");
 				}
 			}
 			
