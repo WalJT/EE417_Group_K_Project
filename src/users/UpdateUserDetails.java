@@ -66,6 +66,7 @@ public class UpdateUserDetails extends HttpServlet {
 			if (cookies != null) {
 				for (Cookie cookie: cookies) {
 					if (cookie.getName().equals("userID")) {
+						System.out.println(cookie.getValue());
 						userID = Integer.parseInt(cookie.getValue());
 					}
 				}
@@ -73,9 +74,12 @@ public class UpdateUserDetails extends HttpServlet {
 			}
 
 			if (userID == null) {
-				// TODO Error out
+				// TODO error and redirect
+				out.append("<p>No ID; This means no user is logged in</p>");
 			} else {
-				// TODO update user in database with instance method
+				if (updatedUser.updateUserInDatabase(userID)) {
+					response.sendRedirect("home.html");
+				}
 			}
 			
 		} catch (Exception e) {
