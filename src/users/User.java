@@ -32,7 +32,7 @@ import settings.DatabaseConfig;
  * statement (java.sql.PreparedStatemnt) is used to add new user details to the DB,
  * returning true unless an exception is thrown.
  * 
- * TODO updateUserInDatabase
+ * TODO updateUserInDatabase ... Takes the userID (From database) as a parameter
  */
 public class User implements Serializable{
 
@@ -205,7 +205,7 @@ public class User implements Serializable{
 		}
 	}
 	
-public boolean updateUserInDatabase(String JDBCurl, String JDBCusername, String JDBCpassword) throws SQLException {
+public boolean updateUserInDatabase(int userID) throws SQLException {
 	
 	Connection con = null;
 	Statement stmt = null;
