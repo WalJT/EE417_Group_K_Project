@@ -47,7 +47,7 @@ public class UpdateUserDetails extends HttpServlet {
 			address[0] = request.getParameter("address");
 			address[1] = request.getParameter("city");
 			address[2] = request.getParameter("country");
-			address[3] = request.getParameter("zipcode");
+			address[3] = request.getParameter("Zip/Postal Code");
 			
 			// Phone number, email, and password
 			String phone = request.getParameter("mobile");
@@ -58,7 +58,7 @@ public class UpdateUserDetails extends HttpServlet {
 			//out.append("<p>"+firstname+" "+lastname+"</p>");
 			
 			// Check if any values are null
-			// first, create an arry of all the parameters
+			// first, create an array of all the parameters
 			String[] arrayOfParameters = {firstname,
 					lastname,
 					address[0],
@@ -77,9 +77,9 @@ public class UpdateUserDetails extends HttpServlet {
 					out.append("<p>A form field was empty or not read correctly</p>"
 							+ "Return to <a href='user.html'>the user account page</a>");
 					parametersValid = false;
-				//} else {
-				//	out.append(parameter);
-				//}
+				} else {
+					out.append(parameter);
+				}
 			}
 			
 			if (parametersValid) {

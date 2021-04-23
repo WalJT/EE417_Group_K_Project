@@ -56,7 +56,7 @@ public class User implements Serializable{
 	 * @param surname
 	 * @param password
 	 * @param address
-	 * Constructor using all parameters intend for new user signup
+	 * Constructor using all parameters intend for new user signup and updating details
 	 */
 	public User(String emailAddress, String firstname, String surname, String phone, String password, String[] address) {
 		this.emailAddress = emailAddress;
