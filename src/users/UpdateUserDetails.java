@@ -57,38 +57,65 @@ public class UpdateUserDetails extends HttpServlet {
 			//out.append("<p>"+address[0]+" "+address[1]+"</p>");
 			//out.append("<p>"+firstname+" "+lastname+"</p>");
 			
-			// TODO Check if any values are null
+			// Check if any values are null
+			// first, create an arry of all the parameters
+			String[] arrayOfParameters = {firstname,
+					lastname,
+					address[0],
+					address[1],
+					address[2],
+					address[3],
+					phone,
+					email,
+					password};
 			
-			// Create new user object with this information
-			User updatedUser = new User(email, firstname, lastname, phone, password, address);
-			//out.append(updatedUser.toString());
+			boolean parametersValid = true;
+			// now loop through the array and set the set parametersValid to false if any are null
+			for (String parameter: arrayOfParameters) {
+				
+				if (parameter == null) {
+					out.append("<p>A form field was empty or not read correctly</p>"
+							+ "Return to <a href='user.html'>the user account page</a>");
+					parametersValid = false;
+				//} else {
+				//	out.append(parameter);
+				//}
+			}
 			
-			// Get ID if currently signed in user from cookie
-			Integer userID = null;
-			Cookie[] cookies = request.getCookies();
-			if (cookies != null) {
-				for (Cookie cookie: cookies) {
-					if (cookie.getName().equals("userID")) {
-						System.out.println(cookie.getValue());
-						userID = Integer.parseInt(cookie.getValue());
+			if (parametersValid) {
+				// Create new user object with this information
+				User updatedUser = new User(email, firstname, lastname, phone, password, address);
+				//out.append(updatedUser.toString());
+				
+				// Get ID if currently signed in user from cookie
+				Integer userID = null;
+				Cookie[] cookies = request.getCookies();
+				if (cookies != null) {
+					for (Cookie cookie: cookies) {
+						if (cookie.getName().equals("userID")) {
+							System.out.println(cookie.getValue());
+							userID = Integer.parseInt(cookie.getValue());
+						}
+					}
+					
+				}
+
+				if (userID == null) {
+					// Print an error and prompt for a redirect
+					out.append("<p>No ID; This means no user is logged in"
+							+ "<br /><a href='login.html'>Go to the Login Page</a></p>");
+				} else {
+					if (updatedUser.updateUserInDatabase(userID)) {
+						response.sendRedirect("home.html");
+					} else {
+						// Print a different error if updating the database fails
+						out.append("<p>Something went wrong when trying to update the database<br />"
+								+ "Check the server logs for more details</p>");
 					}
 				}
-				
 			}
-
-			if (userID == null) {
-				// Print an error and prompt for a redirect
-				out.append("<p>No ID; This means no user is logged in"
-						+ "<br /><a href='login.html'>Go to the Login Page</a></p>");
-			} else {
-				if (updatedUser.updateUserInDatabase(userID)) {
-					response.sendRedirect("home.html");
-				} else {
-					// Print a different error if updating the database fails
-					out.append("<p>Something went wrong when trying to update the database<br />"
-							+ "Check the server logs for more details</p>");
-				}
-			}
+			
+			
 			
 		} catch (SQLException e) {
 			// Message for SQL Exception
