@@ -38,6 +38,7 @@ public class LogoutHandler extends HttpServlet {
 			if (cookies != null) {
 				for (Cookie cookie: cookies) {
 					cookie.setMaxAge(0);
+					//cookie.setValue(null);
 					response.addCookie(cookie);
 					System.out.println("A cooke was succesfully removed");
 				}
