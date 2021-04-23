@@ -19,9 +19,10 @@ function getCookie(name) {
 	}
 	
 </script>
-<script>
+<script>	
 window.onload = function(e){
-	if (getCookie("userID")!=null){
+	
+	if (getCookie("userID")!=null && getCookie("userID")!=''){
 		document.getElementById("Login").style["display"] = "none";
 		document.getElementById("SignUp").style["display"] = "none";								
 	}
@@ -29,9 +30,8 @@ window.onload = function(e){
 		document.getElementById("Admin").style["display"] = "block";
 		}
 	
-	if(getCookie("userID").toString()!="=0"  && getCookie("userID")!=null ){
+	if(getCookie("userID").toString()!="=0" && getCookie("userID")!=null && getCookie("userID")!=''){
 		document.getElementById("User").style["display"] = "block";
-			
 	}
 	if(localStorage.getItem("items")!=null){
 			document.getElementById("EmptyCart").className = "fas fa-cart-plus fa-lg";
