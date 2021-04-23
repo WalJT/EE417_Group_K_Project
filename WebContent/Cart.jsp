@@ -12,7 +12,7 @@ window.onload = function(e){
 		var uni=localStorage.getItem('unique');
 		var cart = JSON.parse(localStorage.getItem("Cart"));
 		var prices = JSON.parse(localStorage.getItem("Price"));
-		document.getElementById("order").value = JSON.stringify(cart);	
+		document.getElementById("order").value = cart;	
 		var quantity=[];
 			for(var i=0; i<uni;i++){
 				var amount = parseInt(localStorage.getItem(String(cart[i])));
@@ -33,7 +33,7 @@ window.onload = function(e){
 				
 				document.getElementById("items").innerHTML= html	
 	}
-		document.getElementById("quantity").value=JSON.stringify(quantity);
+		document.getElementById("quantity").value=quantity;
 	}
 	
 	
