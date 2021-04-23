@@ -21,7 +21,7 @@ public class StockDao {
 //	}
 	//reduce stocks when customer buy goods
 	public static boolean UpdateStock (Vector<Goods> goodList){
-		String sql = "UPDATE Goods SET amount = amount-? WHERE gid = ?";
+		String sql = "UPDATE Goods SET amount = amount-? WHERE gname = ?";
 		Connection conn = null;
 		try {
 			conn = DBConnection.getConnection();
@@ -30,9 +30,9 @@ public class StockDao {
 				Goods good = goodList.get(i);
 				int num = good.getAmount();
 				pStmt.setInt(1, num);
-				pStmt.setInt(2, good.getGid());
+				pStmt.setString(2, good.getGname());
 				pStmt.addBatch();
-			}
+			} 
 			pStmt.executeBatch();
 			pStmt.close();
 			conn.close();

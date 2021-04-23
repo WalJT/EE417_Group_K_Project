@@ -9,28 +9,31 @@
 <script>
 window.onload = function(e){
 	if(localStorage.getItem('unique')!=null){
-	var uni=localStorage.getItem('unique');
-	var cart = JSON.parse(localStorage.getItem("Cart"));
-	var prices = JSON.parse(localStorage.getItem("Price"));
-	for(var i=0; i<uni;i++){
-	var amount = parseInt(localStorage.getItem(String(cart[i])));
-	total=parseInt(prices[i])*amount;
-	if(cart[i].includes("camera")){var num =65;}
-	else if(cart[i].includes("Phone")){var num =70;}
-	else if(cart[i].includes("Electronic")){var num =45;}
-	else if(cart[i].includes("LargeAppliance")){var num =15;}
-	html=document.getElementById("items").innerHTML;
-	html +='<table><div class = "newItem">'+'<tr>'+'<td style = "padding: 0 90px;">'+
-	'<br>'+cart[i]+'<br>'
-	+'<button class="removeButton">Remove</button>'+'</td>'+
-	'<td style = "padding: 0 '+num+'px;"><input type="number" class="quantity" name="quantity" value="'+amount+'" min="1" max="500"></td>'+
-	'<td style = "padding: 0 70px;" class="price">'+" "+prices[i]+" "+'</td>'+'<td style = "padding: 0 70px;"><input type="number" class="itemTotalPrice" value="'+total+'" disabled="true"></td>'
-	+'</tr>'
-	+'</div></table>';
+		var uni=localStorage.getItem('unique');
+		var cart = JSON.parse(localStorage.getItem("Cart"));
+		var prices = JSON.parse(localStorage.getItem("Price"));
+		document.getElementById("order").value = cart;	
+		var quantity=[];
+			for(var i=0; i<uni;i++){
+				var amount = parseInt(localStorage.getItem(String(cart[i])));
+				quantity[i]=amount;
+				total=parseInt(prices[i])*amount;
+					if(cart[i].includes("camera")){var num =65;}
+					else if(cart[i].includes("Phone")){var num =70;}
+					else if(cart[i].includes("Electronic")){var num =45;}
+					else if(cart[i].includes("LargeAppliance")){var num =15;}
+				html=document.getElementById("items").innerHTML;
+				html +='<table><div class = "newItem">'+'<tr>'+'<td style = "padding: 0 90px;">'+
+				'<br>'+cart[i]+'<br>'
+				+'<button class="removeButton">Remove</button>'+'</td>'+
+				'<td style = "padding: 0 '+num+'px;"><input type="number" class="quantity" name="quantity" value="'+amount+'" min="1" max="500"></td>'+
+				'<td style = "padding: 0 70px;" class="price">'+" "+prices[i]+" "+'</td>'+'<td style = "padding: 0 70px;"><input type="number" class="itemTotalPrice" value="'+total+'" disabled="true"></td>'
+				+'</tr>'
+				+'</div></table>';
 				
-	document.getElementById("items").innerHTML= html	
+				document.getElementById("items").innerHTML= html	
 	}
-	
+		document.getElementById("quantity").value=quantity;
 	}
 	
 	
@@ -52,7 +55,7 @@ window.onload = function(e){
         <!-- Shopping cart -->
         <div class="cartContainer">
 
-        <button class="checkoutButton">CHECKOUT ></button>
+        <button class="checkoutButton" onclick='document.getElementById("cartform").submit();alert("Your Order was Placed!");'>CHECKOUT ></button>
 
         <!--Table-->
         <table id="cart">
@@ -102,13 +105,17 @@ window.onload = function(e){
 
         </div>
 	
-        <button class="checkoutButton">CHECKOUT ></button>
+        <button class="checkoutButton" onclick='document.getElementById("cartform").submit();alert("Your Order was Placed!");'>CHECKOUT ></button>
 
         </div>
 
         <button class="contShoppingButton">< CONTINUE SHOPPING</button>
 
     </div>
+    <form style="display: none" id="cartform" method="POST"action="OrderServlet" name="cartform">
+						<input id="order" type="hidden" value=''/>
+						<input id="quantity" type="hidden" value=''/>
+	</form>
 
     <script src="cart_js.js"></script>
 
