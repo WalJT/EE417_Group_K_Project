@@ -65,8 +65,8 @@
      <div>
        
 <sql:setDataSource var = "table" driver = "com.mysql.jdbc.Driver"
-         url = "jdbc:mysql://localhost:3306/Mysql"
-         user = "root"  password = "root"/><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
+         url = "jdbc:mysql://groupk.ccuoxucn9lr2.us-east-2.rds.amazonaws.com:3306/GroupKDB"
+         user = "groupkdb"  password = "groupk123"/><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
  
       <sql:query dataSource = "${table}" var = "result">
       SELECT id,firstname,lastname,email,psd,phone,adress,city,zipcode FROM sys.GroupK_Accounts</sql:query><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
