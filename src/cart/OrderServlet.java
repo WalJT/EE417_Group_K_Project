@@ -2,6 +2,8 @@ package cart;
 
 import group.dao.*;
 import group.entity.*;
+import users.*;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Vector;
@@ -20,6 +22,7 @@ import javax.servlet.http.Cookie;
 @WebServlet("/OrderServlet")
 public class OrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String[] Cookie = null;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -43,6 +46,12 @@ public class OrderServlet extends HttpServlet {
 		OrderItem newOrderItem=null;
 		Vector<Goods> goodList=null;
 		Goods newGood=null;
+		String email;
+		
+		Cookie[] uCookie = request.getCookies();
+		email=Cookie[0];
+		User newuser= new User(email);
+		
 		
 		for(int i=0;i<ItemList.size();i++)				//fill the goodlist to manage the stock
 		{
@@ -61,11 +70,19 @@ public class OrderServlet extends HttpServlet {
 		{
 			out.print("error");
 		}
-		StockDao.UpdateStock (goodList);	    //Update the stock
+		StockDao.UpdateStock(goodList);	    //Update the stock
 	    
 		
 	    //TO DO link the user information's with the Order
-	    
+	
+		
+		
+		newOrder.setAddress(String.join(" ", newuser.getAddress()));
+		newOrder.setPhone(newuser.getPhone());
+		newOrder.setEmail(newuser.getEmailAddress());
+		newOrder.setFirstName(newuser.getFirstname());
+		
+		OrderDao.insertOrder(newOrder);
 	    
 	  
 	    
