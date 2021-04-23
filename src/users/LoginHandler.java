@@ -37,6 +37,10 @@ public class LoginHandler extends HttpServlet {
 			String userEmail = request.getParameter("username");
 			String password = request.getParameter("password");
 			
+			if (userEmail.equals("") || password.equals("")) {
+				response.sendRedirect("login.html");
+			}
+			
 			// Create a new user using the email address,
 			// this constructor pulls the rest of the information from the database
 			User userToLogin = new User(userEmail);
