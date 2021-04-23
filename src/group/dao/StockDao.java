@@ -20,7 +20,7 @@ public class StockDao {
 //		new StockDao().UpdateStock(goodList);
 //	}
 	//reduce stocks when customer buy goods
-	public boolean UpdateStock (Vector<Goods> goodList){
+	public static boolean UpdateStock (Vector<Goods> goodList){
 		String sql = "UPDATE Goods SET amount = amount-? WHERE gid = ?";
 		Connection conn = null;
 		try {
