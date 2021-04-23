@@ -41,16 +41,19 @@ public class LoginHandler extends HttpServlet {
 			// this constructor pulls the rest of the information from the database
 			User userToLogin = new User(userEmail);
 			
-			// Check to see if the password was valid,
-			// if it is, set cookies and redirect
-			if (userToLogin.validateLogin(password)) {
+			// Check if a state (any state) if the user is null.. this happens if the email is incorrect
+			if (userToLogin.getFirstname() == null) {	
+				out.append("<p>Invalid username (Email address); return to <a href='login.html'>login page</a></p>");
+			} else if (userToLogin.validateLogin(password)) {
+				// Check to see if the password was valid,
+				// if it is, set cookies and redirect
 				Cookie[] newCookies = userToLogin.createCookies();
 				response.addCookie(newCookies[0]);
 				response.addCookie(newCookies[1]);
 				response.sendRedirect("home.html");
 			} else {
 				// Notify user if password was wrong
-				out.append("Wrong Password; return to <a href='login.html'>login page</a>");
+				out.append("<p>Wrong Password; return to <a href='login.html'>login page</a></p>");
 			}
 			
 		} catch (Exception e) {
