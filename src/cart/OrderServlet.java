@@ -6,7 +6,7 @@ import users.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Vector;
+import java.util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,13 +16,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Cookie;
 
+
+
 /**
  * Servlet implementation class OrderServlet
  */
 @WebServlet("/OrderServlet")
 public class OrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String[] Cookie = null;
+	
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -37,32 +39,45 @@ public class OrderServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		HttpSession session = request.getSession();
+		
+		String order[]= request.getParameterValues("order");
+		String quantity[]= request.getParameterValues("quantity");
+		
+		
 		PrintWriter out = response.getWriter();
-		Order newOrder=null;
+		Order newOrder= new Order();
 		newOrder.setOrderId(OrderDao.createOrderId());
 		
-		Vector<OrderItem> ItemList= (Vector<OrderItem>) session.getAttribute("cart");	//get the cart of the session
-		OrderItem newOrderItem=null;
-		Vector<Goods> goodList=null;
-		Goods newGood=null;
-		String email;
+		
+		Vector<OrderItem> ItemList= new Vector<OrderItem>();
+		OrderItem newOrderItem= new OrderItem();
+		
+		Vector<Goods> goodList= new Vector<Goods>();
+		Goods newGood= new Goods();
+		
 		
 		Cookie[] uCookie = request.getCookies();
-		email=Cookie[0];
-		User newuser= new User(email);
+		User newuser= new User(uCookie[0].getValue());
 		
-		
-		for(int i=0;i<ItemList.size();i++)				//fill the goodlist to manage the stock
-		{
-			newGood.setGid(ItemList.elementAt(i).getGid());			
+		for(int i=0;i<order.length;i++)
+		{	
+			newGood.setGname(order[i]);
+			newOrderItem.setGname(order[i]);
+			
+			newGood.setAmount(Integer.valueOf(quantity[i]));
+			newOrderItem.setAmount(Integer.valueOf(quantity[i]));
+			
+			newOrderItem.setOrderId(newOrder.getOrderId());
+			newOrderItem.setId(Integer.parseInt(OrderDao.createOrderId()));
+			
 			goodList.add(newGood);
+			ItemList.add(newOrderItem);
 		}
 		
 		
 		
 		
-		if(OrderItemDao.insertOrderItem(ItemList))		//create all the orderitem (stock them in the DB) 
+		if(OrderItemDao.insertOrderItem(ItemList))		//create all the order (stock them in the DB) 
 		{
 			out.print("Order complete");
 		}
@@ -70,12 +85,7 @@ public class OrderServlet extends HttpServlet {
 		{
 			out.print("error");
 		}
-		StockDao.UpdateStock(goodList);	    //Update the stock
-	    
-		
-	    //TO DO link the user information's with the Order
-	
-		
+		StockDao.UpdateStock(goodList);	    //Update the stock	
 		
 		newOrder.setAddress(String.join(" ", newuser.getAddress()));
 		newOrder.setPhone(newuser.getPhone());
