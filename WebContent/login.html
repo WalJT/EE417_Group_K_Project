@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<script src="https://kit.fontawesome.com/0207abde13.js"crossorigin="anonymous"></script>
+<script>
+window.onload = function(e){
+	if (getCookie("userID")!=null){
+		document.getElementById("Login").style["display"] = "none";
+		document.getElementById("SignUp").style["display"] = "none";								
+	}
+	if(getCookie("userID")=="0"){
+		document.getElementById("Admin").style["display"] = "block";
+		}
+	
+	if(getCookie("userID")!=0 && getCookie("userID")!=null ){
+		document.getElementById("User").style["display"] = "block";
+			
+	}
+		
+} 
+</script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +40,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ml-auto">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-end w-100">
                 <li class="nav-item">
                     <a class="nav-link active text-light" href="home.html">Home</a>
                 </li>
@@ -32,18 +49,14 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-light" href="./about.html">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="login.html">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="signup.html">Sign_up</a>
-                </li>
-            </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+                </li>               
+                    <li class="nav-item">
+                        <a class="nav-link text-light" id="SignUp" href="signup.html">Sign Up</a>
+                    </li>                   
+                </ul>                             
+                <li style="float: right" class="nav-item">
+                        <a class="nav-link text-light"  href="Cart.jsp"><i id="EmptyCart" class="fas fa-shopping-cart fa-lg"></i></a>
+               </li>
         </div>
     </div>
 </nav>

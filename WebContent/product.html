@@ -2,16 +2,34 @@
 <html lang="en">
 <script src="https://kit.fontawesome.com/0207abde13.js"crossorigin="anonymous"></script>
 <script>
+function getCookie(name) {
+	  var str = name + "=";
+	  var cstr = decodeURIComponent(document.cookie);
+	  var c = cstr.split(';');
+	  for(var i = 0; i <c.length; i++) {
+	    var cookie = c[i];
+	    while (cookie.charAt(0) == ' ') {
+	      cookie  = cookie.substring(1);
+	    }
+	    if (cookie.indexOf(name) == 0) {
+	      return cookie.substring(name.length, cookie.length);
+	    }
+	  }
+	  return "";
+	}
+	
+</script>
+<script>
 window.onload = function(e){
 	if (getCookie("userID")!=null){
 		document.getElementById("Login").style["display"] = "none";
 		document.getElementById("SignUp").style["display"] = "none";								
 	}
-	if(getCookie("userID")=="0"){
+	if(getCookie("userID").toString()=="=0"){
 		document.getElementById("Admin").style["display"] = "block";
 		}
 	
-	if(getCookie("userID")!=0 && getCookie("userID")!=null ){
+	if(getCookie("userID").toString()!="=0" && getCookie("userID")!=null ){
 		document.getElementById("User").style["display"] = "block";
 			
 	}
