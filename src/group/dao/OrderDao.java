@@ -16,7 +16,7 @@ public class OrderDao {//create new order,put information of customer in DB
 		System.out.print(b);
 	}
 	
-	public boolean insertOrder(Order order) {
+	public static boolean insertOrder(Order order) {
 		String sql = "insert into `order` values(?,?,?,?,?,?,?,?,?,?)";
 		Connection conn = null;
 		try {
