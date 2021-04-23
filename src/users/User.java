@@ -39,12 +39,12 @@ public class User implements Serializable{
 
 	private static final long serialVersionUID = 2063583864503068064L;
 
-	protected String emailAddress;
-	protected String firstname;
+	private String emailAddress;
+	private String firstname;
 	protected String surname;
-	protected String phone;
+	private String phone;
 	protected String passwordHash;
-	protected String[] address;
+	private String[] address;
 	protected String addressString;
 	
 	public User() {}
@@ -59,11 +59,11 @@ public class User implements Serializable{
 	 * Constructor using all parameters intend for new user signup and updating details
 	 */
 	public User(String emailAddress, String firstname, String surname, String phone, String password, String[] address) {
-		this.emailAddress = emailAddress;
-		this.firstname = firstname;
+		this.setEmailAddress(emailAddress);
+		this.setFirstname(firstname);
 		this.surname = surname;
-		this.phone = phone;
-		this.address = address;
+		this.setPhone(phone);
+		this.setAddress(address);
 		this.passwordHash = genreatePasswordHash(password);
 		this.addressString = stringifyAddress(address);
 	}
@@ -83,25 +83,25 @@ public class User implements Serializable{
 		ResultSet rs = null;
 		try {
 			// Set the email address from parameter
-			this.emailAddress = emailAddress;
+			this.setEmailAddress(emailAddress);
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);
 			stmt = con.createStatement();
 			
 			// Set up address array
-			this.address = new String[4];
+			this.setAddress(new String[4]);
 			
 			// Pull user information from database into the relevant state variables
 			rs = stmt.executeQuery("SELECT * FROM GroupK_Accounts WHERE email='"+emailAddress+"'");
 			while (rs.next()) {
-				this.firstname = rs.getString("firstname");
+				this.setFirstname(rs.getString("firstname"));
 				this.surname = rs.getString("lastname");
 				this.passwordHash = rs.getString("psd");
-				this.phone = rs.getString("phone");
-				this.address[0] = rs.getString("adress");
-				this.address[1] = rs.getString("city");
-				this.address[2] = rs.getString("country");
-				this.address[3] = Integer.toString(rs.getInt("zipcode"));
+				this.setPhone(rs.getString("phone"));
+				this.getAddress()[0] = rs.getString("adress");
+				this.getAddress()[1] = rs.getString("city");
+				this.getAddress()[2] = rs.getString("country");
+				this.getAddress()[3] = Integer.toString(rs.getInt("zipcode"));
 				this.addressString = rs.getString("fullAddress");
 			}
 		} catch (Exception e) {
@@ -180,8 +180,8 @@ public class User implements Serializable{
 	public String toString() {
 		// Print user details... used for testing constructors
 		String userDetails;
-		userDetails = "Details of user (customer or admin) " + this.firstname + " " + this.surname + ":\n";
-		userDetails += ("\t-> Email Address: " + emailAddress +"\n");
+		userDetails = "Details of user (customer or admin) " + this.getFirstname() + " " + this.surname + ":\n";
+		userDetails += ("\t-> Email Address: " + getEmailAddress() +"\n");
 		userDetails += "\t-> Shipping Address: " + addressString +"\n";
 		userDetails += "\t-> Password Hash: " + passwordHash;
 		return userDetails;
@@ -211,7 +211,7 @@ public class User implements Serializable{
 			stmt = con.createStatement();
 			rs = stmt.executeQuery("select email from GroupK_Accounts");
 			while (rs.next()) {
-				if (rs.getString("email").equals(this.emailAddress)) {
+				if (rs.getString("email").equals(this.getEmailAddress())) {
 					// Return false if user already exists
 					return false;				
 				}
@@ -223,15 +223,15 @@ public class User implements Serializable{
 				"INSERT INTO GroupK_Accounts (firstname,lastname,email,psd,phone,adress,city,country,zipcode,fullAddress) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
 			);
 			addNewUser.clearParameters();
-			addNewUser.setString(1, this.firstname);
+			addNewUser.setString(1, this.getFirstname());
 			addNewUser.setString(2, this.surname);
-			addNewUser.setString(3, this.emailAddress);
+			addNewUser.setString(3, this.getEmailAddress());
 			addNewUser.setString(4, this.passwordHash);
-			addNewUser.setString(5, this.phone);
-			addNewUser.setString(6, this.address[0]);
-			addNewUser.setString(7, this.address[1]);
-			addNewUser.setString(8, this.address[2]);
-			addNewUser.setString(9, this.address[3]);
+			addNewUser.setString(5, this.getPhone());
+			addNewUser.setString(6, this.getAddress()[0]);
+			addNewUser.setString(7, this.getAddress()[1]);
+			addNewUser.setString(8, this.getAddress()[2]);
+			addNewUser.setString(9, this.getAddress()[3]);
 			addNewUser.setString(10, this.addressString);
 			addNewUser.execute();
 			
@@ -275,15 +275,15 @@ public boolean updateUserInDatabase(int userID) throws SQLException {
 		
 		// Update table based on ID with current user instance details
 		stmt.executeUpdate("UPDATE GroupK_Accounts SET"
-				+ " email='"+this.emailAddress+"',"
-				+ " firstname='"+this.firstname+"',"
+				+ " email='"+this.getEmailAddress()+"',"
+				+ " firstname='"+this.getFirstname()+"',"
 				+ " lastname='"+this.surname+"',"
 				+ " psd='"+this.passwordHash+"',"
-				+ " phone='"+this.phone+"',"
-				+ " adress='"+this.address[0]+"',"
-				+ " city='"+this.address[1]+"',"
-				+ " country='"+this.address[2]+"',"
-				+ " zipcode="+this.address[3]+","
+				+ " phone='"+this.getPhone()+"',"
+				+ " adress='"+this.getAddress()[0]+"',"
+				+ " city='"+this.getAddress()[1]+"',"
+				+ " country='"+this.getAddress()[2]+"',"
+				+ " zipcode="+this.getAddress()[3]+","
 				+ " fullAddress='"+this.addressString+"'"
 				+ " WHERE id="+userID+";");
 		
@@ -310,7 +310,7 @@ public Cookie[] createCookies() throws SQLException {
 	// creates cookies to store user information and returns them in an array
 	Cookie[] returnArray = new Cookie[2];
 	// userEmail cookie to store the email address
-	Cookie userEmailCookie = new Cookie("userEmail", this.emailAddress);
+	Cookie userEmailCookie = new Cookie("userEmail", this.getEmailAddress());
 	returnArray[0] = userEmailCookie;
 	
 	// userIDCookie to store the id number.. this has to be extracted from the database
@@ -322,7 +322,7 @@ public Cookie[] createCookies() throws SQLException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		con = DriverManager.getConnection(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);
 		stmt = con.createStatement();
-		rs = stmt.executeQuery("SELECT id FROM GroupK_Accounts WHERE email='"+this.emailAddress+"'");
+		rs = stmt.executeQuery("SELECT id FROM GroupK_Accounts WHERE email='"+this.getEmailAddress()+"'");
 		while (rs.next()) {
 			int theID = rs.getInt("id");
 			userIDCookie = new Cookie("userID", Integer.toString(theID));
@@ -338,6 +338,46 @@ public Cookie[] createCookies() throws SQLException {
 	
 	returnArray[1] = userIDCookie;
 	return returnArray;
+}
+
+
+public String[] getAddress() {
+	return address;
+}
+
+
+public void setAddress(String[] address) {
+	this.address = address;
+}
+
+
+public String getPhone() {
+	return phone;
+}
+
+
+public void setPhone(String phone) {
+	this.phone = phone;
+}
+
+
+public String getEmailAddress() {
+	return emailAddress;
+}
+
+
+public void setEmailAddress(String emailAddress) {
+	this.emailAddress = emailAddress;
+}
+
+
+public String getFirstname() {
+	return firstname;
+}
+
+
+public void setFirstname(String firstname) {
+	this.firstname = firstname;
 }
 
 }
