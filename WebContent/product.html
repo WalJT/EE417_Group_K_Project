@@ -1,5 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="https://kit.fontawesome.com/0207abde13.js"crossorigin="anonymous"></script>
+<script>
+window.onload = function(e){
+	if (getCookie("userID")!=null){
+		document.getElementById("Login").style["display"] = "none";
+		document.getElementById("SignUp").style["display"] = "none";								
+	}
+	if(getCookie("userID")=="0"){
+		document.getElementById("Admin").style["display"] = "block";
+		}
+	
+	if(getCookie("userID")!=0 && getCookie("userID")!=null ){
+		document.getElementById("User").style["display"] = "block";
+			
+	}
+	if(localStorage.getItem("items")!=null){
+		document.getElementById("EmptyCart").className = "fas fa-cart-plus fa-lg";
+	}
+		
+} 
+</script>
 
 <head>
     <meta charset="UTF-8">
@@ -17,7 +38,7 @@
     <nav class="navbar navbar-expand-md navbar-light" style="background-color: #33383b;">
         <div class="container-fluid">
             <a class="navbar-brand" href="home.html">
-                <h3 class="text-light">Electronics<span class="prime">Shopping</span></h3>
+                <h3 class="text-light">ELECTRONICS<span class="prime">Shopping</span></h3>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -33,6 +54,23 @@
                     <li class="nav-item">
                         <a class="nav-link text-light" href="./about.html">About Us</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" id="Login" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" id="SignUp" href="signup.html">Sign Up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a style= "display: none" class="nav-link text-light" id="User" href="user.html">User</a>
+                    </li>
+					<li class="nav-item">
+                        <a style= "display: none" class="nav-link text-light" id="Admin" href="Admin.jsp">Admin</a>
+                    </li>
+                </ul>             
+                <ul>
+                <li style="float: right" class="nav-item">
+                        <a class="nav-link text-light"  href="Cart.jsp"><i id="EmptyCart" class="fas fa-shopping-cart fa-lg"></i></a>
+               </li> 
                 </ul>
             </div>
         </div>
