@@ -22,7 +22,7 @@ public class OrderItemDao {
 //		new OrderItemDao().insertOrderItem(itemList);
 //	}
 	
-	public boolean insertOrderItem(Vector<OrderItem> itemList) {
+	public static boolean insertOrderItem(Vector<OrderItem> itemList) {
 		String sql = "insert into order_item values(?,?,?,?,?,?)";
 		Connection conn = null;
 		try {
