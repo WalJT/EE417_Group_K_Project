@@ -33,6 +33,8 @@ public class RecoverPassword extends HttpServlet {
 		response.setContentType("text/html");
 		
 		// TODO get email address
+		String email = request.getParameter("username");
+		out.append(email);
 		
 		// TODO demonstrate java.mail?
 		
