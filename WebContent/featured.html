@@ -1,8 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-<script src="https://kit.fontawesome.com/0207abde13.js"crossorigin="anonymous"></script>
-<script src="User_js.js"></script>
-<script src="DynamicCart_js.js"></script>
+<script src="https://kit.fontawesome.com/0207abde13.js" crossorigin="anonymous"></script>
+<script>
+    function getCookie(name) {
+        var str = name + "=";
+        var cstr = decodeURIComponent(document.cookie);
+        var c = cstr.split(';');
+        for (var i = 0; i < c.length; i++) {
+            var cookie = c[i];
+            while (cookie.charAt(0) == ' ') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(name) == 0) {
+                return cookie.substring(name.length, cookie.length);
+            }
+        }
+        return "";
+    }
+</script>
+<script>
+    window.onload = function(e) {
+        if (getCookie("userID") != null) {
+            document.getElementById("Login").style["display"] = "none";
+            document.getElementById("SignUp").style["display"] = "none";
+        }
+        if (getCookie("userID").toString() == "=0") {
+            document.getElementById("Admin").style["display"] = "block";
+        }
+
+        if (getCookie("userID").toString() != "=0" && getCookie("userID") != null) {
+            document.getElementById("User").style["display"] = "block";
+
+        }
+        if (localStorage.getItem("items") != null) {
+            document.getElementById("EmptyCart").className = "fas fa-cart-plus fa-lg";
+        }
+
+    }
+</script>
+<script>
+    function addItem() {
+        if (localStorage.getItem("items") == null) {
+            localStorage.setItem("items", 0);
+            document.getElementById("EmptyCart").className = "fas fa-cart-plus fa-lg";
+        } else if (localStorage.getItem("items") != null) {
+            var items = parseInt(localStorage.getItem("items"));
+            items = items + 1;
+            localStorage.setItem("items", items);
+        }
+    }
+</script>
+
+<script>
+    function Add_to_Cart(item, price) {
+        addItem();
+        if (localStorage.getItem("Cart") == null) {
+            var cart = [];
+            var prices = [];
+            cart[0] = item;
+            prices[0] = price;
+            localStorage.setItem(String(item), 1);
+            localStorage.setItem('unique', 1);
+            localStorage.setItem("Cart", JSON.stringify(cart));
+            localStorage.setItem("Price", JSON.stringify(prices));
+        } else if (localStorage.getItem("items") != null) {
+            var items = localStorage.getItem("items");
+            var cart = JSON.parse(localStorage.getItem("Cart"));
+            var prices = JSON.parse(localStorage.getItem("Price"));
+
+            for (var i = 0; i <= items; i++) {
+                if (localStorage.getItem(String(item)) == null) {
+                    localStorage.setItem(String(item), 1);
+                    var uni = parseInt(localStorage.getItem('unique'));
+                    uni = uni + 1;
+                    localStorage.setItem('unique', uni);
+                    cart[uni - 1] = item;
+                    localStorage.setItem("Cart", JSON.stringify(cart));
+                    prices[uni - 1] = price;
+                    localStorage.setItem("Price", JSON.stringify(prices));
+                    break;
+                } else if (localStorage.getItem(String(item)) != null) {
+                    if (String(cart[i]) == String(item)) {
+                        var amount = parseInt(localStorage.getItem(String(item)));
+                        amount = amount + 1;
+                        localStorage.setItem(String(item), amount);
+                        break;
+                    }
+                }
+            }
+
+        }
+    }
+</script>
+<script>
+    function Product(item, price) {
+        localStorage.setItem("product", item);
+        localStorage.setItem("product_price", price);
+
+    }
+</script>
 
 <head>
     <meta charset="UTF-8">
@@ -42,19 +138,17 @@
                         <a class="nav-link text-light" id="SignUp" href="signup.html">Sign Up</a>
                     </li>
                     <li class="nav-item">
-                        <a style= "display: none" class="nav-link text-light" id="User" href="user.html">User</a>
+                        <a style="display: none" class="nav-link text-light" id="User" href="user.html">User</a>
                     </li>
-					<li class="nav-item">
-                        <a style= "display: none" class="nav-link text-light" id="Admin" href="Admin.jsp">Admin</a>
+                    <li class="nav-item">
+                        <a style="display: none" class="nav-link text-light" id="Admin" href="Admin.jsp">Admin</a>
                     </li>
+                </ul>
+                <ul>
                     <li style="float: right" class="nav-item">
-                        <a class="nav-link text-light"  href="cart.html"><i id="EmptyCart" class="fas fa-shopping-cart fa-lg"></i></a>
-               </li>
-               <li class="nav-item" >
-                    <a style= "display: none" id="logout" href="LogoutHandler" class="nav-link text-light">Logout<i class="fas fa-sign-out-alt fa-sm"> </i></a>
-               	</li>
-                </ul>             
-                
+                        <a class="nav-link text-light" href="Cart.jsp"><i id="EmptyCart" class="fas fa-shopping-cart fa-lg"></i></a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
@@ -68,68 +162,52 @@
             </div>
             <div class="row mb-3">
                 <div class="card col-12 col-sm-6 col-md-4 col-lg-3">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#868e96"></rect>
-                        <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Placeholder</text>
-                    </svg>
+                    <img src="images/bluetooth headphones.jfif" width="400" height="200">
                     <div class="card-body">
-                            <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html" onclick="Product(document.getElementById('camera1').value,document.getElementById('c1_amount').value)" >more info</a>                            
-                            	<input type="hidden" id= "camera1" name="camera1" value="camera1"/>
-                            	<input type="hidden" id= "c1_amount" name="c1_amount" value=100 />	
-                            	<span class="badge bg-primary">50%OFF</span>
-							    <button onclick="Add_to_Cart(document.getElementById('camera1').value,document.getElementById('c1_amount').value)" >Add to Cart</button>                                         
-                        </div>
-                    
+                        <p class="card-text">product 1.</p>
+                        <a href="./product.html" onclick="Product(document.getElementById('camera1').value,document.getElementById('c1_amount').value)">more info</a>
+                        <input type="hidden" id="camera1" name="camera1" value="camera1" />
+                        <input type="hidden" id="c1_amount" name="c1_amount" value=100 />
+                        <span class="badge bg-primary">50%OFF</span>
+                        <button onclick="Add_to_Cart(document.getElementById('camera1').value,document.getElementById('c1_amount').value)">Add to Cart</button>
+                    </div>
+
                 </div>
                 <div class="card col-12 col-sm-6 col-md-4 col-lg-3">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#868e96"></rect>
-                        <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Placeholder</text>
-                    </svg>
+                    <img src="images/iphone.jfif" width="400" height="200">
                     <div class="card-body">
-                            <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html"onclick="Product(document.getElementById('camera2').value,document.getElementById('c2_amount').value)">more info</a>
-                            <input type="hidden" id= "camera2" name="camera2" value="camera2"/>
-                            	<input type="hidden" id= "c2_amount" name="c2_amount" value=200 />
-                            	<span class="badge bg-danger">75%OFF</span>	
-							    <button onclick="Add_to_Cart(document.getElementById('camera2').value,document.getElementById('c2_amount').value)" >Add to Cart</button> 
-                        </div>
-                     
+                        <p class="card-text">product 2.</p>
+                        <a href="./product.html" onclick="Product(document.getElementById('camera2').value,document.getElementById('c2_amount').value)">more info</a>
+                        <input type="hidden" id="camera2" name="camera2" value="camera2" />
+                        <input type="hidden" id="c2_amount" name="c2_amount" value=200 />
+                        <span class="badge bg-danger">75%OFF</span>
+                        <button onclick="Add_to_Cart(document.getElementById('camera2').value,document.getElementById('c2_amount').value)">Add to Cart</button>
+                    </div>
+
                 </div>
                 <div class="card col-12 col-sm-6 col-md-4 col-lg-3">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#868e96"></rect>
-                        <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Placeholder</text>
-                    </svg>
+                    <img src="images/logitech.jfif" width="400" height="200">
                     <div class="card-body">
-                            <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html" onclick="Product(document.getElementById('camera3').value,document.getElementById('c3_amount').value)">more info</a>
-                            <input type="hidden" id= "camera3" name="camera3" value="camera3"/>
-                            	<input type="hidden" id= "c3_amount" name="c3_amount" value=300 />	
-                            	<span class="badge bg-warning">35%OFF</span>
-							    <button onclick="Add_to_Cart(document.getElementById('camera3').value,document.getElementById('c3_amount').value)" >Add to Cart</button> 
-                        </div>
-                     
+                        <p class="card-text">product 3.</p>
+                        <a href="./product.html" onclick="Product(document.getElementById('camera3').value,document.getElementById('c3_amount').value)">more info</a>
+                        <input type="hidden" id="camera3" name="camera3" value="camera3" />
+                        <input type="hidden" id="c3_amount" name="c3_amount" value=300 />
+                        <span class="badge bg-warning">35%OFF</span>
+                        <button onclick="Add_to_Cart(document.getElementById('camera3').value,document.getElementById('c3_amount').value)">Add to Cart</button>
+                    </div>
+
                 </div>
                 <div class="card col-12 col-sm-6 col-md-4 col-lg-3">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#868e96"></rect>
-                        <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Placeholder</text>
-                    </svg>
+                    <img src="images/refrigerator.jfif" width="400" height="200">
                     <div class="card-body">
-                            <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html" onclick="Product(document.getElementById('camera4').value,document.getElementById('c4_amount').value)">more info</a>
-                            <input type="hidden" id= "camera4" name="camera4" value="camera4"/>
-                            	<input type="hidden" id= "c4_amount" name="c4_amount" value=400 />	
-                            	<span class="badge bg-secondary">90%OFF</span>
-							    <button onclick="Add_to_Cart(document.getElementById('camera4').value,document.getElementById('c4_amount').value)" >Add to Cart</button> 
-                        </div>
-                     
+                        <p class="card-text">product 4.</p>
+                        <a href="./product.html" onclick="Product(document.getElementById('camera4').value,document.getElementById('c4_amount').value)">more info</a>
+                        <input type="hidden" id="camera4" name="camera4" value="camera4" />
+                        <input type="hidden" id="c4_amount" name="c4_amount" value=400 />
+                        <span class="badge bg-secondary">90%OFF</span>
+                        <button onclick="Add_to_Cart(document.getElementById('camera4').value,document.getElementById('c4_amount').value)">Add to Cart</button>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -140,69 +218,57 @@
             </div>
             <div class="row mb-3">
                 <div class="card col-12 col-sm-6 col-md-4 col-lg-3">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#868e96"></rect>
-                        <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Placeholder</text>
-                    </svg>
+                    <img src="images/samsung.jfif" width="400" height="200">
+
+
                     <div class="card-body">
-                            <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html" onclick="Product(document.getElementById('Phone1').value,document.getElementById('p1_amount').value)">more info</a>
-                            <input type="hidden" id= "Phone1" name="Phone1" value="Phone1"/>
-                            	<input type="hidden" id= "p1_amount" name="p1_amount" value=100 />
-                            	 <span class="badge bg-primary">50%OFF</span>	
-							    <button onclick="Add_to_Cart(document.getElementById('Phone1').value,document.getElementById('p1_amount').value)" >Add to Cart</button> 
-                        </div>
-                    
-              
+                        <p class="card-text">product 5.</p>
+                        <a href="./product.html" onclick="Product(document.getElementById('Phone1').value,document.getElementById('p1_amount').value)">more info</a>
+                        <input type="hidden" id="Phone1" name="Phone1" value="Phone1" />
+                        <input type="hidden" id="p1_amount" name="p1_amount" value=100 />
+                        <span class="badge bg-primary">50%OFF</span>
+                        <button onclick="Add_to_Cart(document.getElementById('Phone1').value,document.getElementById('p1_amount').value)">Add to Cart</button>
+                    </div>
+
+
                 </div>
                 <div class="card col-12 col-sm-6 col-md-4 col-lg-3">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#868e96"></rect>
-                        <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Placeholder</text>
-                    </svg>
-                   <div class="card-body">
-                            <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html" onclick="Product(document.getElementById('Phone2').value,document.getElementById('p2_amount').value)">more info</a>
-                            <input type="hidden" id= "Phone2" name="Phone2" value="Phone2"/>
-                            	<input type="hidden" id= "p2_amount" name="p2_amount" value=200 />	
-                            	 <span class="badge bg-secondary">90%OFF</span>
-							    <button onclick="Add_to_Cart(document.getElementById('Phone2').value,document.getElementById('p2_amount').value)" >Add to Cart</button> 
-                        </div>
-                    
-                   
-                </div>
-                <div class="card col-12 col-sm-6 col-md-4 col-lg-3">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#868e96"></rect>
-                        <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Placeholder</text>
-                    </svg>
-                     <div class="card-body">
-                            <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html" onclick="Product(document.getElementById('Phone3').value,document.getElementById('p3_amount').value)">more info</a>
-                            <input type="hidden" id= "Phone3" name="Phone3" value="Phone3"/>
-                            	<input type="hidden" id= "p3_amount" name="p3_amount" value=300 />	
-                            	  <span class="badge bg-warning">75%OFF</span>
-							    <button onclick="Add_to_Cart(document.getElementById('Phone3').value,document.getElementById('p3_amount').value)" >Add to Cart</button> 
-                        </div>
-                </div>
-                <div class="card col-12 col-sm-6 col-md-4 col-lg-3">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#868e96"></rect>
-                        <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Placeholder</text>
-                    </svg>
+                    <img src="images/air conditioner.jfif" width="400" height="200">
+
                     <div class="card-body">
-                            <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html" onclick="Product(document.getElementById('Phone4').value,document.getElementById('p4_amount').value)">more info</a>
-                            <input type="hidden" id= "Phone3" name="Phone3" value="Phone3"/>
-                            	<input type="hidden" id= "p3_amount" name="p3_amount" value=300 />	
-                            	  <span class="badge bg-warning">35%OFF</span>
-							    <button onclick="Add_to_Cart(document.getElementById('Phone4').value,document.getElementById('p4_amount').value)" >Add to Cart</button> 
-                        </div>
-                  
+                        <p class="card-text">product 6.</p>
+                        <a href="./product.html" onclick="Product(document.getElementById('Phone2').value,document.getElementById('p2_amount').value)">more info</a>
+                        <input type="hidden" id="Phone2" name="Phone2" value="Phone2" />
+                        <input type="hidden" id="p2_amount" name="p2_amount" value=200 />
+                        <span class="badge bg-secondary">90%OFF</span>
+                        <button onclick="Add_to_Cart(document.getElementById('Phone2').value,document.getElementById('p2_amount').value)">Add to Cart</button>
+                    </div>
+
+
+                </div>
+                <div class="card col-12 col-sm-6 col-md-4 col-lg-3">
+                    <img src="images/iphone xr.jfif" width="400" height="200">
+
+                    <div class="card-body">
+                        <p class="card-text">product 7.</p>
+                        <a href="./product.html" onclick="Product(document.getElementById('Phone3').value,document.getElementById('p3_amount').value)">more info</a>
+                        <input type="hidden" id="Phone3" name="Phone3" value="Phone3" />
+                        <input type="hidden" id="p3_amount" name="p3_amount" value=300 />
+                        <span class="badge bg-warning">75%OFF</span>
+                        <button onclick="Add_to_Cart(document.getElementById('Phone3').value,document.getElementById('p3_amount').value)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="card col-12 col-sm-6 col-md-4 col-lg-3">
+                    <img src="images/sony headphones.jfif" width="400" height="200">
+                    <div class="card-body">
+                        <p class="card-text">product 8.</p>
+                        <a href="./product.html" onclick="Product(document.getElementById('Phone4').value,document.getElementById('p4_amount').value)">more info</a>
+                        <input type="hidden" id="Phone3" name="Phone3" value="Phone3" />
+                        <input type="hidden" id="p3_amount" name="p3_amount" value=300 />
+                        <span class="badge bg-warning">35%OFF</span>
+                        <button onclick="Add_to_Cart(document.getElementById('Phone4').value,document.getElementById('p4_amount').value)">Add to Cart</button>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -213,68 +279,53 @@
             </div>
             <div class="row mb-3">
                 <div class="card col-12 col-sm-6 col-md-4 col-lg-3">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#868e96"></rect>
-                        <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Placeholder</text>
-                    </svg>
-                   <div class="card-body">
-                            <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html" onclick="Product(document.getElementById('Electronic1').value,document.getElementById('e1_amount').value)">more info</a>
-                            <input type="hidden" id= "Electronic1" name="Electronic1" value="Electronic1"/>
-                            	<input type="hidden" id= "e1_amount" name="e1_amount" value=100 />	
-                            	<span class="badge bg-danger">75%OFF</span>
-							    <button onclick="Add_to_Cart(document.getElementById('Electronic1').value,document.getElementById('e1_amount').value)" >Add to Cart</button> 
-                        </div>
-                    
+                    <img src="images/camera.jfif" width="400" height="200">
+                    <div class="card-body">
+                        <p class="card-text">product 9.</p>
+                        <a href="./product.html" onclick="Product(document.getElementById('Electronic1').value,document.getElementById('e1_amount').value)">more info</a>
+                        <input type="hidden" id="Electronic1" name="Electronic1" value="Electronic1" />
+                        <input type="hidden" id="e1_amount" name="e1_amount" value=100 />
+                        <span class="badge bg-danger">75%OFF</span>
+                        <button onclick="Add_to_Cart(document.getElementById('Electronic1').value,document.getElementById('e1_amount').value)">Add to Cart</button>
+                    </div>
+
                 </div>
                 <div class="card col-12 col-sm-6 col-md-4 col-lg-3">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#868e96"></rect>
-                        <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Placeholder</text>
-                    </svg>
+                    <img src="images/iphone.jfif" width="400" height="200">
                     <div class="card-body">
-                            <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html" onclick="Product(document.getElementById('Electronic2').value,document.getElementById('e2_amount').value)">more info</a>
-                            <input type="hidden" id= "Electronic2" name="Electronic2" value="Electronic2"/>
-                            	<input type="hidden" id= "e2_amount" name="e2_amount" value=200 />	
-                            	 <span class="badge bg-secondary">90%OFF</span>
-							    <button onclick="Add_to_Cart(document.getElementById('Electronic2').value,document.getElementById('e2_amount').value)" >Add to Cart</button> 
-                        </div>
-                   
+                        <p class="card-text">product 10.</p>
+                        <a href="./product.html" onclick="Product(document.getElementById('Electronic2').value,document.getElementById('e2_amount').value)">more info</a>
+                        <input type="hidden" id="Electronic2" name="Electronic2" value="Electronic2" />
+                        <input type="hidden" id="e2_amount" name="e2_amount" value=200 />
+                        <span class="badge bg-secondary">90%OFF</span>
+                        <button onclick="Add_to_Cart(document.getElementById('Electronic2').value,document.getElementById('e2_amount').value)">Add to Cart</button>
+                    </div>
+
                 </div>
                 <div class="card col-12 col-sm-6 col-md-4 col-lg-3">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#868e96"></rect>
-                        <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Placeholder</text>
-                    </svg>
+                    <img src="images/Mi mobile.jfif" width="400" height="200">
                     <div class="card-body">
-                            <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html" onclick="Product(document.getElementById('Electronic3').value,document.getElementById('e3_amount').value)">more info</a>
-                            <input type="hidden" id= "Electronic3" name="Electronic3" value="Electronic3"/>
-                            	<input type="hidden" id= "e3_amount" name="e3_amount" value=300 />
-                            	<span class="badge bg-primary">50%OFF</span>	
-							    <button onclick="Add_to_Cart(document.getElementById('Electronic3').value,document.getElementById('e3_amount').value)" >Add to Cart</button> 
-                        </div>
-                    
+                        <p class="card-text">product 11.</p>
+                        <a href="./product.html" onclick="Product(document.getElementById('Electronic3').value,document.getElementById('e3_amount').value)">more info</a>
+                        <input type="hidden" id="Electronic3" name="Electronic3" value="Electronic3" />
+                        <input type="hidden" id="e3_amount" name="e3_amount" value=300 />
+                        <span class="badge bg-primary">50%OFF</span>
+                        <button onclick="Add_to_Cart(document.getElementById('Electronic3').value,document.getElementById('e3_amount').value)">Add to Cart</button>
+                    </div>
+
                 </div>
                 <div class="card col-12 col-sm-6 col-md-4 col-lg-3">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#868e96"></rect>
-                        <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Placeholder</text>
-                    </svg>
+                    <img src="images/mouse.jfif" width="400" height="200">
+
                     <div class="card-body">
-                            <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html" onclick="Product(document.getElementById('Electronic4').value,document.getElementById('e4_amount').value)">more info</a>
-                            <input type="hidden" id= "Electronic4" name="Electronic4" value="Electronic4"/>
-                            	<input type="hidden" id= "e4_amount" name="e4_amount" value=400 />
-                            	<span class="badge bg-warning">35%OFF</span>	
-							    <button onclick="Add_to_Cart(document.getElementById('Electronic4').value,document.getElementById('e4_amount').value)" >Add to Cart</button> 
-                        </div>
-                    
+                        <p class="card-text">product 12.</p>
+                        <a href="./product.html" onclick="Product(document.getElementById('Electronic4').value,document.getElementById('e4_amount').value)">more info</a>
+                        <input type="hidden" id="Electronic4" name="Electronic4" value="Electronic4" />
+                        <input type="hidden" id="e4_amount" name="e4_amount" value=400 />
+                        <span class="badge bg-warning">35%OFF</span>
+                        <button onclick="Add_to_Cart(document.getElementById('Electronic4').value,document.getElementById('e4_amount').value)">Add to Cart</button>
+                    </div>
+
                 </div>
             </div>
         </div>
