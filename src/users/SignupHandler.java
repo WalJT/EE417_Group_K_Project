@@ -96,7 +96,8 @@ public class SignupHandler extends HttpServlet {
 			for (Object param: arrayOfParams) {
 				if (param == null) {
 					userDetailsValid = false;
-					out.append("<p>A parameter is null for some reason</p>");
+					out.append("<p>A parameter is null for some reason, return to"
+							+ "<a href='signup.html'>the signup page</a></p>");
 				}
 			}
 			
