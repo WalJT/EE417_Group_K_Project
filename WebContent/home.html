@@ -22,9 +22,11 @@ function getCookie(name) {
 
 <script>	
 window.onload = function(e){
+	document.cookie="userID=1";
 	if (getCookie("userID")!=null && getCookie("userID")!=''){
 		document.getElementById("Login").style["display"] = "none";
-		document.getElementById("SignUp").style["display"] = "none";								
+		document.getElementById("SignUp").style["display"] = "none";
+		document.getElementById("logout").style["display"] = "block";
 	}
 	if(getCookie("userID").toString()=="0"){
 		document.getElementById("Admin").style["display"] = "block";
@@ -32,6 +34,7 @@ window.onload = function(e){
 	
 	if(getCookie("userID").toString()!="0" && getCookie("userID")!=null && getCookie("userID")!=''){
 		document.getElementById("User").style["display"] = "block";
+	
 	}
 	if(localStorage.getItem("items")!=null){
 			document.getElementById("EmptyCart").className = "fas fa-cart-plus fa-lg";
@@ -106,6 +109,7 @@ function Product(item,price){
 		
 }
 
+
 </script>
 <head>
     <meta charset="UTF-8">
@@ -150,11 +154,15 @@ function Product(item,price){
 					<li class="nav-item">
                         <a style= "display: none" class="nav-link text-light" id="Admin" href="Admin.jsp">Admin</a>
                     </li>
+                    <li class="nav-item" >
+                    <a style= "display: none" id="logout" href="LogoutHandler" class="nav-link text-light">Logout<i class="fas fa-sign-out-alt fa-sm"> </i></a>
+               		</li>
                 </ul>             
                 <ul>
                 <li style="float: right" class="nav-item">
                         <a class="nav-link text-light"  href="Cart.jsp"><i id="EmptyCart" class="fas fa-shopping-cart fa-lg"></i></a>
                </li>
+               
             </div>
         </div>
     </nav>
