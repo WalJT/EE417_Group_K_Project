@@ -2,6 +2,29 @@
  * 
  */
 
+function Check(amount,item){
+	var uni=localStorage.getItem('unique');
+	var cart = JSON.parse(localStorage.getItem("Cart"));
+	var q = document.getElementById(amount.trim()).value;
+	var c = localStorage.getItem(item.trim());
+	
+	if(c!=q){
+			localStorage.setItem(item,q);
+	}
+	
+	var quantity=[];
+		
+	for(var i=0; i<uni;i++){
+				var amount = parseInt(localStorage.getItem(String(cart[i])));
+				quantity[i]=amount;
+	}
+		document.getElementById("quantity").value=quantity;
+
+}
+
+
+
+
 window.onload = function(e){
 	if(localStorage.getItem('unique')!=null){
 		var uni=localStorage.getItem('unique');
@@ -17,12 +40,12 @@ window.onload = function(e){
 				total=parseInt(prices[i])*amount;				
 				html +='<div class = "newItem"><tr id="'+cart[i]+'">'+
 				'<td>'+cart[i]+'<button class="removeButton" onclick=Remove('+'"'+cart[i]+'"'+')><i style="color:red" class="fas fa-trash"></i></button></td>'+
-				'<td><input type="number" class="quantity" name="quantity" value="'+amount+'" min="1" max="500"></td>'+
+				'<td><input type="number" class="quantity" onclick=Check('+'"quantity'+i+'","'+cart[i]+'"'+') name="quantity" id="quantity'+i+'" value="'+amount+'" min="1" max="500"></td>'+
 				'<td class="price">'+" "+prices[i]+" "+'</td>'+'<td><input type="number" class="itemTotalPrice" value="'+total+'" disabled="true"></td>'
 				+'</tr>'
 				+'</div>';
 				
-				document.getElementById("cart").innerHTML= html	
+				document.getElementById("cart").innerHTML= html;
 	}
 		document.getElementById("quantity").value=quantity;
 		
