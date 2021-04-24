@@ -7,11 +7,11 @@ public class DBConnection {
 	public static Connection getConnection() {
 		//database connection
 		String dbDriver = "com.mysql.cj.jdbc.Driver";
-		String url = "jdbc:mysql://localhost:3306/GroupKDB";
+		String url = "jdbc:mysql://groupk.ccuoxucn9lr2.us-east-2.rds.amazonaws.com:3306/GroupKDB";
 		Connection conn = null;
 		try {
 			Class.forName(dbDriver);
-			conn = DriverManager.getConnection(url, "groupk", "groupk");
+			conn = DriverManager.getConnection(url, "groupkdb", "groupkdb");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
