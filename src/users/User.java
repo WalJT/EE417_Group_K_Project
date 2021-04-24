@@ -263,7 +263,7 @@ public boolean updateUserInDatabase(int userID) throws SQLException {
 	Statement stmt = null;
 	ResultSet rs = null;
 	try {
-		Class.forName("com.mysql.jdbc.Driver");
+		Class.forName("com.mysql.cj.jdbc.Driver");
 		con = DriverManager.getConnection(DatabaseConfig.JDBCUrl, DatabaseConfig.username, DatabaseConfig.password);
 		stmt = con.createStatement();
 		
