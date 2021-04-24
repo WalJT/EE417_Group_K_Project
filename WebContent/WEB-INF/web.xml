@@ -17,7 +17,7 @@
         <servlet-name>SignupHandler</servlet-name>
         <url-pattern>/SignupHandler</url-pattern>
     </servlet-mapping>
-    
+<!--     
     <servlet>
         <servlet-name>RecoverPassword</servlet-name>
         <servlet-class>users.RecoverPassword</servlet-class>
@@ -27,7 +27,7 @@
         <servlet-name>RecoverPassword</servlet-name>
         <url-pattern>/RecoverPassword</url-pattern>
     </servlet-mapping>
-    
+ -->
     <servlet>
         <servlet-name>LoginHandler</servlet-name>
         <servlet-class>users.LoginHandler</servlet-class>
