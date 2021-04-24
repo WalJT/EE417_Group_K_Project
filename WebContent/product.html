@@ -2,6 +2,8 @@
 <html lang="en">
 <script src="https://kit.fontawesome.com/0207abde13.js" crossorigin="anonymous"></script>
 <script src="User_js.js"></script>
+<script src="DynamicCart_js.js"></script>
+
 
 <head>
     <meta charset="UTF-8">
@@ -64,7 +66,7 @@
         <!-- product img -->
         <div class="row">
             <div class="col-12 col-sm-6 ml-3 my-3">
-                <img src="images/MOBILE 3.jfif" width="600" height="400">
+                <img id= "imgp" src="images/MOBILE 3.jfif" width="600" height="400">
             </div>
             <div class="col-12 col-sm-6 mt-4">
                 <div id="product" name="product" class="display-4">Product Name</div>
@@ -75,19 +77,12 @@
                     <h4>Features</h4>
                     <ul>
                         <li>
-                            <p>4k ultra HD.</p>
+                            <p>See User Manual</p>
                         </li>
-                        <li>
-                            <p>OLED screen.</p>
-                        </li>
-                        <li>
-                            <p>120 hz framerate.</p>
-                        </li>
-                        <li>
-                            <p>voice commands enabled.</p>
-                        </li>
+                        
                     </ul>
                 </p>
+                <button onclick="Add_to_Cart(localStorage.getItem('product'),localStorage.getItem('product_price'))">Add to Cart</button>
             </div>
         </div>
         <section class="similar-products">
@@ -99,32 +94,44 @@
                     </div>
                     <div class="row mb-3">
                         <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mx-auto">
-                            <img src="images/apple desktop.jfif" width="400" height="200">
+                            <img id="p8" src="images/apple desktop.jfif" width="400" height="200">
                             <div class="card-body">
-                                <p class="card-text">desktop.</p>
-                                <a href="./product.html">more info</a>
+                                <p class="card-text">Desktop</p>
+                                <a href="./product.html" onclick="Product(document.getElementById('product8').value,document.getElementById('p8_amount').value,document.getElementById('p8').src)">more info</a>
+                        			<input type="hidden" id="product8" name="product8" value="Desktop" />
+                        			<input type="hidden" id="p8_amount" name="p8_amount" value=100 />
+                        			<button onclick="Add_to_Cart(document.getElementById('product8').value,document.getElementById('p8_amount').value)">Add to Cart</button>
                             </div>
                         </div>
                         <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mx-auto">
-                            <img src="images/camera 3.jfif" width="400" height="200">
+                            <img id="p7" src="images/camera 3.jfif" width="400" height="200">
                             <div class="card-body">
-                                <p class="card-text">camera.</p>
-                                <a href="./product.html">more info</a>
+                                <p class="card-text">Camera</p>
+                                <a href="./product.html" onclick="Product(document.getElementById('product7').value,document.getElementById('p7_amount').value,document.getElementById('p7').src)">more info</a>
+                        			<input type="hidden" id="product7" name="product7" value="Camera" />
+                        			<input type="hidden" id="p7_amount" name="p7_amount" value=200 />
+                        			<button onclick="Add_to_Cart(document.getElementById('product7').value,document.getElementById('p7_amount').value)">Add to Cart</button>
                             </div>
                         </div>
                         <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mx-auto">
-                            <img src="images/logitech keyboard.jfif" width="400" height="200">
+                            <img id="p6" src="images/logitech keyboard.jfif" width="400" height="200">
                             <div class="card-body">
-                                <p class="card-text">keyboard.</p>
-                                <a href="./product.html">more info</a>
+                                <p class="card-text">Keyboard</p>
+                                <a href="./product.html" onclick="Product(document.getElementById('product6').value,document.getElementById('p6_amount').value,document.getElementById('p6').src)">more info</a>
+                        			<input type="hidden" id="product6" name="product6" value="Keyboard" />
+                        			<input type="hidden" id="p6_amount" name="p6_amount" value=300 />
+                        			<button onclick="Add_to_Cart(document.getElementById('product6').value,document.getElementById('p6_amount').value)">Add to Cart</button>
                             </div>
                         </div>
                         <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mx-auto">
-                            <img src="images/mi mouse.jfif" width="400" height="200">
+                            <img id="p1" src="images/mi mouse.jfif" width="400" height="200">
 
                             <div class="card-body">
-                                <p class="card-text">wireless mouse.</p>
-                                <a href="./product.html">more info</a>
+                                <p class="card-text">Wireless Mouse</p>
+                                <a href="./product.html" onclick="Product(document.getElementById('product1').value,document.getElementById('p1_amount').value,document.getElementById('p1').src)">more info</a>
+                        			<input type="hidden" id="product1" name="product1" value="Wireless Mouse" />
+                        			<input type="hidden" id="p1_amount" name="p1_amount" value=100 />
+                        			<button onclick="Add_to_Cart(document.getElementById('product1').value,document.getElementById('p1_amount').value)">Add to Cart</button>
                             </div>
                         </div>
                     </div>
@@ -136,32 +143,44 @@
                     </div>
                     <div class="row mb-3">
                         <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mx-auto">
-                            <img src="images/microwave 1.jfif" width="400" height="200">
+                            <img id="p2" src="images/microwave 1.jfif" width="400" height="200">
 
                             <div class="card-body">
-                                <p class="card-text">microwave.</p>
-                                <a href="./product.html">more info</a>
+                                <p class="card-text">Microwave</p>
+                                <a href="./product.html" onclick="Product(document.getElementById('product2').value,document.getElementById('p2_amount').value,document.getElementById('p2').src)">more info</a>
+                        		<input type="hidden" id="product2" name="product2" value="Microwave" />
+                        		<input type="hidden" id="p2_amount" name="p2_amount" value=200 />                       
+                       			 <button onclick="Add_to_Cart(document.getElementById('product2').value,document.getElementById('p2_amount').value)">Add to Cart</button>
                             </div>
                         </div>
                         <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mx-auto">
-                            <img src="images/air pods.jfif" width="400" height="200">
+                            <img id="p3"src="images/air pods.jfif" width="400" height="200">
                             <div class="card-body">
-                                <p class="card-text">airpods</p>
-                                <a href="./product.html">more info</a>
+                                <p class="card-text">Airpods</p>
+                                <a href="./product.html" onclick="Product(document.getElementById('product3').value,document.getElementById('p3_amount').value,document.getElementById('p3').src)">more info</a>
+                        <input type="hidden" id="product3" name="product3" value="Airpods />
+                        <input type="hidden" id="p3_amount" name="p3_amount" value=300 />                  
+                        <button onclick="Add_to_Cart(document.getElementById('product3').value,document.getElementById('p3_amount').value)">Add to Cart</button>
                             </div>
                         </div>
                         <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mx-auto">
-                            <img src="images/logitech.jfif" width="400" height="200">
+                            <img id="p4"src="images/logitech.jfif" width="400" height="200">
                             <div class="card-body">
-                                <p class="card-text">logitech</p>
-                                <a href="./product.html">more info</a>
+                                <p class="card-text">Logitech</p>
+                                 <a href="./product.html" onclick="Product(document.getElementById('product4').value,document.getElementById('p4_amount').value,document.getElementById('p4').src)">more info</a>
+                        <input type="hidden" id="product4" name="product4" value="Logitech" />
+                        <input type="hidden" id="p4_amount" name="p4_amount" value=400 />                        
+                        <button onclick="Add_to_Cart(document.getElementById('product4').value,document.getElementById('p4_amount').value)">Add to Cart</button>
                             </div>
                         </div>
                         <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mx-auto">
-                            <img src="images/PANASONIC.jfif" width="400" height="200">
+                            <img id="p5"src="images/PANASONIC.jfif" width="400" height="200">
                             <div class="card-body">
-                                <p class="card-text">panasonic</p>
-                                <a href="./product.html">more info</a>
+                                <p class="card-text">Panasonic</p>
+                                <a href="./product.html" onclick="Product(document.getElementById('product5').value,document.getElementById('p5_amount').value,document.getElementById('p5').src)">more info</a>
+                        <input type="hidden" id="product5" name="product5" value="Panasonic" />
+                        <input type="hidden" id="p5_amount" name="p5_amount" value=100 />
+                        <button onclick="Add_to_Cart(document.getElementById('product5').value,document.getElementById('p5_amount').value)">Add to Cart</button>
                             </div>
                         </div>
                     </div>
