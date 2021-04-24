@@ -38,7 +38,8 @@ window.onload = function(e){
 	if(localStorage.getItem("product")!=null){
 		if(document.getElementById("product")!=null){
 		document.getElementById("product").innerHTML = localStorage.getItem("product");
-		document.getElementById("price").innerHTML = "$ "+localStorage.getItem("product_price");}
+		document.getElementById("price").innerHTML = "$ "+localStorage.getItem("product_price");
+		document.getElementById("imgp").src = localStorage.getItem("product_img");}
 	}
 		
 } 
