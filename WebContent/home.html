@@ -1,109 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <script src="https://kit.fontawesome.com/0207abde13.js" crossorigin="anonymous"></script>
-<script>
-    function getCookie(name) {
-        var str = name + "=";
-        var cstr = decodeURIComponent(document.cookie);
-        var c = cstr.split(';');
-        for (var i = 0; i < c.length; i++) {
-            var cookie = c[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(str) == 0) {
-                return cookie.substring(str.length, cookie.length);
-            }
-        }
-        return "";
-    }
-</script>
-
-<script>
-    window.onload = function(e) {
-        if (getCookie("userID") != null && getCookie("userID") != '') {
-            document.getElementById("Login").style["display"] = "none";
-            document.getElementById("SignUp").style["display"] = "none";
-            document.getElementById("logout").style["display"] = "block";
-        }
-        if (getCookie("userID").toString() == "0") {
-            document.getElementById("Admin").style["display"] = "block";
-        }
-
-        if (getCookie("userID").toString() != "0" && getCookie("userID") != null && getCookie("userID") != '') {
-            document.getElementById("User").style["display"] = "block";
-
-        }
-        if (localStorage.getItem("items") != null) {
-            document.getElementById("EmptyCart").className = "fas fa-cart-plus fa-lg";
-        }
-
-    }
-</script>
-<script>
-    function addItem() {
-        if (localStorage.getItem("items") == null) {
-            localStorage.setItem("items", 0);
-            document.getElementById("EmptyCart").className = "fas fa-cart-plus fa-lg";
-        } else if (localStorage.getItem("items") != null) {
-            var items = parseInt(localStorage.getItem("items"));
-            items = items + 1;
-            localStorage.setItem("items", items);
-        }
-    }
-</script>
-
-<script>
-    function Add_to_Cart(item, price) {
-        addItem();
-        if (localStorage.getItem("Cart") == null) {
-            var cart = [];
-            var prices = [];
-            cart[0] = item;
-            prices[0] = price;
-            localStorage.setItem(String(item), 1);
-            localStorage.setItem('unique', 1);
-            localStorage.setItem("Cart", JSON.stringify(cart));
-            localStorage.setItem("Price", JSON.stringify(prices));
-        } else if (localStorage.getItem("items") != null) {
-            var items = localStorage.getItem("items");
-            var cart = JSON.parse(localStorage.getItem("Cart"));
-            var prices = JSON.parse(localStorage.getItem("Price"));
-
-            for (var i = 0; i <= items; i++) {
-                if (localStorage.getItem(String(item)) == null) {
-                    localStorage.setItem(String(item), 1);
-                    var uni = parseInt(localStorage.getItem('unique'));
-                    uni = uni + 1;
-                    localStorage.setItem('unique', uni);
-                    cart[uni - 1] = item;
-                    localStorage.setItem("Cart", JSON.stringify(cart));
-                    prices[uni - 1] = price;
-                    localStorage.setItem("Price", JSON.stringify(prices));
-                    break;
-                } else if (localStorage.getItem(String(item)) != null) {
-                    if (String(cart[i]) == String(item)) {
-                        var amount = parseInt(localStorage.getItem(String(item)));
-                        amount = amount + 1;
-                        localStorage.setItem(String(item), amount);
-                        break;
-                    }
-                }
-            }
-
-        }
-    }
-</script>
-<script>
-    //function Product(item,price,img){
-    function Product(item, price) {
-        localStorage.setItem("product", item);
-        localStorage.setItem("product_price", price);
-        //localStorage.setItem("product_img", img);
-
-    }
-</script>
-
+<script src="User_js.js"></script>
+<script src="DynamicCart_js.js"></script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -153,7 +52,7 @@
                 </ul>
                 <ul>
                     <li style="float: right" class="nav-item">
-                        <a class="nav-link text-light" href="Cart.jsp"><i id="EmptyCart" class="fas fa-shopping-cart fa-lg"></i></a>
+                        <a class="nav-link text-light" href="cart.html"><i id="EmptyCart" class="fas fa-shopping-cart fa-lg"></i></a>
                     </li>
 
             </div>
