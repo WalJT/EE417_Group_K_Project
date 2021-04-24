@@ -60,7 +60,7 @@
     <main>
       <div class="small-nav">    <!--small tag-->
           <ul>
-              <li><a href="index.html">Home</a></li>
+              <li><a href="home.html">Home</a></li>
               <li> / </li>
               <li><a href="Admin.html">Admin</a></li>
           </ul>
