@@ -54,7 +54,7 @@ window.onload = function(e){
 		document.getElementById("quantity").value=quantity;
 		
 		if (getCookie("userID")!=null && getCookie("userID")!=''){
-			var c=getCookie("userID");
+			var user =getCookie("userID");
 			document.getElementById("userID").value=user;
 			alert("Your Order was Placed!");
 		}
