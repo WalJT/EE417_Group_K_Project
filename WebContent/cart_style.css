@@ -59,6 +59,13 @@ table#cartTotal{
     padding: 10px;
 }
 
+table#cart {
+	padding: 0;
+	margin: 0;
+	border: none;
+	width: 100%;
+}
+
 
 table#cart th{
     padding-top: 20px;
