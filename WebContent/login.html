@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://kit.fontawesome.com/0207abde13.js"crossorigin="anonymous"></script>
+<script>
+function getCookie(name) {
+	  var str = name + "=";
+	  var cstr = decodeURIComponent(document.cookie);
+	  var c = cstr.split(';');
+	  for(var i = 0; i <c.length; i++) {
+	    var cookie = c[i];
+	    while (cookie.charAt(0) == ' ') {
+	      cookie  = cookie.substring(1);
+	    }
+	    if (cookie.indexOf(name) == 0) {
+	      return cookie.substring(name.length, cookie.length);
+	    }
+	  }
+	  return "";
+	}
+	
+</script>
+	
+<script>	
+window.onload = function(e){
+	
+	if (getCookie("userID")!=null && getCookie("userID")!=''){
+		document.getElementById("Login").style["display"] = "none";
+		document.getElementById("SignUp").style["display"] = "none";								
+	}
+	if(getCookie("userID").toString()=="=0"){
+		document.getElementById("Admin").style["display"] = "block";
+		}
+	
+	if(getCookie("userID").toString()!="=0" && getCookie("userID")!=null && getCookie("userID")!=''){
+		document.getElementById("User").style["display"] = "block";
+	}
+	if(localStorage.getItem("items")!=null){
+			document.getElementById("EmptyCart").className = "fas fa-cart-plus fa-lg";
+	}
+		
+} 
+</script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOG IN</title>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="./footer.css">
+    <link href="login_style.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- navbar -->
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #33383b;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="home.html">
+            <h3 class="text-light">Electronics<span class="prime">Shopping</span></h3>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-end w-100">
+                <li class="nav-item">
+                    <a class="nav-link active text-light" href="home.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="./featured.html">Featured</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="./about.html">About Us</a>
+                </li>               
+                    <li class="nav-item">
+                        <a class="nav-link text-light" id="SignUp" href="signup.html">Sign Up</a>
+                    </li>                   
+                </ul>                             
+                <li style="float: right" class="nav-item">
+                        <a class="nav-link text-light"  href="Cart.jsp"><i id="EmptyCart" class="fas fa-shopping-cart fa-lg"></i></a>
+               </li>
+        </div>
+    </div>
+</nav>
+
+<!-- Submission by Lee Anjella -->
+<div class="space">
+    <div class="space_container">
+    <div class="container">
+
+    <div class="row" id="row">
+
+        <!---"New to our website"- This section contains a button to create an account and a paragraph explaining why one should sign up to the website-->
+        <div class="formBox signUpBox">
+            <h2>New to our website?</h2><br>
+            <span>Create an account to check out faster in the future and receive emails about your orders, new products, events and special offers!<br/></span><br>
+            <button id="signUpButton"><a href="signup.html">Create an account</a></button>
+        </div>
+        <!-- end -->
+
+        <!--"My Account Log In"-- MAIN LOG IN FORM -- This section contains the username and password input fields to log in-->
+        <div class="formBox logInBox">
+            <form action="LoginHandler" method="post" autocomplete="on">
+                <h2>My Account Log In</h2><br>
+                <input type="text" id="username" name="username" placeholder=" Username" value="">
+                <input type="password" id="password" name="password" placeholder=" Password" value="">
+                <a href="">Forgot your password?</a>
+                <input type="submit" value="Log in" >
+
+                <!-- This section contains a button to create an account; this only shows whenever the screen is in its minimum width-->
+                <p>
+                    <span>New to our website?</span>
+                    <button class="createAccountButton" id="createAccountButton"><a href="signup.html">Create an account</a> </button>
+                </p>
+                <!-- end -->
+            </form>
+        </div>
+        <!-- end -->
+
+    </div>
+    </div>
+    </div>
+</div>
+<!-- End of submission by Lee Anjella -->
+
+<!-- foooter -->
+<footer class="footer-distributed">
+
+    <div class="footer-left">
+
+        <h3>ELECTRONICS<span>Shopping</span></h3>
+
+        <p class="footer-links">
+            <a href="#" class="link-1">Home</a>
+
+            <a href="#">Blog</a>
+
+            <a href="#">Pricing</a>
+
+            <a href="#">About</a>
+
+            <a href="#">Faq</a>
+
+            <a href="#">Contact</a>
+        </p>
+
+        <p class="footer-company-name">Company Name </p>
+    </div>
+
+    <div class="footer-center">
+
+        <div>
+            <i class="fa fa-map-marker"></i>
+            <p><span>dublin </span> IRELAND</p>
+        </div>
+
+        <div>
+            <i class="fa fa-phone"></i>
+            <p>+35312345678</p>
+        </div>
+
+        <div>
+            <i class="fa fa-envelope"></i>
+            <p><a href="mailto:support@company.com">support@company.com</a></p>
+        </div>
+
+    </div>
+
+    <div class="footer-right">
+
+        <p class="footer-company-about">
+            <span>About the company</span> .
+        </p>
+
+        <div class="footer-icons">
+
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-github"></i></a>
+
+        </div>
+
+    </div>
+
+</footer>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+</body>
+
+</html>

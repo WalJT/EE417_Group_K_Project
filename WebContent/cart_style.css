@@ -1,0 +1,202 @@
+.space{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 20px;
+    font-family: 'Georgia';
+    background-color: #ece7e7;
+}
+
+.space.space_container{
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    padding: 10px;
+    margin: 20px 0 50px;
+}
+
+.container{
+    max-width: 900px;
+    width:100%;
+    background-color: #ece7e7;
+    padding: 0px 0px;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    border-radius: 50px;
+}
+
+/* cart form */
+.cartContainer{
+    background-color: #29d6cd;
+   width: 100%;
+    border-radius: 25px;
+}
+
+/*TABLE*/
+
+/* style of subtotal, tax and total price container*/
+.totalDetails{
+    display: flex;
+    justify-content: flex-end;
+    text-align: right;
+    background-color: #29d6cd;
+    font-weight: bold;
+    border-radius: 25px;
+}
+
+input#TotalPrice , input#subTotalPrice{
+    color: black;
+    background-color: #29d6cd;
+}
+
+
+table#cartTotal{
+    border-top: 3px solid lightskyblue;
+    width:100%;
+    max-width: 350px;
+    padding: 10px;
+}
+
+
+table#cart th{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 10px;
+    padding-left: 80px;
+
+}
+
+table#cart td{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 10px;
+    padding-left: 140px;
+    text-align: right;
+    background-color: white;
+}
+
+/*INPUT*/
+
+input[type=number]{
+    padding: 3px;
+    font-size: 15px;
+    text-align: center;
+    border-color: lightgrey;
+    border-radius: 10px;
+}
+
+input[type=number]:focus , input[type=number]:active{
+    outline: none;
+}
+
+.itemTotalPrice {
+    padding: 0px;
+    width: 100px;
+    color: black;
+    font-size: 20px;
+    text-align: center;
+    border: none;
+    background-color: white;
+}
+
+#subTotalPrice ,#TotalPrice{
+    padding: 0px;
+    width: 100px;
+    font-size: 15px;
+    color: black;
+    text-align: center;
+    border: none;
+    background-color: lightgrey;
+}
+
+/*BUTTONS*/
+
+/* style of check out button*/
+button.checkoutButton{
+    background-color: white;
+    border-width: 0.5px;
+    border-color: lightskyblue;
+    padding: 10px 40px;
+    float: right;
+    margin: 10px;
+    font-weight: bold;
+    color: lightseagreen;
+}
+
+/* style of button to continue shopping*/
+button.contShoppingButton{
+    background-color: #302e2e;
+    color: white;
+    border-width: 1px;
+    border-color: black;
+    padding: 10px 40px;
+    margin: 10px;
+    font-weight: bold;
+}
+
+.contShoppingButton a{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/*animation of check out button and continue shopping button when mouse hover*/
+button.checkoutButton:hover , button.contShoppingButton:hover{
+    opacity: 0.7;
+    color: black;
+    cursor: pointer;
+}
+
+/*animation of check out button and continue shopping button when mouse is clicked*/
+.checkoutButton:active , button.contShoppingButton:active{
+    transform: scale(1.1);
+}
+
+/* style of remove and save button*/
+.removeButton , .saveButton{
+    background-color: white;
+    text-decoration: underline;
+    border: none;
+}
+
+/* animation style of remove and save button when mouse hover*/
+.removeButton:hover , .saveButton:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/*IMAGE*/
+img{
+    width:60%;
+}
+
+
+/*SCREEN changes*/
+@media (max-width: 1002px) {
+    table#cart th{
+       text-align: right;
+
+    }
+
+    .container{
+        max-height: 600px;
+        overflow-y: scroll;
+        padding: 10px;
+    }
+
+    img{
+        width: 20%;
+    }
+
+    /* following are responsible for hiding the 2nd to 4th rows when screen changes*/
+    #cart td:nth-child(n+2) {
+        display: none;
+    }
+
+    #cart th:nth-child(n+2) {
+        display: none;
+    }
+
+
+}

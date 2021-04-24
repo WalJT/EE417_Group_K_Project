@@ -1,0 +1,35 @@
+CREATE TABLE Goods
+(
+    gid INT(5) PRIMARY key auto_increment,
+    gname VARCHAR(10) not null,
+    price DECIMAL(5,2) not null,
+    amount int(4) not null
+);
+
+CREATE TABLE `order_item` (
+    `id` int(11) PRIMARY key AUTO_INCREMENT,
+    `order_id` varchar(50) NOT NULL,
+    `gid` int(5) NOT NULL,
+    `gname` varchar(10) NOT NULL,
+    price DECIMAL(5,2) not null,
+    amount int(4) not null
+);
+
+CREATE TABLE `order` (
+    `order_id` varchar(50) NOT NULL,
+    id int,
+    firstname	varchar(100),
+    lastname 	varchar(100),
+    email	varchar(100),
+    psd		varchar(100),
+    phone	varchar(100),
+    adress	varchar(100),
+    city		varchar(100),
+    zipcode		int
+);
+
+INSERT into Goods VALUES(0,'a',100.00,9999);
+INSERT into Goods VALUES(0,'b',200.00,9999);
+INSERT into Goods VALUES(0,'c',300.00,9999);
+INSERT into Goods VALUES(0,'d',230.00,9999);
+INSERT into Goods VALUES(0,'e',420.00,9999);

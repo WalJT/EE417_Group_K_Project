@@ -1,0 +1,25 @@
+create table GroupK_Accounts
+(
+	id int primary key auto_increment not null,
+    firstname	varchar(100),
+    lastname 	varchar(100),
+    email		varchar(100),
+    psd			varchar(100),
+    phone		varchar(100),
+    adress		varchar(100),
+    city		varchar(100),
+    country     varchar(100),
+    fullAddress varchar(100),
+    zipcode		int
+);
+select * from GroupK_Accounts;
+insert into GroupK_Accounts (firstname,lastname,email,psd,phone,adress,city,zipcode) value("rt","rt","rt","rt","7890","gvbjhkn","vgbhjk",567);
+
+create table GroupK_purchases
+(
+	num int primary key auto_increment not null,
+    product varchar(50),
+    id	int
+); 
+ select * from GroupK_purchases;
+ insert into GroupK_purchases (product,id) values("camera",3);
