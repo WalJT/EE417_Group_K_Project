@@ -11,26 +11,26 @@ function getCookie(name) {
 	    while (cookie.charAt(0) == ' ') {
 	      cookie  = cookie.substring(1);
 	    }
-	    if (cookie.indexOf(name) == 0) {
-	      return cookie.substring(name.length, cookie.length);
+	    if (cookie.indexOf(str) == 0) {
+	      return cookie.substring(str.length, cookie.length);
 	    }
 	  }
 	  return "";
 	}
 	
 </script>
+
 <script>	
 window.onload = function(e){
-	
 	if (getCookie("userID")!=null && getCookie("userID")!=''){
 		document.getElementById("Login").style["display"] = "none";
 		document.getElementById("SignUp").style["display"] = "none";								
 	}
-	if(getCookie("userID").toString()=="=0"){
+	if(getCookie("userID").toString()=="0"){
 		document.getElementById("Admin").style["display"] = "block";
 		}
 	
-	if(getCookie("userID").toString()!="=0" && getCookie("userID")!=null && getCookie("userID")!=''){
+	if(getCookie("userID").toString()!="0" && getCookie("userID")!=null && getCookie("userID")!=''){
 		document.getElementById("User").style["display"] = "block";
 	}
 	if(localStorage.getItem("items")!=null){
@@ -97,7 +97,16 @@ function Add_to_Cart(item,price){
 	}		
 }
 </script>
+<script>
+//function Product(item,price,img){
+function Product(item,price){
+	localStorage.setItem("product", item);
+	localStorage.setItem("product_price", price);
+	//localStorage.setItem("product_img", img);
+		
+}
 
+</script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -113,7 +122,7 @@ function Add_to_Cart(item,price){
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #33383b;">
         <div class="container-fluid">
             <a class="navbar-brand" href="home.html">
-                <h3 class="text-light">Electronics<span class="prime">shopping</span></h3>
+                <h3 class="text-light">Electronics<span class="prime">Shopping</span></h3>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -206,7 +215,7 @@ function Add_to_Cart(item,price){
                         </svg>
                         <div class="card-body">
                             <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html" onclick="" >more info</a>                            
+                            <a href="./product.html" onclick="Product(document.getElementById('camera1').value,document.getElementById('c1_amount').value)" >more info</a>                            
                             	<input type="hidden" id= "camera1" name="camera1" value="camera1"/>
                             	<input type="hidden" id= "c1_amount" name="c1_amount" value=100 />	
 							    <button onclick="Add_to_Cart(document.getElementById('camera1').value,document.getElementById('c1_amount').value)" >Add to Cart</button>                                         
@@ -220,7 +229,7 @@ function Add_to_Cart(item,price){
                         </svg>
                         <div class="card-body">
                             <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html">more info</a>
+                            <a href="./product.html"onclick="Product(document.getElementById('camera2').value,document.getElementById('c2_amount').value)">more info</a>
                             <input type="hidden" id= "camera2" name="camera2" value="camera2"/>
                             	<input type="hidden" id= "c2_amount" name="c2_amount" value=200 />	
 							    <button onclick="Add_to_Cart(document.getElementById('camera2').value,document.getElementById('c2_amount').value)" >Add to Cart</button> 
@@ -234,7 +243,7 @@ function Add_to_Cart(item,price){
                         </svg>
                         <div class="card-body">
                             <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html">more info</a>
+                            <a href="./product.html" onclick="Product(document.getElementById('camera3').value,document.getElementById('c3_amount').value)">more info</a>
                             <input type="hidden" id= "camera3" name="camera3" value="camera3"/>
                             	<input type="hidden" id= "c3_amount" name="c3_amount" value=300 />	
 							    <button onclick="Add_to_Cart(document.getElementById('camera3').value,document.getElementById('c3_amount').value)" >Add to Cart</button> 
@@ -248,10 +257,10 @@ function Add_to_Cart(item,price){
                         </svg>
                         <div class="card-body">
                             <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html">more info</a>
+                            <a href="./product.html" onclick="Product(document.getElementById('camera4').value,document.getElementById('c4_amount').value)">more info</a>
                             <input type="hidden" id= "camera4" name="camera4" value="camera4"/>
-                            	<input type="hidden" id= "c4_amount" name="c4_amount" value=400 />	
-							    <button onclick="Add_to_Cart(document.getElementById('camera4').value,document.getElementById('c4_amount').value)" >Add to Cart</button> 
+                            <input type="hidden" id= "c4_amount" name="c4_amount" value=400 />	
+							<button onclick="Add_to_Cart(document.getElementById('camera4').value,document.getElementById('c4_amount').value)" >Add to Cart</button> 
                         </div>
                     </div>
                 </div>
@@ -270,7 +279,7 @@ function Add_to_Cart(item,price){
                         </svg>
                         <div class="card-body">
                             <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html">more info</a>
+                            <a href="./product.html" onclick="Product(document.getElementById('Phone1').value,document.getElementById('p1_amount').value)">more info</a>
                             <input type="hidden" id= "Phone1" name="Phone1" value="Phone1"/>
                             	<input type="hidden" id= "p1_amount" name="p1_amount" value=100 />	
 							    <button onclick="Add_to_Cart(document.getElementById('Phone1').value,document.getElementById('p1_amount').value)" >Add to Cart</button> 
@@ -284,7 +293,7 @@ function Add_to_Cart(item,price){
                         </svg>
                         <div class="card-body">
                             <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html">more info</a>
+                            <a href="./product.html" onclick="Product(document.getElementById('Phone2').value,document.getElementById('p2_amount').value)">more info</a>
                             <input type="hidden" id= "Phone2" name="Phone2" value="Phone2"/>
                             	<input type="hidden" id= "p2_amount" name="p2_amount" value=200 />	
 							    <button onclick="Add_to_Cart(document.getElementById('Phone2').value,document.getElementById('p2_amount').value)" >Add to Cart</button> 
@@ -298,7 +307,7 @@ function Add_to_Cart(item,price){
                         </svg>
                         <div class="card-body">
                             <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html">more info</a>
+                            <a href="./product.html" onclick="Product(document.getElementById('Phone3').value,document.getElementById('p3_amount').value)">more info</a>
                             <input type="hidden" id= "Phone3" name="Phone3" value="Phone3"/>
                             	<input type="hidden" id= "p3_amount" name="p3_amount" value=300 />	
 							    <button onclick="Add_to_Cart(document.getElementById('Phone3').value,document.getElementById('p3_amount').value)" >Add to Cart</button> 
@@ -312,7 +321,7 @@ function Add_to_Cart(item,price){
                         </svg>
                         <div class="card-body">
                             <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html">more info</a>
+                            <a href="./product.html" onclick="Product(document.getElementById('Phone4').value,document.getElementById('p4_amount').value)">more info</a>
                             <input type="hidden" id= "Phone4" name="Phone4" value="Phone4"/>
                             	<input type="hidden" id= "p4_amount" name="p4_amount" value=400 />	
 							    <button onclick="Add_to_Cart(document.getElementById('Phone4').value,document.getElementById('p4_amount').value)" >Add to Cart</button> 
@@ -334,7 +343,7 @@ function Add_to_Cart(item,price){
                         </svg>
                         <div class="card-body">
                             <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html">more info</a>
+                            <a href="./product.html" onclick="Product(document.getElementById('Electronic1').value,document.getElementById('e1_amount').value)">more info</a>
                             <input type="hidden" id= "Electronic1" name="Electronic1" value="Electronic1"/>
                             	<input type="hidden" id= "e1_amount" name="e1_amount" value=100 />	
 							    <button onclick="Add_to_Cart(document.getElementById('Electronic1').value,document.getElementById('e1_amount').value)" >Add to Cart</button> 
@@ -348,7 +357,7 @@ function Add_to_Cart(item,price){
                         </svg>
                         <div class="card-body">
                             <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html">more info</a>
+                            <a href="./product.html" onclick="Product(document.getElementById('Electronic2').value,document.getElementById('e2_amount').value)">more info</a>
                             <input type="hidden" id= "Electronic2" name="Electronic2" value="Electronic2"/>
                             	<input type="hidden" id= "e2_amount" name="e2_amount" value=200 />	
 							    <button onclick="Add_to_Cart(document.getElementById('Electronic2').value,document.getElementById('e2_amount').value)" >Add to Cart</button> 
@@ -362,7 +371,7 @@ function Add_to_Cart(item,price){
                         </svg>
                         <div class="card-body">
                             <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html">more info</a>
+                            <a href="./product.html" onclick="Product(document.getElementById('Electronic3').value,document.getElementById('e3_amount').value)">more info</a>
                             <input type="hidden" id= "Electronic3" name="Electronic3" value="Electronic3"/>
                             	<input type="hidden" id= "e3_amount" name="e3_amount" value=300 />	
 							    <button onclick="Add_to_Cart(document.getElementById('Electronic3').value,document.getElementById('e3_amount').value)" >Add to Cart</button> 
@@ -376,7 +385,7 @@ function Add_to_Cart(item,price){
                         </svg>
                         <div class="card-body">
                             <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html">more info</a>
+                            <a href="./product.html" onclick="Product(document.getElementById('Electronic4').value,document.getElementById('e4_amount').value)">more info</a>
                             <input type="hidden" id= "Electronic4" name="Electronic4" value="Electronic4"/>
                             	<input type="hidden" id= "e4_amount" name="e4_amount" value=400 />	
 							    <button onclick="Add_to_Cart(document.getElementById('Electronic4').value,document.getElementById('e4_amount').value)" >Add to Cart</button> 
@@ -398,7 +407,7 @@ function Add_to_Cart(item,price){
                         </svg>
                         <div class="card-body">
                             <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html">more info</a>
+                            <a href="./product.html" onclick="Product(document.getElementById('LA1').value,document.getElementById('l1_amount').value)">more info</a>
                             <input type="hidden" id= "LA1" name="LA1" value="LargeAppliance1"/>
                             	<input type="hidden" id= "l1_amount" name="l1_amount" value=100 />	
 							    <button onclick="Add_to_Cart(document.getElementById('LA1').value,document.getElementById('l1_amount').value)" >Add to Cart</button> 
@@ -412,7 +421,7 @@ function Add_to_Cart(item,price){
                         </svg>
                         <div class="card-body">
                             <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html">more info</a>
+                            <a href="./product.html" onclick="Product(document.getElementById('LA2').value,document.getElementById('l2_amount').value)">more info</a>
                             <input type="hidden" id= "LA2" name="LA2" value="LargeAppliance2"/>
                             	<input type="hidden" id= "l2_amount" name="l2_amount" value=200 />	
 							    <button onclick="Add_to_Cart(document.getElementById('LA2').value,document.getElementById('l2_amount').value)" >Add to Cart</button> 
@@ -426,7 +435,7 @@ function Add_to_Cart(item,price){
                         </svg>
                         <div class="card-body">
                             <p class="card-text">YET TO BE ADDED.</p>
-                            <a href="./product.html">more info</a>
+                            <a href="./product.html" onclick="Product(document.getElementById('LA3').value,document.getElementById('l3_amount').value)">more info</a>
                             <input type="hidden" id= "LA3" name="LA3" value="LargeAppliance3"/>
                             	<input type="hidden" id= "l3_amount" name="l3_amount" value=300 />	
 							    <button onclick="Add_to_Cart(document.getElementById('LA3').value,document.getElementById('l3_amount').value)" >Add to Cart</button> 
@@ -440,7 +449,7 @@ function Add_to_Cart(item,price){
                         </svg>
                         <div class="card-body">
                             <p class="card-text">YET TO BE ADDED</p>
-                            <a href="./product.html">more info</a>
+                            <a href="./product.html" onclick="Product(document.getElementById('LA4').value,document.getElementById('l4_amount').value)">more info</a>
                             <input type="hidden" id= "LA4" name="LA4" value="LargeAppliance4"/>
                             	<input type="hidden" id= "l4_amount" name="l4_amount" value=400 />	
 							    <button onclick="Add_to_Cart(document.getElementById('LA4').value,document.getElementById('l4_amount').value)" >Add to Cart</button> 
