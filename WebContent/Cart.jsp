@@ -5,6 +5,24 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 <!DOCTYPE html>
 <html lang="en">
+<script>
+function getCookie(name) {
+	  var str = name + "=";
+	  var cstr = decodeURIComponent(document.cookie);
+	  var c = cstr.split(';');
+	  for(var i = 0; i <c.length; i++) {
+	    var cookie = c[i];
+	    while (cookie.charAt(0) == ' ') {
+	      cookie  = cookie.substring(1);
+	    }
+	    if (cookie.indexOf(str) == 0) {
+	      return cookie.substring(str.length, cookie.length);
+	    }
+	  }
+	  return "";
+	}
+	
+</script>
 
 <script>
 window.onload = function(e){
@@ -34,6 +52,12 @@ window.onload = function(e){
 				document.getElementById("items").innerHTML= html	
 	}
 		document.getElementById("quantity").value=quantity;
+		
+		if (getCookie("userID")!=null && getCookie("userID")!=''){
+			var c=getCookie("userID");
+			document.getElementById("userID").value=user;
+			alert("Your Order was Placed!");
+		}
 	}
 	
 	
@@ -55,7 +79,7 @@ window.onload = function(e){
         <!-- Shopping cart -->
         <div class="cartContainer">
 
-        <button class="checkoutButton" onclick='document.getElementById("cartform").submit();alert("Your Order was Placed!");'>CHECKOUT ></button>
+        <button class="checkoutButton" onclick='document.getElementById("cartform").submit();'>CHECKOUT ></button>
 
         <!--Table-->
         <table id="cart">
@@ -105,7 +129,7 @@ window.onload = function(e){
 
         </div>
 	
-        <button class="checkoutButton" onclick='document.getElementById("cartform").submit();alert("Your Order was Placed!");'>CHECKOUT ></button>
+        <button class="checkoutButton" onclick='document.getElementById("cartform").submit();'>CHECKOUT ></button>
 
         </div>
 
@@ -115,6 +139,7 @@ window.onload = function(e){
     <form style="display: none" id="cartform" method="POST"action="OrderServlet" name="cartform">
 						<input id="order" type="hidden" value=''/>
 						<input id="quantity" type="hidden" value=''/>
+						<input id="userID" type="hidden" value=''/>
 	</form>
 
     <script src="cart_js.js"></script>
