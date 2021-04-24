@@ -22,7 +22,7 @@ public class LoginHandler extends HttpServlet {
      */
     public LoginHandler() {
         super();
-        // TODO Auto-generated constructor stub
+        // Auto-generated constructor stub
     }
 
 	/**
@@ -74,7 +74,7 @@ public class LoginHandler extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// Auto-generated method stub
 		doGet(request, response);
 	}
 
