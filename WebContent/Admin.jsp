@@ -6,23 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <script src="https://kit.fontawesome.com/0207abde13.js"crossorigin="anonymous"></script>
-<script>
-window.onload = function(e){
-	if (getCookie("userID")!=null){
-		document.getElementById("Login").style["display"] = "none";
-		document.getElementById("SignUp").style["display"] = "none";								
-	}
-	if(getCookie("userID")=="0"){
-		document.getElementById("Admin").style["display"] = "block";
-		}
-	
-	if(getCookie("userID")!=0 && getCookie("userID")!=null ){
-		document.getElementById("User").style["display"] = "block";
-			
-	}
-		
-} 
-</script>
+<script src="User_js.js"></script>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
