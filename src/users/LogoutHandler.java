@@ -47,7 +47,9 @@ public class LogoutHandler extends HttpServlet {
 			response.sendRedirect("home.html");
 			
 		} catch (Exception e) {
-			// TODO graceful error handling
+			// graceful error handling
+			out.append("<p>An error occured when trying to delete cookies"
+					+ "<br/>Please check the server logs or have an administrator do so</p>");
 			e.printStackTrace();
 		} finally {
 			out.close();
