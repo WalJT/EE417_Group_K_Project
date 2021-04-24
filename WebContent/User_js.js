@@ -19,7 +19,6 @@ function getCookie(name) {
 	}
 	
 window.onload = function(e){
-	document.cookie="userID=1";
 	if (getCookie("userID")!=null && getCookie("userID")!=''){
 		document.getElementById("Login").style["display"] = "none";
 		document.getElementById("SignUp").style["display"] = "none";
