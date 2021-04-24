@@ -39,7 +39,7 @@
             <ul>
                 <li><a href="home.html">Home</a></li>
                 <li><a href="about.html">About </a></li>
-                <li><a href="Cart.jsp"><i id="EmptyCart" class="fas fa-shopping-cart fa-lg"></i></a></li>
+                <li><a href="cart.html"><i id="EmptyCart" class="fas fa-shopping-cart fa-lg"></i></a></li>
                 <li style=><a style="display:inline" href="LogoutHandler">Logout<i style="display:inline" class="fas fa-sign-out-alt fa-sm"> </i></a></li>
             </ul>
 

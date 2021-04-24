@@ -49,127 +49,62 @@
             <!-- Shopping cart -->
             <div class="cartContainer">
 
-                <button class="checkoutButton">CHECKOUT ></button>
+               <button class="checkoutButton" onclick='Checkout()'>CHECKOUT ></button>
 
-                <!--Table-->
-                <table id="cart">
+        <!--Table-->
+        <table id="cart">
 
-                    <!--Table headings-->
-                    <tr>
-                        <th>Item</th>
-                        <th>QTY</th>
-                        <th>Price</th>
-                        <th>TOTAL PRICE</th>
-                    </tr>
+        <!--Table heading-->
+        
 
-                    <!-- Product details-->
-
-                    <!-- sample new item -->
-                    <div class="newItem">
-                        <tr>
-                            <td>
-                                <!-- Sample product image -->
-                                <img src="sample.png" alt="PRODUCT IMAGE">
-                                <!-- Name of Product -->
-                                <br>
-                                Lorem ipsum
-                                <br>
-                                <!-- Button to save item -->
-                                <button class="saveButton" >Save for later</button>
-                                <!-- Butoon to remove item -->
-                                <button class="removeButton">Remove</button>
-                            </td>
-                            <!--Field that shows the quantity of products in cart; can be modified by user up to 500 -->
-                            <td><input type="number" class="quantity" name="quantity" value="4" min="1" max="500"></td>
-                            <td class="price">35£</td>
-                            <!-- Price of product field which is set to disabled so user cannot modify-->
-                            <td><input type="number" class="itemTotalPrice" value="35" disabled="true"></td>
-                        </tr>
-                    </div>
-
-                    <!-- sample new item -->
-                    <div class="newItem">
-                        <tr>
-                            <td>
-                                <!-- Sample product image -->
-                                <img src="sample.png" alt="PRODUCT IMAGE">
-                                <!-- Name of Product -->
-                                <br>
-                                Lorem ipsum
-                                <br>
-                                <!-- Button to save item -->
-                                <button class="saveButton" >Save for later</button>
-                                <!-- Butoon to remove item -->
-                                <button class="removeButton">Remove</button>
-                            </td>
-                            <!--Field that shows the quantity of products in cart; can be modified by user up to 500 -->
-                            <td><input type="number" class="quantity" name="quantity" value="2" min="1" max="500"></td>
-                            <td class="price">35£</td>
-                            <!-- Price of product field which is set to disabled so user cannot modify-->
-                            <td><input type="number" class="itemTotalPrice" value="35" disabled="true"></td>
-                        </tr>
-                    </div>
-
-                    <!-- sample new item -->
-                    <div class="newItem">
-                        <tr>
-                            <td>
-                                <!-- Sample product image -->
-                                <img src="sample.png" alt="PRODUCT IMAGE">
-                                <!-- Name of Product -->
-                                <br>
-                                Lorem ipsum
-                                <br>
-                                <!-- Button to save item -->
-                                <button class="saveButton" >Save for later</button>
-                                <!-- Butoon to remove item -->
-                                <button class="removeButton">Remove</button>
-                            </td>
-                            <!--Field that shows the quantity of products in cart; can be modified by user up to 500 -->
-                            <td><input type="number" class="quantity" name="quantity" value="2" min="1" max="500"></td>
-                            <td class="price">35£</td>
-                            <!-- Price of product field which is set to disabled so user cannot modify-->
-                            <td><input type="number" class="itemTotalPrice" value="35" disabled="true"></td>
-                        </tr>
-                    </div>
-                </table>
+        <!-- Product details-->
+	    <tr>
+	     <div id="items">
+        
+        
+        </div>
+      	</tr>
+       
+      </table>
+      
+       
 
 
 
-                <!-- Total details -->
-                <div class="totalDetails">
-                    <table id="cartTotal">
+        <!-- Total details -->
+        <div class="totalDetails">
+            <table id="cartTotal">
+                <tr>
+                    <td>Subtotal</td>
+                    <td><input type="number" id="subTotalPrice" value="" disabled="true"></td>
+                </tr>
 
-                        <!-- field for subtotal price , set to disabled so user cannot modify-->
-                        <tr>
-                            <td>Subtotal</td>
-                            <td><input type="number" id="subTotalPrice" value="" disabled="true"></td>
-                        </tr>
+                <tr>
+                    <td>Tax</td>
+                    <td></td>
+                </tr>
 
-                        <!-- field for tax , set to disabled so user cannot modify-->
-                        <tr>
-                            <td>Tax</td>
-                            <td></td>
-                        </tr>
-
-                        <!-- field for total price , set to disabled so user cannot modify-->
-                        <tr>
-                            <td>Total price</td>
-                            <td><input type="number" id="TotalPrice" value="" disabled="true"></td>
-                        </tr>
+                <tr>
+                    <td>Total price</td>
+                    <td><input type="number" id="TotalPrice" value="" disabled="true"></td>
+                </tr>
 
 
-                    </table>
+            </table>
 
-                </div>
-
-                <!--Lower check out button -->
-                <button class="checkoutButton">CHECKOUT ></button>
+        </div>
+	
+        <button class="checkoutButton" onclick='Checkout()'>CHECKOUT ></button> 
 
             </div>
 
             <button class="contShoppingButton"><a href="home.html">< CONTINUE SHOPPING</a></button>
         </div>
+        <form style="display: none" id="cartform" method="POST" action="OrderServlet" name="cartform">
+						<input id="order" name="order"type="hidden" value=''/>
+						<input id="quantity" name="quantity" type="hidden" value=''/>
+						<input id="userEmail" name="quantity" type="hidden" value=''/>
+	</form>
     </div>
 </div>
 <!-- End of submission by Lee Anjella -->
@@ -239,6 +174,9 @@
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 <script src="cart_js.js"></script>
+<script src="https://kit.fontawesome.com/0207abde13.js"crossorigin="anonymous"></script>
+<script src="User_js.js"></script>
+<script src="CartPage_Functionality.js"></script>
 </body>
 
 </html>
