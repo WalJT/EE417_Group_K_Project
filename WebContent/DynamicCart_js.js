@@ -56,10 +56,11 @@ function Add_to_Cart(item,price){
 	}		
 }
 
-//function Product(item,price,img){
-function Product(item,price){
+function Product(item,price,img){
+//function Product(item,price){
 	localStorage.setItem("product", item);
 	localStorage.setItem("product_price", price);
-	//localStorage.setItem("product_img", img);
+	localStorage.setItem("product_img", img);
 		
 }
+
