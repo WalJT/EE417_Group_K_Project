@@ -5,6 +5,24 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 <!DOCTYPE html>
 <html lang="en">
+<script src="https://kit.fontawesome.com/0207abde13.js"crossorigin="anonymous"></script>
+<script>
+window.onload = function(e){
+	if (getCookie("userID")!=null){
+		document.getElementById("Login").style["display"] = "none";
+		document.getElementById("SignUp").style["display"] = "none";								
+	}
+	if(getCookie("userID")=="0"){
+		document.getElementById("Admin").style["display"] = "block";
+		}
+	
+	if(getCookie("userID")!=0 && getCookie("userID")!=null ){
+		document.getElementById("User").style["display"] = "block";
+			
+	}
+		
+} 
+</script>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,7 +55,8 @@
             <ul>
                 <li><a href="home.html">Home</a></li>
                 <li><a href="about.html">About </a></li>
-                <li><a href="cart.html"><i id="EmptyCart" class="fas fa-shopping-cart fa-lg"></i></a></li>
+                <li><a href="Cart.jsp"><i id="EmptyCart" class="fas fa-shopping-cart fa-lg"></i></a></li>
+                <li style=><a style="display:inline" href="LogoutHandler">Logout<i style="display:inline" class="fas fa-sign-out-alt fa-sm"> </i></a></li>
             </ul>
 
         </div>
@@ -64,25 +83,27 @@
       </div> 
      <div>
        
-<sql:setDataSource var = "table" driver = "com.mysql.cj.jdbc.Driver"
-         url = "jdbc:mysql://groupk.ccuoxucn9lr2.us-east-2.rds.amazonaws.com:3306/GroupK"
+<sql:setDataSource var = "table" driver = "com.mysql.jdbc.Driver"
+         url = "jdbc:mysql://groupk.ccuoxucn9lr2.us-east-2.rds.amazonaws.com:3306/GroupKDB"
          user = "***REMOVED***"  password = "***REMOVED***"/><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
  
       <sql:query dataSource = "${table}" var = "result">
-      SELECT id,firstname,lastname,email,psd,phone,adress,city,zipcode FROM sys.GroupK_Accounts</sql:query><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
+      SELECT id,firstname,lastname,email,psd,phone,adress,city,zipcode FROM GroupK_Accounts</sql:query><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
  
  
  <fieldset>
  <h>User Database</h>
       <table border = "1" width = "100%">
          <tr>
-            <th>UNAME</th>
-            <th>PW</th>
+            <th>ID</th>
+            <th>FIRSTNAME</th>
+            <th>LASTNAME</th>
             <th>EMAIL</th>
-            <th>GENDER</th>
-            <th>FNAME</th>
-            <th>SNAME</th>
-            <th>DOB</th>
+            <th>PSD</th>
+            <th>ADDRESS</th>
+            <th>CITY</th>
+            <th>ZIPCODE</th>
+            
          </tr>
         <c:forEach var = "row" items = "${result.rows}">
             <tr>
@@ -98,17 +119,17 @@
             </tr>
          </c:forEach>
       </table>
-
+</fieldset>
 	
 	<sql:setDataSource var = "table2" driver = "com.mysql.jdbc.Driver"
-         url = "jdbc:mysql://localhost:3306/Mysql"
-         user = "root"  password = "root"/><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
+         url = "jdbc:mysql://groupk.ccuoxucn9lr2.us-east-2.rds.amazonaws.com:3306/GroupKDB"
+         user = "***REMOVED***"  password = "***REMOVED***"/><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
  
       <sql:query dataSource = "${table2}" var = "result2">
-      SELECT gid,gname,price,amount FROM sys.Goods</sql:query><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
+      SELECT gid,gname,price,amount FROM Goods</sql:query><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
  
  
- </fieldset>
+  <br>
  <fieldset>
  <h>Goods Stock</h>
       <table border = "1" width = "100%">
@@ -128,7 +149,85 @@
             </tr>
          </c:forEach>
       </table>
-         
+    </fieldset>   
+    
+    
+    
+    
+    
+    <sql:setDataSource var = "table3" driver = "com.mysql.jdbc.Driver"
+         url = "jdbc:mysql://groupk.ccuoxucn9lr2.us-east-2.rds.amazonaws.com:3306/GroupKDB"
+         user = "***REMOVED***"  password = "***REMOVED***"/><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
+ 
+      <sql:query dataSource = "${table3}" var = "result3">
+      SELECT id,order_id,gid,gname,price,amount FROM order_item</sql:query><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
+ 
+  <br>
+ <fieldset>
+ <h>Ordered Items</h>
+      <table border = "1" width = "100%">
+         <tr>
+         	<th>ID</th>
+         	<th>ORDER ID</th>           
+            <th>GID</th>
+            <th>GNAME</th> 
+            <th>PRICE</th>  
+            <th>AMOUNT</th> 
+            
+         </tr>
+        <c:forEach var = "row3" items = "${result3.rows}">
+            <tr>
+               <td><c:out value = "${row3.id}"/></td>
+               <td><c:out value = "${row3.order_id}"/></td>
+               <td><c:out value = "${row3.gid}"/></td>
+               <td><c:out value = "${row3.gname}"/></td>
+               <td><c:out value = "${row3.price}"/></td>
+               <td><c:out value = "${row3.amount}"/></td>
+            </tr>
+         </c:forEach>
+      </table>
+</fieldset>
+
+ <sql:setDataSource var = "table4" driver = "com.mysql.jdbc.Driver"
+        url = "jdbc:mysql://groupk.ccuoxucn9lr2.us-east-2.rds.amazonaws.com:3306/GroupKDB"
+         user = "***REMOVED***"  password = "***REMOVED***"/><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
+ 
+      <sql:query dataSource = "${table4}" var = "result4">
+      SELECT order_id,id,firstname,lastname,email,psd,phone,adress,city,zipcode FROM orders</sql:query><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
+ 
+ <br>
+ <fieldset>
+ <h>Orders</h>
+      <table border = "1" width = "100%">
+         <tr>
+         	<th>ORDER ID</th>
+            <th>ID</th>
+            <th>FIRSTNAME</th>
+            <th>LASTNAME</th>
+            <th>EMAIL</th>
+            <th>PSD</th>
+            <th>ADDRESS</th>
+            <th>CITY</th>
+            <th>ZIPCODE</th>
+            
+         </tr>
+        <c:forEach var = "row4" items = "${result4.rows}">
+            <tr>
+               <td><c:out value = "${row4.order_id}"/></td>
+               <td><c:out value = "${row4.id}"/></td>
+               <td><c:out value = "${row4.firstname}"/></td>
+               <td><c:out value = "${row4.lastname}"/></td>
+               <td><c:out value = "${row4.email}"/></td>
+               <td><c:out value = "${row4.psd}"/></td>
+               <td><c:out value = "${row4.phone}"/></td>
+               <td><c:out value = "${row4.adress}"/></td>
+               <td><c:out value = "${row4.city}"/></td>
+               <td><c:out value = "${row4.zipcode}"/></td>
+            </tr>
+         </c:forEach>
+      </table>
+</fieldset>
+    
      </div>
 </main>
 </div> 
