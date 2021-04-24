@@ -59,7 +59,7 @@ public class OrderServlet extends HttpServlet {
 		Cookie[] uCookie = request.getCookies();
 		User newuser= new User(uCookie[0].getValue());
 		
-		for(int i=0;i<order.length;i++)
+		for(int i=0;i<order.length-1;i++)
 		{	
 			newGood.setGname(order[i]);
 			newOrderItem.setGname(order[i]);
