@@ -1,6 +1,7 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <script src="https://kit.fontawesome.com/0207abde13.js"crossorigin="anonymous"></script>
+
 <script>
 function getCookie(name) {
 	  var str = name + "=";
@@ -19,10 +20,9 @@ function getCookie(name) {
 	}
 	
 </script>
-<script>	
+<script>
 window.onload = function(e){
-	
-	if (getCookie("userID")!=null && getCookie("userID")!=''){
+	if (getCookie("userID")!=null){
 		document.getElementById("Login").style["display"] = "none";
 		document.getElementById("SignUp").style["display"] = "none";								
 	}
@@ -30,15 +30,21 @@ window.onload = function(e){
 		document.getElementById("Admin").style["display"] = "block";
 		}
 	
-	if(getCookie("userID").toString()!="=0" && getCookie("userID")!=null && getCookie("userID")!=''){
+	if(getCookie("userID").toString()!="=0" && getCookie("userID")!=null ){
 		document.getElementById("User").style["display"] = "block";
+			
 	}
 	if(localStorage.getItem("items")!=null){
-			document.getElementById("EmptyCart").className = "fas fa-cart-plus fa-lg";
+		document.getElementById("EmptyCart").className = "fas fa-cart-plus fa-lg";
+	}
+	if(localStorage.getItem("product")!=null){
+		document.getElementById("product").innerHTML = localStorage.getItem("product");
+		document.getElementById("price").innerHTML = "$ "+localStorage.getItem("product_price");
 	}
 		
 } 
 </script>
+
 
 <head>
     <meta charset="UTF-8">
@@ -101,10 +107,10 @@ window.onload = function(e){
                 <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#555" dy=".3em">First slide</text></svg>
             </div>
             <div class="col-12 col-sm-6 mt-4">
-                <div class="display-4">Product Name</div>
+                <div id="product" name="product" class="display-4">Product Name</div>
                 <h3>Product description</h3>
                 <p>YET TO BE ADDED.</p>
-                <p>Price:<strong>$5.99</strong></p>
+                <p>Price:<strong id="price" name="price">$5.99</strong></p>
                 <p>
                     <h4>Features</h4>
                     <ul>
