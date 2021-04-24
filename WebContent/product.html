@@ -1,48 +1,8 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
-<script src="https://kit.fontawesome.com/0207abde13.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/0207abde13.js"crossorigin="anonymous"></script>
 
-<script>
-    function getCookie(name) {
-        var str = name + "=";
-        var cstr = decodeURIComponent(document.cookie);
-        var c = cstr.split(';');
-        for (var i = 0; i < c.length; i++) {
-            var cookie = c[i];
-            while (cookie.charAt(0) == ' ') {
-                cookie = cookie.substring(1);
-            }
-            if (cookie.indexOf(name) == 0) {
-                return cookie.substring(name.length, cookie.length);
-            }
-        }
-        return "";
-    }
-</script>
-<script>
-    window.onload = function(e) {
-        if (getCookie("userID") != null) {
-            document.getElementById("Login").style["display"] = "none";
-            document.getElementById("SignUp").style["display"] = "none";
-        }
-        if (getCookie("userID").toString() == "=0") {
-            document.getElementById("Admin").style["display"] = "block";
-        }
-
-        if (getCookie("userID").toString() != "=0" && getCookie("userID") != null) {
-            document.getElementById("User").style["display"] = "block";
-
-        }
-        if (localStorage.getItem("items") != null) {
-            document.getElementById("EmptyCart").className = "fas fa-cart-plus fa-lg";
-        }
-        if (localStorage.getItem("product") != null) {
-            document.getElementById("product").innerHTML = localStorage.getItem("product");
-            document.getElementById("price").innerHTML = "$ " + localStorage.getItem("product_price");
-        }
-
-    }
-</script>
+<script src="User_js.js"></script>
 
 
 <head>
@@ -84,16 +44,21 @@
                         <a class="nav-link text-light" id="SignUp" href="signup.html">Sign Up</a>
                     </li>
                     <li class="nav-item">
-                        <a style="display: none" class="nav-link text-light" id="User" href="user.html">User</a>
+                        <a style= "display: none" class="nav-link text-light" id="User" href="user.html">User</a>
                     </li>
-                    <li class="nav-item">
-                        <a style="display: none" class="nav-link text-light" id="Admin" href="Admin.jsp">Admin</a>
+					<li class="nav-item">
+                        <a style= "display: none" class="nav-link text-light" id="Admin" href="Admin.jsp">Admin</a>
                     </li>
-                </ul>
-                <ul>
                     <li style="float: right" class="nav-item">
-                        <a class="nav-link text-light" href="Cart.jsp"><i id="EmptyCart" class="fas fa-shopping-cart fa-lg"></i></a>
-                    </li>
+                        <a class="nav-link text-light"  href="cart.html"><i id="EmptyCart" class="fas fa-shopping-cart fa-lg"></i></a>
+               	</li>
+                    <li class="nav-item" >
+                    <a style= "display: none" id="logout" href="LogoutHandler" class="nav-link text-light">Logout<i class="fas fa-sign-out-alt fa-sm"> </i></a>
+               	</li>
+                </ul>             
+                <ul>
+                
+               
                 </ul>
             </div>
         </div>
@@ -103,27 +68,27 @@
         <!-- product img -->
         <div class="row">
             <div class="col-12 col-sm-6 ml-3 my-3">
-                <img src="images/MOBILE 3.jfif" width="600" height="400">
+                <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#555" dy=".3em">First slide</text></svg>
             </div>
             <div class="col-12 col-sm-6 mt-4">
                 <div id="product" name="product" class="display-4">Product Name</div>
                 <h3>Product description</h3>
-                <p>.</p>
+                <p>YET TO BE ADDED.</p>
                 <p>Price:<strong id="price" name="price">$5.99</strong></p>
                 <p>
                     <h4>Features</h4>
                     <ul>
                         <li>
-                            <p>4k ultra HD.</p>
+                            <p>YET TO BE ADDED.</p>
                         </li>
                         <li>
-                            <p>OLED screen.</p>
+                            <p>YET TO BE ADDED.</p>
                         </li>
                         <li>
-                            <p>120 hz framerate.</p>
+                            <p>YET TO BE ADDED.</p>
                         </li>
                         <li>
-                            <p>voice commands enabled.</p>
+                            <p>YET TO BE ADDED.</p>
                         </li>
                     </ul>
                 </p>
@@ -138,31 +103,46 @@
                     </div>
                     <div class="row mb-3">
                         <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mx-auto">
-                            <img src="images/apple desktop.jfif" width="400" height="200">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img">
+                                <title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#868e96"></rect>
+                                <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Placeholder</text>
+                            </svg>
                             <div class="card-body">
-                                <p class="card-text">desktop.</p>
+                                <p class="card-text">YET TO BE ADDED.</p>
                                 <a href="./product.html">more info</a>
                             </div>
                         </div>
                         <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mx-auto">
-                            <img src="images/camera 3.jfif" width="400" height="200">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img">
+                                <title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#868e96"></rect>
+                                <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Placeholder</text>
+                            </svg>
                             <div class="card-body">
-                                <p class="card-text">camera.</p>
+                                <p class="card-text">YET TO BE ADDED.</p>
                                 <a href="./product.html">more info</a>
                             </div>
                         </div>
                         <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mx-auto">
-                            <img src="images/logitech keyboard.jfif" width="400" height="200">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img">
+                                <title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#868e96"></rect>
+                                <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Placeholder</text>
+                            </svg>
                             <div class="card-body">
-                                <p class="card-text">keyboard.</p>
+                                <p class="card-text">YET TO BE ADDED.</p>
                                 <a href="./product.html">more info</a>
                             </div>
                         </div>
                         <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mx-auto">
-                            <img src="images/mi mouse.jfif" width="400" height="200">
-
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img">
+                                <title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#868e96"></rect>
+                                <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Placeholder</text>
+                            </svg>
                             <div class="card-body">
-                                <p class="card-text">wireless mouse.</p>
+                                <p class="card-text">YET TO BE ADDED.</p>
                                 <a href="./product.html">more info</a>
                             </div>
                         </div>
@@ -175,31 +155,46 @@
                     </div>
                     <div class="row mb-3">
                         <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mx-auto">
-                            <img src="images/microwave 1.jfif" width="400" height="200">
-
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img">
+                                <title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#868e96"></rect>
+                                <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Placeholder</text>
+                            </svg>
                             <div class="card-body">
-                                <p class="card-text">microwave.</p>
+                                <p class="card-text">YET TO BE ADDED.</p>
                                 <a href="./product.html">more info</a>
                             </div>
                         </div>
                         <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mx-auto">
-                            <img src="images/air pods.jfif" width="400" height="200">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img">
+                                <title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#868e96"></rect>
+                                <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Placeholder</text>
+                            </svg>
                             <div class="card-body">
-                                <p class="card-text">airpods</p>
+                                <p class="card-text">YET TO BE ADDED</p>
                                 <a href="./product.html">more info</a>
                             </div>
                         </div>
                         <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mx-auto">
-                            <img src="images/logitech.jfif" width="400" height="200">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img">
+                                <title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#868e96"></rect>
+                                <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Placeholder</text>
+                            </svg>
                             <div class="card-body">
-                                <p class="card-text">logitech</p>
+                                <p class="card-text">YET TO BE ADDED</p>
                                 <a href="./product.html">more info</a>
                             </div>
                         </div>
                         <div class="card col-12 col-sm-6 col-md-4 col-lg-3 mx-auto">
-                            <img src="images/PANASONIC.jfif" width="400" height="200">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img">
+                                <title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#868e96"></rect>
+                                <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Placeholder</text>
+                            </svg>
                             <div class="card-body">
-                                <p class="card-text">panasonic</p>
+                                <p class="card-text">YET TO BE ADDED</p>
                                 <a href="./product.html">more info</a>
                             </div>
                         </div>
