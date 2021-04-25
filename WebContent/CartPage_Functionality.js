@@ -95,7 +95,8 @@ function Checkout(){
 			var user=getCookie("userEmail");
 			document.getElementById("userEmail").value=user;
 			document.getElementById("cartform").submit();
-			alert("Your Order was Placed "+user);	
+			alert("Your Order was Placed "+user);
+			localStorage.clear();
 		}
 	
 	else{alert("Please Login to Continue to Checkout");}
