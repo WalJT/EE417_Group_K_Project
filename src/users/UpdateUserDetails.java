@@ -113,6 +113,33 @@ public class UpdateUserDetails extends HttpServlet {
 					}
 				}
 			} else {
+				
+				// Grab current user's email address from the cookie
+				String currentEmail = null;
+				Cookie[] cookies = request.getCookies();
+				if (cookies != null) {
+					for (Cookie cookie: cookies) {
+						if (cookie.getName().equals("userEmail")) {
+							System.out.println(cookie.getValue());
+							currentEmail = cookie.getValue();
+						}
+					}
+					
+				}
+				
+				if (currentEmail == null) {
+					out.append("<p>No Email address found; This means no user is logged in"
+							+ "<br /><a href='login.html'>Go to the Login Page</a></p>");
+				} else {
+					User userToUpdate = new User(currentEmail);
+					
+					// TODO Update the parameters that are valid using setters
+					
+					
+					// TODO call update in database function
+					
+				}
+				
 				out.append("<p>A form field was empty or not read correctly</p>"
 						+ "Return to <a href='user.html'>the user account page</a>");
 			}
