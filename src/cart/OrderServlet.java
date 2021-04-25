@@ -37,9 +37,9 @@ public class OrderServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		
+		boolean check = false;
 		String order[]= request.getParameterValues("order");
 		String quantity[]= request.getParameterValues("quantity");
 		
@@ -76,10 +76,10 @@ public class OrderServlet extends HttpServlet {
 		
 		
 		
-		
 		if(OrderItemDao.insertOrderItem(ItemList))		//create all the order (stock them in the DB) 
 		{
 			out.print("Order complete");
+			check = true;
 		}
 		else
 		{
@@ -94,6 +94,14 @@ public class OrderServlet extends HttpServlet {
 		
 		OrderDao.insertOrder(newOrder);
 	    
+		if(check)
+		{
+			response.sendRedirect("home.html");
+		}
+		else
+		{
+			response.sendRedirect("cart.html");
+		}
 	  
 	    
 	    
