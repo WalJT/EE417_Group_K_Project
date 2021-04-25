@@ -124,7 +124,7 @@ public class User implements Serializable{
 	 * @param address
 	 * @return
 	 */
-	protected String stringifyAddress(String[] address) {
+	public String stringifyAddress(String[] address) {
 		String addressString = "";
 		
 		// Set each line of the address, separated by a comma
@@ -173,6 +173,9 @@ public class User implements Serializable{
 		return false;
 	}
 	
+	public void updatePasswordHash(String password) {
+		this.passwordHash = genreatePasswordHash(password);
+	}
 	
 	/**
 	 * Used for testing

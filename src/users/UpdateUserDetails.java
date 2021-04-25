@@ -77,7 +77,7 @@ public class UpdateUserDetails extends HttpServlet {
 					
 					parametersValid = false;
 				} else {
-					out.append(parameter);
+					//out.append(parameter);
 				}
 			}
 			
@@ -116,12 +116,16 @@ public class UpdateUserDetails extends HttpServlet {
 				
 				// Grab current user's email address from the cookie
 				String currentEmail = null;
+				Integer userID = null;
 				Cookie[] cookies = request.getCookies();
 				if (cookies != null) {
 					for (Cookie cookie: cookies) {
 						if (cookie.getName().equals("userEmail")) {
 							System.out.println(cookie.getValue());
 							currentEmail = cookie.getValue();
+						} else if (cookie.getName().equals("userID")) {
+							System.out.println(cookie.getValue());
+							userID = Integer.parseInt(cookie.getValue());
 						}
 					}
 					
@@ -133,7 +137,7 @@ public class UpdateUserDetails extends HttpServlet {
 				} else {
 					User userToUpdate = new User(currentEmail);
 					
-					// TODO Update the parameters that are valid using setters
+					// Update the parameters that are valid using setters
 					if (firstname != null && firstname != "") {
 						userToUpdate.setFirstname(firstname);
 					}
@@ -141,13 +145,27 @@ public class UpdateUserDetails extends HttpServlet {
 						userToUpdate.setSurname(lastname);
 					}
 					
+					// Update all or none of the address fields to avoid issues
+					if (address[0] != "" && address[1] != "" && address[2] != "" && address[3] != "") {
+						userToUpdate.setAddress(address);
+						userToUpdate.setAddressString(userToUpdate.stringifyAddress(address));
+					}
 					
-					// TODO call update in database function
+					if (phone != null && phone != "") {
+						userToUpdate.setPhone(phone);
+					}
+					if (email != null && email != "") {
+						userToUpdate.setEmailAddress(email);
+					}
+					if (password != null && password != "") {
+						userToUpdate.updatePasswordHash(password);
+					}
 					
+					// call update in database function and redirect home
+					userToUpdate.updateUserInDatabase(userID);
+					response.sendRedirect("home.html");
 				}
 				
-				out.append("<p>A form field was empty or not read correctly</p>"
-						+ "Return to <a href='user.html'>the user account page</a>");
 			}
 			
 			
