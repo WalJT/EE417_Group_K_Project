@@ -73,9 +73,8 @@ public class UpdateUserDetails extends HttpServlet {
 			// now loop through the array and set the set parametersValid to false if any are null
 			for (String parameter: arrayOfParameters) {
 				
-				if (parameter == null) {
-					out.append("<p>A form field was empty or not read correctly</p>"
-							+ "Return to <a href='user.html'>the user account page</a>");
+				if (parameter == null || parameter.equals("")) {
+					
 					parametersValid = false;
 				} else {
 					out.append(parameter);
@@ -113,6 +112,9 @@ public class UpdateUserDetails extends HttpServlet {
 								+ "Check the server logs for more details</p>");
 					}
 				}
+			} else {
+				out.append("<p>A form field was empty or not read correctly</p>"
+						+ "Return to <a href='user.html'>the user account page</a>");
 			}
 			
 			
