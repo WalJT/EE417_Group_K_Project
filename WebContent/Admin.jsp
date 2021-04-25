@@ -68,8 +68,8 @@
      <div>
        
 <sql:setDataSource var = "table" driver = "com.mysql.cj.jdbc.Driver"
-         url = "jdbc:mysql://groupk.ccuoxucn9lr2.us-east-2.rds.amazonaws.com:3306/GroupKDB"
-         user = "***REMOVED***"  password = "***REMOVED***"/><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
+         url = "jdbc:mysql://groupk.ccuoxucn9lr2.us-east-2.rds.amazonaws.com:3306/removed"
+         user = "removed"  password = "removed"/><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
  
       <sql:query dataSource = "${table}" var = "result">
       SELECT id,firstname,lastname,email,psd,phone,adress,city,zipcode FROM GroupK_Accounts</sql:query><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
@@ -106,8 +106,8 @@
 </fieldset>
 	
 	<sql:setDataSource var = "table2" driver = "com.mysql.cj.jdbc.Driver"
-         url = "jdbc:mysql://groupk.ccuoxucn9lr2.us-east-2.rds.amazonaws.com:3306/GroupKDB"
-         user = "***REMOVED***"  password = "***REMOVED***"/><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
+         url = "jdbc:mysql://groupk.ccuoxucn9lr2.us-east-2.rds.amazonaws.com:3306/removed"
+         user = "removed"  password = "removed"/><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
  
       <sql:query dataSource = "${table2}" var = "result2">
       SELECT gid,gname,price,amount FROM Goods</sql:query><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
@@ -140,8 +140,8 @@
     
     
     <sql:setDataSource var = "table3" driver = "com.mysql.cj.jdbc.Driver"
-         url = "jdbc:mysql://groupk.ccuoxucn9lr2.us-east-2.rds.amazonaws.com:3306/GroupKDB"
-         user = "***REMOVED***"  password = "***REMOVED***"/><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
+         url = "jdbc:mysql://groupk.ccuoxucn9lr2.us-east-2.rds.amazonaws.com:3306/removed"
+         user = "removed"  password = "removed"/><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
  
       <sql:query dataSource = "${table3}" var = "result3">
       SELECT id,order_id,gid,gname,price,amount FROM order_item</sql:query><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
@@ -173,8 +173,8 @@
 </fieldset>
 
  <sql:setDataSource var = "table4" driver = "com.mysql.cj.jdbc.Driver"
-        url = "jdbc:mysql://groupk.ccuoxucn9lr2.us-east-2.rds.amazonaws.com:3306/GroupKDB"
-         user = "***REMOVED***"  password = "***REMOVED***"/><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
+        url = "jdbc:mysql://groupk.ccuoxucn9lr2.us-east-2.rds.amazonaws.com:3306/removed"
+         user = "removed"  password = "removed"/><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->
  
       <sql:query dataSource = "${table4}" var = "result4">
       SELECT order_id,id,firstname,lastname,email,psd,phone,adress,city,zipcode FROM `order`</sql:query><!-- NEEDS TO BE UPDATED FOR ACTUAL DATABASE -->

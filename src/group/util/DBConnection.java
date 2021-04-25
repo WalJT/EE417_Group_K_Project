@@ -11,7 +11,7 @@ public class DBConnection {
 		Connection conn = null;
 		try {
 			Class.forName(dbDriver);
-			conn = DriverManager.getConnection(url, "***REMOVED***", "***REMOVED***");
+			conn = DriverManager.getConnection(url, "removed", "removed");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
