@@ -49,4 +49,4 @@ For the database connection to function properly, the URL and MySQL credentials 
 
 - In `src/settings/DatabaseConfig.java`
 - In `src/group/util/DBConnection.java`
-- On line `104` & `105` of `WebContent/Admin.jsp`
+- Wherever `sql:setDataSource `can be found in `WebContent/Admin.jsp`
