@@ -189,6 +189,26 @@ public class User implements Serializable{
 	}
 	
 	
+	public String getSurname() {
+		return surname;
+	}
+
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+
+	public String getAddressString() {
+		return addressString;
+	}
+
+
+	public void setAddressString(String addressString) {
+		this.addressString = addressString;
+	}
+
+
 	/**
 	 * Creates a new row in the "GroupK_Accounts" database table, using the information
 	 * from the current User object

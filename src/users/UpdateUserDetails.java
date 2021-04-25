@@ -134,6 +134,12 @@ public class UpdateUserDetails extends HttpServlet {
 					User userToUpdate = new User(currentEmail);
 					
 					// TODO Update the parameters that are valid using setters
+					if (firstname != null && firstname != "") {
+						userToUpdate.setFirstname(firstname);
+					}
+					if (lastname != null && lastname != "") {
+						userToUpdate.setSurname(lastname);
+					}
 					
 					
 					// TODO call update in database function
