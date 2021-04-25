@@ -13,11 +13,13 @@ function Check(amount,item){
 	}
 	
 	var quantity=[];
-		
+	var item=0;
 	for(var i=0; i<uni;i++){
 				var amount = parseInt(localStorage.getItem(String(cart[i])));
+				item = item+amount;
 				quantity[i]=amount;
 	}
+		localStorage.setItem("items",item);
 		document.getElementById("quantity").value=quantity;
 
 }
@@ -60,6 +62,7 @@ function Remove(item){
 	var prod = item.toString();
 	prod=prod.trim();
 	
+	var item=localStorage.getItem('items');
 	var uni=localStorage.getItem('unique');
 	var cart = JSON.parse(localStorage.getItem("Cart"));
 	var prices = JSON.parse(localStorage.getItem("Price"));
@@ -68,7 +71,9 @@ function Remove(item){
 		if(cart[i]==prod){
 			cart.splice(i,1);
 			prices.splice(i,1);
+			item=item-localStorage.getItem(cart[i]);
 			uni=uni-1;
+			localStorage.setItem("items",item);
 			localStorage.setItem("unique", uni);
 			localStorage.setItem("Cart", JSON.stringify(cart));
 			localStorage.setItem("Price", JSON.stringify(prices));
@@ -82,14 +87,17 @@ function Remove(item){
 }
 
 function Checkout(){
-if(getCookie("userEmail")!=null && getCookie("userEmail")!=''){
+	if(localStorage.getItem('unique')== null ||localStorage.getItem('unique')== 0){
+	alert("The Cart is Empty");
+	}
+
+	else if(getCookie("userEmail")!=null && getCookie("userEmail")!=''){
 			var user=getCookie("userEmail");
 			document.getElementById("userEmail").value=user;
 			document.getElementById("cartform").submit();
-			alert("Your Order was Placed "+user);
-			
+			alert("Your Order was Placed "+user);	
 		}
-		
-	else{	alert("Please Login to Continue to Checkout");}
+	
+	else{alert("Please Login to Continue to Checkout");}
 	
 }
